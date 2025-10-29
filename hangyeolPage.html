@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HANGYEOL AGRICULTURE CO.LTD | Organic Korean Rice Export</title>
+    <meta
+      name="description"
+      content="Organic Korean rice from Gochang, Korea. Gimbap rice, white rice, brown rice. Retail 500g / 1kg, OEM private label export."
+    />
+
+    <!-- ✅ Tailwind from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Inter", "Noto Sans", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-neutral-50 text-neutral-900 flex flex-col min-h-screen">
+    <!-- ================= HEADER ================= -->
+    <header
+      class="w-full border-b border-neutral-200 bg-white/70 backdrop-blur sticky top-0 z-50"
+    >
+      <div
+        class="mx-auto max-w-6xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4"
+      >
+        <!-- Brand -->
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-2xl bg-green-600 text-white flex items-center justify-center text-xs font-bold shadow-sm"
+          >
+            情
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="text-base font-semibold text-neutral-900"
+              >Hangyul Organic</span
+            >
+            <span class="text-[11px] text-neutral-500">Gochang · Korea</span>
+          </div>
+        </div>
+
+        <!-- Nav -->
+        <nav
+          class="flex-1 flex flex-wrap gap-4 text-sm font-medium text-neutral-700"
+        >
+          <a
+            href="#about"
+            class="hover:text-neutral-900 transition-colors"
+            data-i18n="nav_about"
+            >회사소개</a
+          >
+          <a
+            href="#products"
+            class="hover:text-neutral-900 transition-colors"
+            data-i18n="nav_products"
+            >제품소개</a
+          >
+          <a
+            href="#quality"
+            class="hover:text-neutral-900 transition-colors"
+            data-i18n="nav_cert"
+            >인증 및 품질</a
+          >
+          <a
+            href="#contact"
+            class="hover:text-neutral-900 transition-colors"
+            data-i18n="nav_contact"
+            >수출 문의</a
+          >
+        </nav>
+
+        <!-- Lang Selector -->
+        <div class="flex items-center gap-2 text-xs">
+          <button
+            class="px-2 py-1 rounded-lg border text-xs font-semibold bg-neutral-900 text-white border-neutral-900 shadow-sm"
+            data-lang="ko"
+          >
+            KO
+          </button>
+          <button
+            class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
+            data-lang="en"
+          >
+            EN
+          </button>
+          <button
+            class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
+            data-lang="jp"
+          >
+            JP
+          </button>
+          <button
+            class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
+            data-lang="cn"
+          >
+            CN
+          </button>
+          <button
+            class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
+            data-lang="fr"
+          >
+            FR
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="bg-white border-b border-neutral-200">
+      <div
+        class="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-2 gap-8 items-center"
+      >
+        <!-- Left copy -->
+        <div class="flex flex-col gap-4">
+          <div
+            class="inline-flex items-center text-[10px] font-semibold uppercase tracking-wide text-green-700 bg-green-100 rounded-full px-2 py-1 w-fit border border-green-200 shadow-sm"
+            data-i18n="hero_badge"
+          >
+            친환경/유기농 쌀 전문 RPC
+          </div>
+          <h1
+            class="text-3xl font-bold text-neutral-900 leading-tight"
+            data-i18n="hero_title"
+          >
+            한결영농조합법인
+          </h1>
+          <p
+            class="text-neutral-600 text-sm leading-relaxed whitespace-pre-line"
+            data-i18n="hero_desc"
+          >
+            전북 고창에서 재배·수매·도정까지 직접 관리한 안전한 친환경 쌀을
+            제공합니다. 김밥용 단립종 백미부터 백미, 현미까지 해외 바이어 맞춤
+            포장(500g~1kg)과 OEM(자체 라벨) 공급이 가능합니다.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a
+              href="#contact"
+              class="rounded-2xl bg-neutral-900 text-white text-sm font-semibold px-4 py-2 hover:bg-neutral-800 shadow-sm transition-colors"
+              data-i18n="hero_cta_primary"
+            >
+              수출 상담 문의
+            </a>
+            <button
+              class="rounded-2xl border border-neutral-300 bg-white text-neutral-800 text-sm font-semibold px-4 py-2 hover:bg-neutral-100 shadow-sm transition-colors"
+              data-i18n="hero_cta_secondary"
+            >
+              제품 소개서 보기 (PDF)
+            </button>
+          </div>
+        </div>
+
+        <!-- Right mock image -->
+        <div
+          class="rounded-2xl h-64 bg-neutral-100 border border-dashed border-neutral-300 shadow-inner flex items-center justify-center text-neutral-400 text-[11px] text-center px-4 leading-relaxed"
+        >
+          <span data-i18n="hero_image_alt"
+            >제품 / 포장지 메인 사진 (500g 소포장) 자리</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="bg-neutral-50 border-b border-neutral-200">
+      <div class="mx-auto max-w-6xl px-4 py-12">
+        <h2
+          class="text-xl font-bold text-neutral-900 mb-6"
+          data-i18n="about_title"
+        >
+          우리는 이렇게 쌀을 만듭니다
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- card 1 -->
+          <div
+            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
+          >
+            <div
+              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="about_item1_img"
+                >원료 수매 / 산지 사진 자리</span
+              >
+            </div>
+            <div
+              class="text-base font-semibold text-neutral-900"
+              data-i18n="about_item1_title"
+            >
+              원료 수매 / 산지 관리
+            </div>
+            <div
+              class="text-sm text-neutral-600 leading-relaxed"
+              data-i18n="about_item1_desc"
+            >
+              전북 고창 지역 계약재배 및 산지 집하를 통해 원료의 추적성과
+              안정적인 물량을 확보합니다.
+            </div>
+          </div>
+
+          <!-- card 2 -->
+          <div
+            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
+          >
+            <div
+              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="about_item2_img"
+                >도정 · 선별 · 금속검출 라인 사진 자리</span
+              >
+            </div>
+            <div
+              class="text-base font-semibold text-neutral-900"
+              data-i18n="about_item2_title"
+            >
+              도정 · 선별 · 금속검출
+            </div>
+            <div
+              class="text-sm text-neutral-600 leading-relaxed"
+              data-i18n="about_item2_desc"
+            >
+              RPC(미곡종합처리장)에서 자동 도정 라인, 중량 선별기, 금속 검출기를
+              통해 이물 및 규격 중량을 관리합니다.
+            </div>
+          </div>
+
+          <!-- card 3 -->
+          <div
+            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
+          >
+            <div
+              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="about_item3_img"
+                >500g / 1kg 소포장 예시 라벨 자리</span
+              >
+            </div>
+            <div
+              class="text-base font-semibold text-neutral-900"
+              data-i18n="about_item3_title"
+            >
+              500g 소포장 · OEM 라벨
+            </div>
+            <div
+              class="text-sm text-neutral-600 leading-relaxed"
+              data-i18n="about_item3_desc"
+            >
+              해외 유통 규격에 맞춘 500g/1kg 소용량 포장과 바이어 자체
+              브랜드(OEM) 라벨 작업을 지원합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRODUCTS ================= -->
+    <section id="products" class="bg-white border-b border-neutral-200">
+      <div class="mx-auto max-w-6xl px-4 py-12">
+        <h2
+          class="text-xl font-bold text-neutral-900 mb-6"
+          data-i18n="products_title"
+        >
+          주요 수출 제품
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- product card 1 -->
+          <div
+            class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
+          >
+            <div
+              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="prod1_imgAlt"
+                >Organic Korean Gimbap Rice 패키지 사진 자리</span
+              >
+            </div>
+            <div class="p-5 flex flex-col gap-2">
+              <div
+                class="text-base font-semibold text-neutral-900"
+                data-i18n="prod1_name"
+              >
+                Organic Korean Gimbap Rice
+              </div>
+              <div
+                class="text-sm text-neutral-600 leading-relaxed"
+                data-i18n="prod1_desc"
+              >
+                김밥/롤용 단립종 백미. 윤기 있고 단단한 식감과 적절한 점성을
+                가진 한국산 짧은알 쌀입니다.
+              </div>
+              <div
+                class="text-[11px] text-neutral-500 leading-relaxed"
+                data-i18n="prod1_spec"
+              >
+                원산지: 전북 고창, 대한민국 / 형태: 백미 / 포장: 500g, 1kg (진공
+                또는 지퍼팩)
+              </div>
+            </div>
+          </div>
+
+          <!-- product card 2 -->
+          <div
+            class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
+          >
+            <div
+              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="prod2_imgAlt"
+                >Organic White Rice 패키지 사진 자리</span
+              >
+            </div>
+            <div class="p-5 flex flex-col gap-2">
+              <div
+                class="text-base font-semibold text-neutral-900"
+                data-i18n="prod2_name"
+              >
+                Organic White Rice
+              </div>
+              <div
+                class="text-sm text-neutral-600 leading-relaxed"
+                data-i18n="prod2_desc"
+              >
+                한국산 백미. 깔끔하게 도정된 쌀로, 현지 유통 규정에 맞춘 영문
+                라벨(영양성분표 등)과 OEM(바이어 상표) 공급이 가능합니다.
+              </div>
+              <div
+                class="text-[11px] text-neutral-500 leading-relaxed"
+                data-i18n="prod2_spec"
+              >
+                원산지: 전북 고창, 대한민국 / 형태: 백미 / 포장: 500g, 1kg
+              </div>
+            </div>
+          </div>
+
+          <!-- product card 3 -->
+          <div
+            class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
+          >
+            <div
+              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+            >
+              <span data-i18n="prod3_imgAlt"
+                >Organic Brown Rice 패키지 사진 자리</span
+              >
+            </div>
+            <div class="p-5 flex flex-col gap-2">
+              <div
+                class="text-base font-semibold text-neutral-900"
+                data-i18n="prod3_name"
+              >
+                Organic Brown Rice
+              </div>
+              <div
+                class="text-sm text-neutral-600 leading-relaxed"
+                data-i18n="prod3_desc"
+              >
+                최소 가공된 현미 곡물로 건강식/비건 시장에서 선호도가 높습니다.
+                리테일(500g/1kg)과 급식·식당용 벌크 공급 모두 가능합니다.
+              </div>
+              <div
+                class="text-[11px] text-neutral-500 leading-relaxed"
+                data-i18n="prod3_spec"
+              >
+                원산지: 전북 고창, 대한민국 / 형태: 현미 / 포장: 500g, 1kg 이상
+                벌크 가능
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUALITY ================= -->
+    <section id="quality" class="bg-neutral-50 border-b border-neutral-200">
+      <div
+        class="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-2 gap-8 items-start"
+      >
+        <!-- text -->
+        <div class="flex flex-col gap-4">
+          <h2 class="text-xl font-bold text-neutral-900" data-i18n="cert_title">
+            인증 및 품질관리
+          </h2>
+
+          <p
+            class="text-sm text-neutral-600 leading-relaxed whitespace-pre-line"
+            data-i18n="cert_desc"
+          >
+            한결영농조합법인(HANGYEOL AGRICULTURE CO.LTD)은 전북 고창 지역의
+            친환경 재배 원료를 기반으로 도정·선별·금속검출 공정을 자체 보유하고
+            있습니다. 수출용 소포장(500g/1kg)과 바이어 라벨(OEM) 작업을
+            지원하며, USDA Organic, JAS Organic 등 해외 인증 취득을 준비
+            중입니다.
+          </p>
+
+          <ul class="text-sm text-neutral-800 list-disc pl-5 space-y-1">
+            <li data-i18n="cert_point1">전북 고창 친환경 재배지 원료 사용</li>
+            <li data-i18n="cert_point2">
+              도정 / 이물 선별 / 금속검출 / 중량체크 라인 보유
+            </li>
+            <li data-i18n="cert_point3">
+              영문 영양성분표·라벨 등 수출국 요구사항 대응
+            </li>
+          </ul>
+        </div>
+
+        <!-- card -->
+        <div
+          class="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6 flex flex-col gap-4 text-sm text-neutral-600"
+        >
+          <div
+            class="rounded-xl bg-neutral-100 h-32 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+          >
+            <span data-i18n="cert_image_alt"
+              >인증 마크 / 검사 라인 사진 자리</span
+            >
+          </div>
+          <div
+            class="text-[11px] text-neutral-500 leading-relaxed"
+            data-i18n="cert_note"
+          >
+            * 해외 인증(USDA Organic, JAS Organic 등)은 수출 시장 요구에 맞춰
+            취득 절차를 진행 중입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="bg-white">
+      <div
+        class="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-2 gap-8 items-start"
+      >
+        <!-- left info -->
+        <div class="flex flex-col gap-4">
+          <h2
+            class="text-xl font-bold text-neutral-900"
+            data-i18n="contact_title"
+          >
+            수출 상담 / 바이어 문의
+          </h2>
+
+          <p
+            class="text-sm text-neutral-600 leading-relaxed whitespace-pre-line"
+            data-i18n="contact_desc"
+          >
+            500g/1kg 소매용(마트 진열용), 외식·식당용 대용량, PB/OEM(바이어 자체
+            브랜드)까지 협의 가능합니다. 아래 연락처로 문의해 주세요.
+          </p>
+
+          <div
+            class="rounded-2xl border border-neutral-200 shadow-sm bg-neutral-50 p-5 text-sm text-neutral-700 leading-relaxed flex flex-col gap-4"
+          >
+            <div class="flex flex-col gap-2">
+              <div>
+                <div
+                  class="text-neutral-500 text-[11px] font-semibold uppercase tracking-wide"
+                  data-i18n="contact_company_label"
+                >
+                  회사명
+                </div>
+                <div
+                  class="font-medium text-neutral-900 text-sm"
+                  data-i18n="contact_company_value"
+                >
+                  한결영농조합법인 / HANGYEOL AGRICULTURE CO.LTD
+                </div>
+              </div>
+
+              <div>
+                <div
+                  class="text-neutral-500 text-[11px] font-semibold uppercase tracking-wide"
+                  data-i18n="contact_addr_label1"
+                >
+                  본점 주소
+                </div>
+                <div
+                  class="font-medium text-[13px] leading-relaxed"
+                  data-i18n="contact_addr_value1"
+                >
+                  전북 고창군 대산면 대산길 45<br />
+                  45 Daesan-gil, Daesan-myeon, Gochang-gun,<br />
+                  Jeollabuk-do, Republic of Korea
+                </div>
+              </div>
+
+              <div>
+                <div
+                  class="text-neutral-500 text-[11px] font-semibold uppercase tracking-wide"
+                  data-i18n="contact_addr_label2"
+                >
+                  친환경 가공센터
+                </div>
+                <div
+                  class="font-medium text-[13px] leading-relaxed"
+                  data-i18n="contact_addr_value2"
+                >
+                  전북 고창군 고수면 남고창산단로 100<br />
+                  100 Namgochangsandan-ro, Gosu-myeon, Gochang-gun,<br />
+                  Jeollabuk-do, Republic of Korea
+                </div>
+              </div>
+
+              <div>
+                <div
+                  class="text-neutral-500 text-[11px] font-semibold uppercase tracking-wide"
+                  data-i18n="contact_email_label"
+                >
+                  이메일
+                </div>
+                <div
+                  class="font-medium text-sm text-neutral-900"
+                  data-i18n="contact_email_value"
+                >
+                  pane4176@gmail.com
+                </div>
+              </div>
+
+              <div>
+                <div
+                  class="text-neutral-500 text-[11px] font-semibold uppercase tracking-wide"
+                  data-i18n="contact_phone_label"
+                >
+                  전화
+                </div>
+                <div
+                  class="font-medium text-sm text-neutral-900"
+                  data-i18n="contact_phone_value"
+                >
+                  +82-10-4345-4846
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="text-[11px] text-neutral-500 leading-relaxed"
+            data-i18n="contact_footer"
+          >
+            * 바이어 전용 문의입니다. 국내 유통/도매 문의는 별도 연락처로
+            안내드립니다.
+          </div>
+        </div>
+
+        <!-- right inquiry mock -->
+        <div
+          class="rounded-2xl border border-neutral-200 bg-white shadow-sm p-6 flex flex-col gap-4 text-sm"
+        >
+          <div
+            class="text-neutral-900 font-semibold text-sm"
+            data-i18n="inq_form_title"
+          >
+            Quick Inquiry (Buyer Only)
+          </div>
+
+          <label class="flex flex-col gap-1">
+            <span
+              class="text-[12px] text-neutral-600"
+              data-i18n="inq_company_label"
+              >Company / Buyer Name</span
+            >
+            <input
+              class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-900"
+              placeholder="Your company"
+            />
+          </label>
+
+          <label class="flex flex-col gap-1">
+            <span
+              class="text-[12px] text-neutral-600"
+              data-i18n="inq_email_label"
+              >E-mail</span
+            >
+            <input
+              class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-900"
+              placeholder="name@example.com"
+            />
+          </label>
+
+          <label class="flex flex-col gap-1">
+            <span class="text-[12px] text-neutral-600" data-i18n="inq_req_label"
+              >Request</span
+            >
+            <textarea
+              class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none min-h-[80px] resize-none focus:ring-2 focus:ring-neutral-900"
+              placeholder="Product / volume / packaging size you're looking for"
+            ></textarea>
+          </label>
+
+          <button
+            class="rounded-xl bg-neutral-900 text-white text-sm font-semibold px-4 py-2 hover:bg-neutral-800 shadow-sm transition-colors"
+            data-i18n="inq_btn"
+          >
+            Send Inquiry
+          </button>
+
+          <div
+            class="text-[10px] text-neutral-400 leading-relaxed"
+            data-i18n="inq_note"
+          >
+            ※ 실제 문의는 위 이메일/전화로 직접 연락해 주세요. 본 양식은
+            데모입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer
+      class="border-t border-neutral-200 bg-neutral-50 text-neutral-500 text-[11px] mt-auto"
+    >
+      <div
+        class="mx-auto max-w-6xl px-4 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+      >
+        <div class="flex items-center gap-3 text-neutral-700">
+          <div
+            class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-[10px] font-bold shadow-sm"
+          >
+            情
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="text-xs font-semibold text-neutral-900"
+              >Hangyul Organic</span
+            >
+            <span class="text-[10px] text-neutral-500">Gochang · Korea</span>
+          </div>
+        </div>
+        <div
+          class="text-[10px] text-neutral-500 text-right leading-relaxed"
+          data-i18n="footer_copy"
+        >
+          © 2025 한결영농조합법인 / HANGYEOL AGRICULTURE CO.LTD. All rights
+          reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================= LANGUAGE SCRIPT ================= -->
+    <script>
+      const LANG = {
+        ko: {
+          nav_about: "회사소개",
+          nav_products: "제품소개",
+          nav_cert: "인증 및 품질",
+          nav_contact: "수출 문의",
+
+          hero_badge: "친환경/유기농 쌀 전문 RPC",
+          hero_title: "한결영농조합법인",
+          hero_desc:
+            "전북 고창에서 재배·수매·도정까지 직접 관리한 안전한 친환경 쌀을 제공합니다.\n김밥용 단립종 백미부터 백미, 현미까지 해외 바이어 맞춤 포장(500g~1kg)과\nOEM(자체 라벨) 공급이 가능합니다.",
+          hero_cta_primary: "수출 상담 문의",
+          hero_cta_secondary: "제품 소개서 보기 (PDF)",
+          hero_image_alt: "제품 / 포장지 메인 사진 (500g 소포장) 자리",
+
+          about_title: "우리는 이렇게 쌀을 만듭니다",
+          about_item1_img: "원료 수매 / 산지 사진 자리",
+          about_item1_title: "원료 수매 / 산지 관리",
+          about_item1_desc:
+            "전북 고창 지역 계약재배 및 산지 집하를 통해 원료의 추적성과 안정적인 물량을 확보합니다.",
+          about_item2_img: "도정 · 선별 · 금속검출 라인 사진 자리",
+          about_item2_title: "도정 · 선별 · 금속검출",
+          about_item2_desc:
+            "RPC(미곡종합처리장)에서 자동 도정 라인, 중량 선별기, 금속 검출기를 통해 이물 및 규격 중량을 관리합니다.",
+          about_item3_img: "500g / 1kg 소포장 예시 라벨 자리",
+          about_item3_title: "500g 소포장 · OEM 라벨",
+          about_item3_desc:
+            "해외 유통 규격에 맞춘 500g/1kg 소용량 포장과 바이어 자체 브랜드(OEM) 라벨 작업을 지원합니다.",
+
+          products_title: "주요 수출 제품",
+          prod1_imgAlt: "Organic Korean Gimbap Rice 패키지 사진 자리",
+          prod1_name: "Organic Korean Gimbap Rice",
+          prod1_desc:
+            "김밥/롤용 단립종 백미. 윤기 있고 단단한 식감과 적절한 점성을 가진 한국산 짧은알 쌀입니다.",
+          prod1_spec:
+            "원산지: 전북 고창, 대한민국 / 형태: 백미 / 포장: 500g, 1kg (진공 또는 지퍼팩)",
+
+          prod2_imgAlt: "Organic White Rice 패키지 사진 자리",
+          prod2_name: "Organic White Rice",
+          prod2_desc:
+            "한국산 백미. 깔끔하게 도정된 쌀로, 현지 유통 규정에 맞춘 영문 라벨(영양성분표 등)과 OEM(바이어 상표) 공급이 가능합니다.",
+          prod2_spec:
+            "원산지: 전북 고창, 대한민국 / 형태: 백미 / 포장: 500g, 1kg",
+
+          prod3_imgAlt: "Organic Brown Rice 패키지 사진 자리",
+          prod3_name: "Organic Brown Rice",
+          prod3_desc:
+            "최소 가공된 현미 곡물로 건강식/비건 시장에서 선호도가 높습니다. 리테일(500g/1kg)과 급식·식당용 벌크 공급 모두 가능합니다.",
+          prod3_spec:
+            "원산지: 전북 고창, 대한민국 / 형태: 현미 / 포장: 500g, 1kg 이상 벌크 가능",
+
+          cert_title: "인증 및 품질관리",
+          cert_desc:
+            "한결영농조합법인(HANGYEOL AGRICULTURE CO.LTD)은\n전북 고창 지역의 친환경 재배 원료를 기반으로\n도정·선별·금속검출 공정을 자체 보유하고 있습니다.\n수출용 소포장(500g/1kg)과 바이어 라벨(OEM) 작업을 지원하며,\nUSDA Organic, JAS Organic 등 해외 인증 취득을 준비 중입니다.",
+          cert_point1: "전북 고창 친환경 재배지 원료 사용",
+          cert_point2: "도정 / 이물 선별 / 금속검출 / 중량체크 라인 보유",
+          cert_point3: "영문 영양성분표·라벨 등 수출국 요구사항 대응",
+          cert_image_alt: "인증 마크 / 검사 라인 사진 자리",
+          cert_note:
+            "* 해외 인증(USDA Organic, JAS Organic 등)은 수출 시장 요구에 맞춰 취득 절차를 진행 중입니다.",
+
+          contact_title: "수출 상담 / 바이어 문의",
+          contact_desc:
+            "500g/1kg 소매용(마트 진열용), 외식·식당용 대용량, PB/OEM(바이어 자체 브랜드)까지 협의 가능합니다.\n아래 연락처로 문의해 주세요.",
+
+          contact_company_label: "회사명",
+          contact_company_value:
+            "한결영농조합법인 / HANGYEOL AGRICULTURE CO.LTD",
+
+          contact_addr_label1: "본점 주소",
+          contact_addr_value1:
+            "전북 고창군 대산면 대산길 45\n45 Daesan-gil, Daesan-myeon, Gochang-gun,\nJeollabuk-do, Republic of Korea",
+
+          contact_addr_label2: "친환경 가공센터",
+          contact_addr_value2:
+            "전북 고창군 고수면 남고창산단로 100\n100 Namgochangsandan-ro, Gosu-myeon, Gochang-gun,\nJeollabuk-do, Republic of Korea",
+
+          contact_email_label: "이메일",
+          contact_email_value: "pane4176@gmail.com",
+          contact_phone_label: "전화",
+          contact_phone_value: "+82-10-4345-4846",
+          contact_footer:
+            "* 바이어 전용 문의입니다. 국내 유통/도매 문의는 별도 연락처로 안내드립니다.",
+
+          inq_form_title: "Quick Inquiry (Buyer Only)",
+          inq_company_label: "Company / Buyer Name",
+          inq_email_label: "E-mail",
+          inq_req_label: "Request",
+          inq_btn: "Send Inquiry",
+          inq_note:
+            "※ 실제 문의는 위 이메일/전화로 직접 연락해 주세요. 본 양식은 데모입니다.",
+
+          footer_copy:
+            "© 2025 한결영농조합법인 / HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
+        },
+
+        en: {
+          nav_about: "About Us",
+          nav_products: "Products",
+          nav_cert: "Quality & Certifications",
+          nav_contact: "Export Contact",
+
+          hero_badge: "Eco-friendly / Organic Rice Processor (RPC)",
+          hero_title: "HANGYEOL AGRICULTURE CO.LTD",
+          hero_desc:
+            "We source, mill, and pack premium Korean rice in Gochang, Jeollabuk-do, Republic of Korea.\nWe offer export-ready gimbap rice, white rice, and brown rice in 500g / 1kg retail packs,\nas well as private label (OEM) and foodservice bulk supply.",
+          hero_cta_primary: "Export Inquiry",
+          hero_cta_secondary: "Download Product Sheet (PDF)",
+          hero_image_alt: "Main retail pack image placeholder (500g pouch)",
+
+          about_title: "From Field to Retail Pack",
+          about_item1_img: "Raw paddy sourcing / contract farming photo",
+          about_item1_title: "Raw Paddy Sourcing",
+          about_item1_desc:
+            "We manage contract farming and direct collection in Gochang to secure traceability and stable volume.",
+          about_item2_img: "Milling / grading / metal detection line",
+          about_item2_title: "Milling & Safety Control",
+          about_item2_desc:
+            "Our RPC line includes polishing, grading, weight check, and metal detection to ensure safety and consistent specs.",
+          about_item3_img: "500g / 1kg private label example",
+          about_item3_title: "500g Retail / OEM Label",
+          about_item3_desc:
+            "We supply export-ready small packs (500g / 1kg) and can apply your private label and English nutrition facts.",
+
+          products_title: "Key Export Items",
+          prod1_imgAlt: "Organic Korean Gimbap Rice pack placeholder",
+          prod1_name: "Organic Korean Gimbap Rice",
+          prod1_desc:
+            "Short-grain white rice for Korean-style gimbap (kimbap): glossy texture, firm bite, proper stickiness.",
+          prod1_spec:
+            "Origin: Gochang, Republic of Korea / Type: White Rice / Pack: 500g, 1kg (vacuum or zipper pouch)",
+
+          prod2_imgAlt: "Organic White Rice pack placeholder",
+          prod2_name: "Organic White Rice",
+          prod2_desc:
+            "Clean-label polished Korean rice. We support OEM/private label with English nutrition panel for local regulation.",
+          prod2_spec:
+            "Origin: Gochang, Republic of Korea / Type: White Rice / Pack: 500g, 1kg",
+
+          prod3_imgAlt: "Organic Brown Rice pack placeholder",
+          prod3_name: "Organic Brown Rice",
+          prod3_desc:
+            "Minimally processed whole grain brown rice for health-conscious / vegan consumers. Retail and bulk available.",
+          prod3_spec:
+            "Origin: Gochang, Republic of Korea / Type: Brown Rice / Pack: 500g, bulk 1kg+",
+
+          cert_title: "Quality & Certifications",
+          cert_desc:
+            "HANGYEOL AGRICULTURE CO.LTD handles eco-friendly paddy grown in Gochang, Korea.\nWe operate in-house polishing, grading, metal detection and weight check.\nWe provide export-focused small packs (500g / 1kg) and OEM private label.\nWe are preparing USDA Organic, JAS Organic and other international certifications.",
+          cert_point1: "Eco / organic farming zones in Gochang, Korea",
+          cert_point2:
+            "Polishing, grading, metal detection, weight check in-house",
+          cert_point3: "Custom English nutrition / label for your market",
+          cert_image_alt: "Certification marks / inspection line placeholder",
+          cert_note:
+            "* USDA Organic / JAS Organic certifications are in preparation to meet overseas market requirements.",
+
+          contact_title: "Export Contact / Buyer Inquiry",
+          contact_desc:
+            "We supply retail-ready 500g / 1kg packs for grocery shelves,\nfoodservice / restaurant bulk, and OEM private label.\nPlease contact us below.",
+
+          contact_company_label: "Company",
+          contact_company_value: "HANGYEOL AGRICULTURE CO.LTD",
+
+          contact_addr_label1: "Main Office",
+          contact_addr_value1:
+            "45 Daesan-gil, Daesan-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 대산면 대산길 45)",
+
+          contact_addr_label2: "Eco-friendly Milling / Packing Center",
+          contact_addr_value2:
+            "100 Namgochangsandan-ro, Gosu-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 고수면 남고창산단로 100)",
+
+          contact_email_label: "E-mail",
+          contact_email_value: "pane4176@gmail.com",
+          contact_phone_label: "Phone",
+          contact_phone_value: "+82-10-4345-4846",
+          contact_footer:
+            "* Overseas buyers only. Domestic sales/distribution inquiries are handled separately.",
+
+          inq_form_title: "Quick Inquiry (Buyer Only)",
+          inq_company_label: "Company / Buyer Name",
+          inq_email_label: "E-mail",
+          inq_req_label: "Request",
+          inq_btn: "Send Inquiry",
+          inq_note:
+            "※ This form is a demo. Please contact us directly by e-mail / phone above.",
+
+          footer_copy:
+            "© 2025 HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
+        },
+
+        jp: {
+          nav_about: "会社紹介",
+          nav_products: "製品紹介",
+          nav_cert: "品質・認証",
+          nav_contact: "輸出お問い合わせ",
+
+          hero_badge: "韓国 有機 / エコ米 小分け・OEM",
+          hero_title: "HANGYEOL AGRICULTURE CO.LTD",
+          hero_desc:
+            "韓国・全北 高敞（コチャン）産の米を、原料調達から精米・選別・小分け包装まで一貫管理。\n韓国式キンパ用短粒米、有機ホワイトライス、有機玄米を500g/1kg小売パックや\nPB/OEMラベルで輸出対応いたします.",
+          hero_cta_primary: "輸出に関するお問い合わせ",
+          hero_cta_secondary: "製品カタログ (PDF)",
+          hero_image_alt: "500g 小売パック イメージ",
+
+          about_title: "産地から小売パックまで",
+          about_item1_img: "原料米集荷・契約栽培 写真",
+          about_item1_title: "原料集荷 / 契約栽培",
+          about_item1_desc:
+            "全北・高敞エリアで契約栽培および直接集荷を行い、トレーサビリティと安定供給を確保します。",
+          about_item2_img: "精米 / 選別 / 金属検出 ライン",
+          about_item2_title: "精米・異物/金属検査",
+          about_item2_desc:
+            "自社RPCラインで精米・選別・重量チェック・金属検出を実施し、安全性と規格を管理します.",
+          about_item3_img: "500g / 1kg PBラベル 例",
+          about_item3_title: "500g小分け・PB/OEM対応",
+          about_item3_desc:
+            "500g/1kgの小売向けパックおよび英語表示ラベル、PB/OEMラベル貼付が可能です。",
+
+          products_title: "主要輸出製品",
+          prod1_imgAlt: "Organic Korean Gimbap Rice パッケージ",
+          prod1_name: "Organic Korean Gimbap Rice",
+          prod1_desc:
+            "キンパ（韓国式のり巻き）向け短粒米。つや・粘り・歯ごたえのバランスが良い韓国産ホワイトライスです。",
+          prod1_spec:
+            "原産地：大韓民国 全北・高敞 / 形態：白米 / 包装：500g・1kg（真空/ジッパー）",
+
+          prod2_imgAlt: "Organic White Rice パッケージ",
+          prod2_name: "Organic White Rice",
+          prod2_desc:
+            "きれいに精米された韓国産ホワイトライス。英語栄養成分表示・PB/OEMラベル対応可能。",
+          prod2_spec:
+            "原産地：大韓民国 全北・高敞 / 形態：白米 / 包装：500g・1kg",
+
+          prod3_imgAlt: "Organic Brown Rice パッケージ",
+          prod3_name: "Organic Brown Rice",
+          prod3_desc:
+            "低加工の玄米で、健康志向・ヴィーガン市場に人気があります。小売用にも業務用バルクにも対応します。",
+          prod3_spec:
+            "原産地：大韓民国 全北・高敞 / 形態：玄米 / 包装：500g～1kg以上バルク",
+
+          cert_title: "品質・認証",
+          cert_desc:
+            "HANGYEOL AGRICULTURE CO.LTDは韓国・全北 高敞産のエコ/有機米を取り扱い、\n自社ラインで精米・選別・金属検出・重量確認を行っています。\n500g/1kgの小売向け輸出パック、PB/OEMに対応。\nUSDA Organic、JAS有機など国際認証の取得準備を進めています。",
+          cert_point1: "高敞エリアのエコ/有機栽培原料を使用",
+          cert_point2: "精米・異物除去・金属検出・重量チェックを自社管理",
+          cert_point3: "英語栄養成分表示・ラベルカスタマイズ対応",
+          cert_image_alt: "認証マーク / 検査ライン イメージ",
+          cert_note:
+            "* USDA Organic / JAS有機認証など, 海外市場に合わせた取得を準備中です。",
+
+          contact_title: "輸出・バイヤー向けお問い合わせ",
+          contact_desc:
+            "500g/1kgの小売用リテールパック、レストラン/フードサービス向け大容量、\nPB/OEMラベル製品に対応可能です。以下までご連絡ください。",
+
+          contact_company_label: "会社名",
+          contact_company_value: "HANGYEOL AGRICULTURE CO.LTD",
+
+          contact_addr_label1: "本社住所",
+          contact_addr_value1:
+            "45 Daesan-gil, Daesan-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 대산면 대산길 45)",
+
+          contact_addr_label2: "エコ精米・包装センター",
+          contact_addr_value2:
+            "100 Namgochangsandan-ro, Gosu-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 고수면 남고창산단로 100)",
+
+          contact_email_label: "E-mail",
+          contact_email_value: "pane4176@gmail.com",
+          contact_phone_label: "電話",
+          contact_phone_value: "+82-10-4345-4846",
+          contact_footer:
+            "* 海外バイヤー専用窓口です。国内流通・卸のご相談は別途ご案内します。",
+
+          inq_form_title: "Quick Inquiry (Buyer Only)",
+          inq_company_label: "会社名 / バイヤー名",
+          inq_email_label: "E-mail",
+          inq_req_label: "ご要望",
+          inq_btn: "送信",
+          inq_note:
+            "※ 本フォームはデ모입니다. 上記E-mail/전화まで直接ご連絡ください。",
+
+          footer_copy:
+            "© 2025 HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
+        },
+
+        cn: {
+          nav_about: "公司简介",
+          nav_products: "产品介绍",
+          nav_cert: "质量与认证",
+          nav_contact: "出口咨询",
+
+          hero_badge: "韩国有机 / 环保大米 加工包装",
+          hero_title: "HANGYEOL AGRICULTURE CO.LTD",
+          hero_desc:
+            "我们在韩国全北高敞进行稻谷收购、碾米、筛选、金属检测、称重以及小包装。\n出口规格500g / 1kg，可用于紫菜包饭米（韩式紫菜卷）、白米、糙米，\n也可支持客户自有品牌（OEM）。",
+          hero_cta_primary: "出口咨询",
+          hero_cta_secondary: "产品资料 (PDF)",
+          hero_image_alt: "500克零售包装示意图",
+
+          about_title: "从产地到零售包装",
+          about_item1_img: "原粮收购 / 合同种植 照片",
+          about_item1_title: "原粮收购",
+          about_item1_desc:
+            "我们在高敞地区直接收购并签约种植，确保溯源与稳定供应量。",
+          about_item2_img: "碾米 / 筛选 / 金属检测 生产线",
+          about_item2_title: "碾米与安全控制",
+          about_item2_desc:
+            "公司自有生产线包含抛光、分级、称重与金属检测，确保安全和规格一致性。",
+          about_item3_img: "500g / 1kg OEM包装示例",
+          about_item3_title: "500g小包装 / OEM贴牌",
+          about_item3_desc:
+            "我们提供500g / 1kg出口零售包装，并可按进口国要求制作英文营养成分表和贴牌。",
+
+          products_title: "主要出口产品",
+          prod1_imgAlt: "Organic Korean Gimbap Rice 包装示意",
+          prod1_name: "Organic Korean Gimbap Rice",
+          prod1_desc:
+            "适用于韩式紫菜包饭的韩国短粒白米，口感有弹性、有光泽，并保持适度黏性。",
+          prod1_spec:
+            "产地：韩国全北高敞 / 类型：白米 / 包装：500g、1kg（真空或拉链袋）",
+
+          prod2_imgAlt: "Organic White Rice 包装示意",
+          prod2_name: "Organic White Rice",
+          prod2_desc:
+            "洁净抛光白米，可提供英文营养标签及OEM客户自有品牌，适用于零售渠道。",
+          prod2_spec: "产地：韩国全北高敞 / 类型：白米 / 包装：500g、1kg",
+
+          prod3_imgAlt: "Organic Brown Rice 包装示意",
+          prod3_name: "Organic Brown Rice",
+          prod3_desc:
+            "低度加工糙米，受到健康、素食消费市场欢迎。可供应零售装，也可供应餐饮用大包装。",
+          prod3_spec:
+            "产地：韩国全北高敞 / 类型：糙米 / 包装：500g起，1kg以上散装可选",
+
+          cert_title: "质量与认证",
+          cert_desc:
+            "HANGYEOL AGRICULTURE CO.LTD 以韩国全北高敞的环保稻米为原料，\n自有碾米、筛选、金属检测、重量检验等工序。\n我们可提供出口用500g / 1kg小包装及OEM贴牌，\n并正准备USDA Organic、JAS Organic等国际有机认证。",
+          cert_point1: "高敞地区环保/有机稻米原料",
+          cert_point2: "自有碾米、分级、金属检测、重量检验产线",
+          cert_point3: "可按进口国法规定制英文营养成分与标签",
+          cert_image_alt: "认证标志 / 产线示意图",
+          cert_note:
+            "* 我们正按海外市场需求，推进USDA Organic、JAS Organic等国际认证。",
+
+          contact_title: "出口咨询 / 采购洽谈",
+          contact_desc:
+            "支持零售通路(500g/1kg小包装)、餐饮/饭店用大包装、以及客户自有品牌(OEM)。\n欢迎通过以下方式联系：",
+
+          contact_company_label: "公司",
+          contact_company_value: "HANGYEOL AGRICULTURE CO.LTD",
+
+          contact_addr_label1: "总部地址",
+          contact_addr_value1:
+            "45 Daesan-gil, Daesan-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 대산면 대산길 45)",
+
+          contact_addr_label2: "有机加工 / 包装中心",
+          contact_addr_value2:
+            "100 Namgochangsandan-ro, Gosu-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 고수면 남고창산단로 100)",
+
+          contact_email_label: "邮箱",
+          contact_email_value: "pane4176@gmail.com",
+          contact_phone_label: "电话",
+          contact_phone_value: "+82-10-4345-4846",
+          contact_footer: "* 仅限海外买家咨询。韩国国内流通/批发请另行联系。",
+
+          inq_form_title: "Quick Inquiry (Buyer Only)",
+          inq_company_label: "公司 / 采购方名称",
+          inq_email_label: "E-mail",
+          inq_req_label: "需求内容",
+          inq_btn: "发送",
+          inq_note: "※ 此表单为示例。请直接通过上方邮箱/电话联系。",
+
+          footer_copy: "© 2025 HANGYEOL AGRICULTURE CO.LTD. 版权所有。",
+        },
+
+        fr: {
+          nav_about: "Qui sommes-nous",
+          nav_products: "Produits",
+          nav_cert: "Qualité & Certification",
+          nav_contact: "Contact Export",
+
+          hero_badge: "Riz coréen biologique / écoresponsable",
+          hero_title: "HANGYEOL AGRICULTURE CO.LTD",
+          hero_desc:
+            "Nous collectons, décortiquons et conditionnons du riz coréen haut de gamme\nà Gochang (Jeollabuk-do, Corée du Sud).\nRiz pour gimbap (makis coréens), riz blanc et riz complet bio,\nen sachets 500 g / 1 kg prêts à la vente ou pour votre marque (OEM).",
+          hero_cta_primary: "Demande d’export",
+          hero_cta_secondary: "Fiche produit (PDF)",
+          hero_image_alt: "Visuel d’emballage 500 g (exemple)",
+
+          about_title: "De la rizière au sachet prêt-à-vendre",
+          about_item1_img: "Collecte / contrat de culture",
+          about_item1_title: "Approvisionnement en riz paddy",
+          about_item1_desc:
+            "Nous travaillons en direct avec des producteurs à Gochang pour assurer traçabilité et volumes stables.",
+          about_item2_img: "Ligne de décorticage / détection métal",
+          about_item2_title: "Contrôle qualité & sécurité",
+          about_item2_desc:
+            "Notre ligne RPC inclut polissage, tri, contrôle du poids et détection des métaux pour garantir la sécurité alimentaire.",
+          about_item3_img: "Exemple sachet 500 g / 1 kg (marque distributeur)",
+          about_item3_title: "Sachet 500 g / 1 kg & MDD/OEM",
+          about_item3_desc:
+            "Nous fournissons des sachets export prêts à la vente (500 g / 1 kg)\net pouvons appliquer votre marque et l’étiquetage nutritionnel en anglais.",
+
+          products_title: "Nos produits phares à l’export",
+          prod1_imgAlt: "Organic Korean Gimbap Rice (échantillon d’emballage)",
+          prod1_name: "Organic Korean Gimbap Rice",
+          prod1_desc:
+            "Riz blanc coréen grain court pour gimbap : brillant, bonne tenue, juste ce qu’il faut d’adhérence.",
+          prod1_spec:
+            "Origine : Gochang, Corée du Sud / Type : riz blanc / Pack : 500 g, 1 kg (sous vide ou sachet zip)",
+
+          prod2_imgAlt: "Organic White Rice (échantillon d’emballage)",
+          prod2_name: "Organic White Rice",
+          prod2_desc:
+            "Riz blanc poli ‘clean label’, prêt pour la grande distribution. Étiquetage MDD/OEM possible.",
+          prod2_spec:
+            "Origine : Gochang, Corée du Sud / Type : riz blanc / Pack : 500 g, 1 kg",
+
+          prod3_imgAlt: "Organic Brown Rice (échantillon d’emballage)",
+          prod3_name: "Organic Brown Rice",
+          prod3_desc:
+            "Riz complet très apprécié des consommateurs santé / vegan. Disponible en sachet détail ou en vrac restauration.",
+          prod3_spec:
+            "Origine : Gochang, Corée du Sud / Type : riz complet / Pack : 500 g, vrac >1 kg",
+
+          cert_title: "Qualité & Certification",
+          cert_desc:
+            "HANGYEOL AGRICULTURE CO.LTD travaille du riz issu de zones de culture écoresponsable à Gochang (Corée du Sud).\nNous assurons le polissage, le tri, la détection des métaux et le contrôle du poids en interne.\nNous proposons des sachets export 500 g / 1 kg et l’étiquetage MDD/OEM.\nNous préparons les certifications internationales telles que USDA Organic, JAS Organic.",
+          cert_point1: "Riz issu de zones de culture écoresponsable à Gochang",
+          cert_point2:
+            "Polissage, tri, détection métal et contrôle du poids en interne",
+          cert_point3:
+            "Étiquettes nutritionnelles personnalisées pour votre marché",
+          cert_image_alt: "Logos de certification / ligne d’inspection",
+          cert_note:
+            "* Les certifications USDA Organic / JAS Organic sont en cours de préparation pour répondre aux exigences des marchés internationaux.",
+
+          contact_title: "Contact Export / Acheteurs",
+          contact_desc:
+            "Nous fournissons :\n• Sachets 500 g / 1 kg pour la grande distribution\n• Vrac pour restauration / food service\n• Marque distributeur (OEM / MDD)\nMerci de nous contacter :",
+
+          contact_company_label: "Société",
+          contact_company_value: "HANGYEOL AGRICULTURE CO.LTD",
+
+          contact_addr_label1: "Siège",
+          contact_addr_value1:
+            "45 Daesan-gil, Daesan-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 대산면 대산길 45)",
+
+          contact_addr_label2: "Centre bio (décorticage / conditionnement)",
+          contact_addr_value2:
+            "100 Namgochangsandan-ro, Gosu-myeon,\nGochang-gun, Jeollabuk-do,\nRepublic of Korea\n(전북 고창군 고수면 남고창산단로 100)",
+
+          contact_email_label: "E-mail",
+          contact_email_value: "pane4176@gmail.com",
+          contact_phone_label: "Téléphone",
+          contact_phone_value: "+82-10-4345-4846",
+          contact_footer:
+            "* Contact réservé aux acheteurs internationaux. Les demandes marché domestique Corée sont traitées séparément.",
+
+          inq_form_title: "Demande rapide (Acheteurs)",
+          inq_company_label: "Société / Acheteur",
+          inq_email_label: "E-mail",
+          inq_req_label: "Demande",
+          inq_btn: "Envoyer",
+          inq_note:
+            "※ Formulaire de démonstration. Merci de nous contacter directement par e-mail / téléphone ci-dessus.",
+
+          footer_copy:
+            "© 2025 HANGYEOL AGRICULTURE CO.LTD. Tous droits réservés.",
+        },
+      };
+
+      // language runtime
+      function setLang(langCode) {
+        const dict = LANG[langCode] || LANG.ko;
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.getAttribute("data-i18n");
+          if (dict[key]) {
+            node.innerText = dict[key];
+          }
+        });
+
+        // highlight active lang button
+        document.querySelectorAll("[data-lang]").forEach((btn) => {
+          if (btn.getAttribute("data-lang") === langCode) {
+            btn.className =
+              "px-2 py-1 rounded-lg border text-xs font-semibold bg-neutral-900 text-white border-neutral-900 shadow-sm";
+          } else {
+            btn.className =
+              "px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm";
+          }
+        });
+
+        document.documentElement.setAttribute("lang", langCode);
+      }
+
+      // bind click events to lang buttons
+      document.querySelectorAll("[data-lang]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const code = btn.getAttribute("data-lang");
+          setLang(code);
+        });
+      });
+
+      // default language = ko
+      setLang("ko");
+    </script>
+  </body>
+</html>
