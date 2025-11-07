@@ -1,3 +1,4 @@
+<!-- cSpell:disable -->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -8,6 +9,23 @@
       name="description"
       content="Organic Korean rice from Gochang, Korea. Gimbap rice, white rice, brown rice. Retail 500g / 1kg, OEM private label export."
     />
+
+    <!-- Icons & Theme: single source (PNG) used for tab + header + footer -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Open Graph / Twitter basic -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="HANGYEOL AGRICULTURE CO.LTD | Organic Korean Rice Export"
+    />
+    <meta
+      property="og:description"
+      content="Organic Korean rice from Gochang. Gimbap rice, white rice, brown rice. 500g/1kg retail, OEM private label."
+    />
+    <meta property="og:image" content="/favicon.png?v=3" />
+    <meta name="twitter:card" content="summary" />
 
     <!-- ✅ Tailwind from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,11 +38,81 @@
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Inter", "Noto Sans", Roboto, "Helvetica Neue", Arial, sans-serif;
       }
+      :root { --header-h: 72px; }
+      /* Make in-page anchors land below the sticky header */
+      section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
+      .scroll-offset { scroll-margin-top: calc(var(--header-h) + 8px); }
+      /* visual polish */
+      .bg-hero {
+        background-image: radial-gradient(
+            65% 60% at 10% 10%,
+            rgba(16, 185, 129, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            65% 60% at 90% 10%,
+            rgba(20, 184, 166, 0.08),
+            transparent 60%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0.6)
+          );
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal-show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .skip-link:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 0.5rem 0.75rem;
+      }
     </style>
+
+    <!-- JSON-LD: Organization (basic) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "HANGYEOL AGRICULTURE CO.LTD",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "KR",
+          "addressLocality": "Gochang-gun",
+          "addressRegion": "Jeollabuk-do",
+          "streetAddress": "45 Daesan-gil, Daesan-myeon"
+        },
+        "email": "mailto:pane4176@gmail.com",
+        "telephone": "+82-10-4345-4846"
+      }
+    </script>
   </head>
   <body class="bg-neutral-50 text-neutral-900 flex flex-col min-h-screen">
+    <a
+      href="#main"
+      class="skip-link bg-white border border-neutral-300 rounded-md text-sm"
+      >Skip to content</a
+    >
     <!-- ================= HEADER ================= -->
     <header
+      id="site-header"
       class="w-full border-b border-neutral-200 bg-white/70 backdrop-blur sticky top-0 z-50"
     >
       <div
@@ -32,22 +120,56 @@
       >
         <!-- Brand -->
         <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-2xl bg-green-600 text-white flex items-center justify-center text-xs font-bold shadow-sm"
-          >
-            情
+          <div class="w-10 h-10 flex items-center justify-center">
+            <img
+              src="/favicon.png?v=3"
+              alt="HANGYEOL Organic Rice logo"
+              class="w-10 h-10 object-contain"
+            />
           </div>
           <div class="flex flex-col leading-tight">
-            <span class="text-base font-semibold text-neutral-900"
-              >Hangyul Organic</span
+            <span
+              class="text-base font-semibold text-neutral-900"
+              data-i18n="brand_title"
+              >한결 유기농쌀</span
             >
-            <span class="text-[11px] text-neutral-500">Gochang · Korea</span>
+            <span class="text-[11px] text-neutral-500" data-i18n="brand_loc"
+              >고창 · 대한민국</span
+            >
+    </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div id="pdf-modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative mx-auto max-w-5xl mt-10 bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200">
+          <div id="pdf-modal-title" class="text-sm font-semibold text-neutral-900" data-i18n="catalog_title">카탈로그</div>
+          <div class="flex items-center gap-2">
+            <a id="pdf-open" href="/docs/brochure-ko.pdf" target="_blank" rel="noopener" class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted" data-i18n="catalog_open">새 탭에서 열기</a>
+            <a id="pdf-download" href="/docs/brochure-ko.pdf" download class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted" data-i18n="catalog_download">다운로드</a>
+            <button id="pdf-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close" data-i18n="catalog_close">닫기</button>
           </div>
+        </div>
+        <iframe id="pdf-frame" src="/docs/brochure-ko.pdf#view=FitH" title="Catalog PDF" class="w-full h-[80vh]"></iframe>
+      </div>
+    </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden w-full flex items-center">
+          <button
+            id="menu-toggle"
+            class="ml-auto rounded-lg border border-neutral-300 px-2 py-1 text-xs font-semibold bg-white text-neutral-800"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            Menu
+          </button>
         </div>
 
         <!-- Nav -->
         <nav
-          class="flex-1 flex flex-wrap gap-4 text-sm font-medium text-neutral-700"
+          id="site-nav"
+          class="flex-1 hidden md:flex flex-wrap gap-4 text-sm font-medium text-neutral-700"
         >
           <a
             href="#about"
@@ -91,9 +213,9 @@
           </button>
           <button
             class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
-            data-lang="jp"
+            data-lang="ja"
           >
-            JP
+            JA
           </button>
           <button
             class="px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm"
@@ -112,7 +234,7 @@
     </header>
 
     <!-- ================= HERO ================= -->
-    <section class="bg-white border-b border-neutral-200">
+    <section id="main" class="bg-white border-b border-neutral-200 bg-hero">
       <div
         class="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-2 gap-8 items-center"
       >
@@ -147,31 +269,67 @@
             >
               수출 상담 문의
             </a>
-            <button
+            <a
+              id="brochure-link"
+              href="/docs/brochure-ko.pdf"
+              target="_blank"
+              rel="noopener"
               class="rounded-2xl border border-neutral-300 bg-white text-neutral-800 text-sm font-semibold px-4 py-2 hover:bg-neutral-100 shadow-sm transition-colors"
               data-i18n="hero_cta_secondary"
             >
-              제품 소개서 보기 (PDF)
-            </button>
+              카탈로그 (PDF)
+            </a>
           </div>
         </div>
 
-        <!-- Right mock image -->
-        <div
-          class="rounded-2xl h-64 bg-neutral-100 border border-dashed border-neutral-300 shadow-inner flex items-center justify-center text-neutral-400 text-[11px] text-center px-4 leading-relaxed"
-        >
-          <span data-i18n="hero_image_alt"
-            >제품 / 포장지 메인 사진 (500g 소포장) 자리</span
-          >
-        </div>
+        <!-- Right media: image with play overlay (opens video modal) -->
+        <button id="media-trigger" class="group relative rounded-2xl h-64 w-full overflow-hidden border border-neutral-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-900">
+          <picture>
+            <source srcset="/docs/hero-pack.webp" type="image/webp" />
+            <img src="/docs/poster.jpg" alt="Product package" class="h-full w-full object-cover" />
+          </picture>
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-neutral-900 text-xs font-semibold shadow group-hover:scale-105 transition-transform">
+              ▶ <span data-i18n="hero_watch_video">홍보 영상 보기</span>
+            </span>
+          </div>
+        </button>
       </div>
     </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative mx-auto max-w-3xl mt-16 bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200">
+          <div id="video-modal-title" class="text-sm font-semibold text-neutral-900" data-i18n="hero_video_title">홍보 영상</div>
+          <button id="video-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close" data-i18n="hero_video_close">닫기</button>
+        </div>
+        <div class="bg-black">
+          <video
+            id="promo-video"
+            class="w-full h-auto"
+            controls
+            preload="metadata"
+            poster="/docs/poster.jpg"
+            playsinline
+            webkit-playsinline
+            controlslist="nodownload noplaybackrate"
+            disablepictureinpicture
+            oncontextmenu="return false;"
+            src="/docs/promo-720p.mp4"
+          ></video>
+        </div>
+        
+      </div>
+    </div>
 
     <!-- ================= ABOUT ================= -->
     <section id="about" class="bg-neutral-50 border-b border-neutral-200">
       <div class="mx-auto max-w-6xl px-4 py-12">
         <h2
-          class="text-xl font-bold text-neutral-900 mb-6"
+          class="text-xl font-bold text-neutral-900 mb-6 reveal"
           data-i18n="about_title"
         >
           우리는 이렇게 쌀을 만듭니다
@@ -263,7 +421,7 @@
     <section id="products" class="bg-white border-b border-neutral-200">
       <div class="mx-auto max-w-6xl px-4 py-12">
         <h2
-          class="text-xl font-bold text-neutral-900 mb-6"
+          class="text-xl font-bold text-neutral-900 mb-6 reveal"
           data-i18n="products_title"
         >
           주요 수출 제품
@@ -384,7 +542,10 @@
       >
         <!-- text -->
         <div class="flex flex-col gap-4">
-          <h2 class="text-xl font-bold text-neutral-900" data-i18n="cert_title">
+          <h2
+            class="text-xl font-bold text-neutral-900 reveal"
+            data-i18n="cert_title"
+          >
             인증 및 품질관리
           </h2>
 
@@ -440,7 +601,7 @@
         <!-- left info -->
         <div class="flex flex-col gap-4">
           <h2
-            class="text-xl font-bold text-neutral-900"
+            class="text-xl font-bold text-neutral-900 reveal"
             data-i18n="contact_title"
           >
             수출 상담 / 바이어 문의
@@ -514,12 +675,13 @@
                 >
                   이메일
                 </div>
-                <div
-                  class="font-medium text-sm text-neutral-900"
+                <a
+                  class="font-medium text-sm text-neutral-900 underline decoration-dashed underline-offset-2"
                   data-i18n="contact_email_value"
+                  href="mailto:pane4176@gmail.com"
                 >
                   pane4176@gmail.com
-                </div>
+                </a>
               </div>
 
               <div>
@@ -529,12 +691,13 @@
                 >
                   전화
                 </div>
-                <div
-                  class="font-medium text-sm text-neutral-900"
+                <a
+                  class="font-medium text-sm text-neutral-900 underline decoration-dashed underline-offset-2"
                   data-i18n="contact_phone_value"
+                  href="tel:+821043454846"
                 >
                   +82-10-4345-4846
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -619,16 +782,20 @@
         class="mx-auto max-w-6xl px-4 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
       >
         <div class="flex items-center gap-3 text-neutral-700">
-          <div
-            class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center text-[10px] font-bold shadow-sm"
-          >
-            情
-          </div>
+          <img
+            src="/favicon.png?v=3"
+            alt="HANGYEOL Organic Rice logo"
+            class="w-6 h-6 object-contain"
+          />
           <div class="flex flex-col leading-tight">
-            <span class="text-xs font-semibold text-neutral-900"
-              >Hangyul Organic</span
+            <span
+              class="text-xs font-semibold text-neutral-900"
+              data-i18n="brand_title"
+              >한결 유기농쌀</span
             >
-            <span class="text-[10px] text-neutral-500">Gochang · Korea</span>
+            <span class="text-[10px] text-neutral-500" data-i18n="brand_loc"
+              >고창 · 대한민국</span
+            >
           </div>
         </div>
         <div
@@ -641,10 +808,52 @@
       </div>
     </footer>
 
+    <!-- Back to top -->
+    <button
+      id="to-top"
+      class="fixed bottom-4 right-4 rounded-full border border-neutral-300 bg-white/90 text-neutral-800 shadow-sm px-3 py-2 text-xs hidden"
+    >
+      Top
+    </button>
+
     <!-- ================= LANGUAGE SCRIPT ================= -->
     <script>
+      // Dev-only: force favicon cache bust on localhost
+      (function () {
+        const host = location.hostname;
+        if (host === "localhost" || host === "127.0.0.1") {
+          const ts = Date.now().toString();
+          document
+            .querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]')
+            .forEach((lnk) => {
+              const href = lnk.getAttribute("href");
+              if (!href) return;
+              try {
+                const u = new URL(href, location.origin);
+                u.searchParams.set("t", ts);
+                lnk.setAttribute(
+                  "href",
+                  u.pathname + "?" + u.searchParams.toString()
+                );
+              } catch {}
+            });
+        }
+      })();
       const LANG = {
         ko: {
+          brand_title: "한결 유기농쌀",
+          brand_loc: "고창 · 대한민국",
+          hero_watch_video: "홍보 영상 보기",
+          hero_video_title: "홍보 영상",
+          hero_video_close: "닫기",
+          hero_video_hd: "1080p 다운로드",
+          hero_video_quality: "재생 화질",
+          hero_video_720: "720p",
+          hero_video_1080: "1080p",
+          catalog_title: "카탈로그",
+          catalog_open: "새 탭에서 열기",
+          catalog_download: "다운로드",
+          catalog_close: "닫기",
           nav_about: "회사소개",
           nav_products: "제품소개",
           nav_cert: "인증 및 품질",
@@ -655,7 +864,7 @@
           hero_desc:
             "전북 고창에서 재배·수매·도정까지 직접 관리한 안전한 친환경 쌀을 제공합니다.\n김밥용 단립종 백미부터 백미, 현미까지 해외 바이어 맞춤 포장(500g~1kg)과\nOEM(자체 라벨) 공급이 가능합니다.",
           hero_cta_primary: "수출 상담 문의",
-          hero_cta_secondary: "제품 소개서 보기 (PDF)",
+          hero_cta_secondary: "카탈로그 (PDF)",
           hero_image_alt: "제품 / 포장지 메인 사진 (500g 소포장) 자리",
 
           about_title: "우리는 이렇게 쌀을 만듭니다",
@@ -740,6 +949,19 @@
         },
 
         en: {
+          brand_title: "HANGYEOL Organic Rice",
+          brand_loc: "Gochang · Korea",
+          hero_watch_video: "Watch Video",
+          hero_video_title: "Promo Video",
+          hero_video_close: "Close",
+          hero_video_hd: "Download 1080p",
+          hero_video_quality: "Quality",
+          hero_video_720: "720p",
+          hero_video_1080: "1080p",
+          catalog_title: "Catalog",
+          catalog_open: "Open in new tab",
+          catalog_download: "Download",
+          catalog_close: "Close",
           nav_about: "About Us",
           nav_products: "Products",
           nav_cert: "Quality & Certifications",
@@ -750,7 +972,7 @@
           hero_desc:
             "We source, mill, and pack premium Korean rice in Gochang, Jeollabuk-do, Republic of Korea.\nWe offer export-ready gimbap rice, white rice, and brown rice in 500g / 1kg retail packs,\nas well as private label (OEM) and foodservice bulk supply.",
           hero_cta_primary: "Export Inquiry",
-          hero_cta_secondary: "Download Product Sheet (PDF)",
+          hero_cta_secondary: "Catalog (PDF)",
           hero_image_alt: "Main retail pack image placeholder (500g pouch)",
 
           about_title: "From Field to Retail Pack",
@@ -834,7 +1056,20 @@
             "© 2025 HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
         },
 
-        jp: {
+        ja: {
+          brand_title: "HANGYEOL Organic Rice",
+          brand_loc: "Gochang · Korea",
+          hero_watch_video: "動画を見る",
+          hero_video_title: "プロモーション動画",
+          hero_video_close: "閉じる",
+          hero_video_hd: "1080p ダウンロード",
+          hero_video_quality: "画質",
+          hero_video_720: "720p",
+          hero_video_1080: "1080p",
+          catalog_title: "カタログ",
+          catalog_open: "新しいタブで開く",
+          catalog_download: "ダウンロード",
+          catalog_close: "閉じる",
           nav_about: "会社紹介",
           nav_products: "製品紹介",
           nav_cert: "品質・認証",
@@ -845,7 +1080,7 @@
           hero_desc:
             "韓国・全北 高敞（コチャン）産の米を、原料調達から精米・選別・小分け包装まで一貫管理。\n韓国式キンパ用短粒米、有機ホワイトライス、有機玄米を500g/1kg小売パックや\nPB/OEMラベルで輸出対応いたします.",
           hero_cta_primary: "輸出に関するお問い合わせ",
-          hero_cta_secondary: "製品カタログ (PDF)",
+          hero_cta_secondary: "カタログ (PDF)",
           hero_image_alt: "500g 小売パック イメージ",
 
           about_title: "産地から小売パックまで",
@@ -929,6 +1164,19 @@
         },
 
         cn: {
+          brand_title: "HANGYEOL Organic Rice",
+          brand_loc: "高敞 · 韩国",
+          hero_watch_video: "观看视频",
+          hero_video_title: "宣传视频",
+          hero_video_close: "关闭",
+          hero_video_hd: "下载 1080p",
+          hero_video_quality: "画质",
+          hero_video_720: "720p",
+          hero_video_1080: "1080p",
+          catalog_title: "产品目录",
+          catalog_open: "在新标签页打开",
+          catalog_download: "下载",
+          catalog_close: "关闭",
           nav_about: "公司简介",
           nav_products: "产品介绍",
           nav_cert: "质量与认证",
@@ -939,7 +1187,7 @@
           hero_desc:
             "我们在韩国全北高敞进行稻谷收购、碾米、筛选、金属检测、称重以及小包装。\n出口规格500g / 1kg，可用于紫菜包饭米（韩式紫菜卷）、白米、糙米，\n也可支持客户自有品牌（OEM）。",
           hero_cta_primary: "出口咨询",
-          hero_cta_secondary: "产品资料 (PDF)",
+          hero_cta_secondary: "产品目录 (PDF)",
           hero_image_alt: "500克零售包装示意图",
 
           about_title: "从产地到零售包装",
@@ -1019,6 +1267,19 @@
         },
 
         fr: {
+          brand_title: "HANGYEOL Organic Rice",
+          brand_loc: "Gochang · Corée",
+          hero_watch_video: "Voir la vidéo",
+          hero_video_title: "Vidéo promo",
+          hero_video_close: "Fermer",
+          hero_video_hd: "Télécharger 1080p",
+          hero_video_quality: "Qualité",
+          hero_video_720: "720p",
+          hero_video_1080: "1080p",
+          catalog_title: "Catalogue",
+          catalog_open: "Ouvrir dans un nouvel onglet",
+          catalog_download: "Télécharger",
+          catalog_close: "Fermer",
           nav_about: "Qui sommes-nous",
           nav_products: "Produits",
           nav_cert: "Qualité & Certification",
@@ -1029,7 +1290,7 @@
           hero_desc:
             "Nous collectons, décortiquons et conditionnons du riz coréen haut de gamme\nà Gochang (Jeollabuk-do, Corée du Sud).\nRiz pour gimbap (makis coréens), riz blanc et riz complet bio,\nen sachets 500 g / 1 kg prêts à la vente ou pour votre marque (OEM).",
           hero_cta_primary: "Demande d’export",
-          hero_cta_secondary: "Fiche produit (PDF)",
+          hero_cta_secondary: "Catalogue (PDF)",
           hero_image_alt: "Visuel d’emballage 500 g (exemple)",
 
           about_title: "De la rizière au sachet prêt-à-vendre",
@@ -1125,18 +1386,40 @@
           }
         });
 
-        // highlight active lang button
+        // highlight active lang button + aria
         document.querySelectorAll("[data-lang]").forEach((btn) => {
-          if (btn.getAttribute("data-lang") === langCode) {
-            btn.className =
-              "px-2 py-1 rounded-lg border text-xs font-semibold bg-neutral-900 text-white border-neutral-900 shadow-sm";
-          } else {
-            btn.className =
-              "px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm";
-          }
+          const active = btn.getAttribute("data-lang") === langCode;
+          btn.className = active
+            ? "px-2 py-1 rounded-lg border text-xs font-semibold bg-neutral-900 text-white border-neutral-900 shadow-sm"
+            : "px-2 py-1 rounded-lg border text-xs font-semibold bg-white text-neutral-700 border-neutral-300 hover:bg-neutral-100 shadow-sm";
+          btn.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
         document.documentElement.setAttribute("lang", langCode);
+        try {
+          localStorage.setItem("lang", langCode);
+        } catch {}
+
+      // Set brochure link per language if present
+      const br = document.getElementById('brochure-link');
+      if (br) {
+        const map = {
+          ko: '/docs/brochure-ko.pdf',
+          en: '/docs/brochure-en.pdf',
+          ja: '/docs/brochure-en.pdf',
+          cn: '/docs/brochure-en.pdf',
+          fr: '/docs/brochure-en.pdf'
+        };
+        const href = map[langCode] || map.ko;
+        br.setAttribute('href', href);
+        // also update PDF modal links
+        const pdfFrame = document.getElementById('pdf-frame');
+        const pdfDL = document.getElementById('pdf-download');
+        const pdfOpen = document.getElementById('pdf-open');
+        if (pdfFrame) pdfFrame.setAttribute('src', href + '#view=FitH');
+        if (pdfDL) pdfDL.setAttribute('href', href);
+        if (pdfOpen) pdfOpen.setAttribute('href', href);
+      }
       }
 
       // bind click events to lang buttons
@@ -1147,8 +1430,138 @@
         });
       });
 
-      // default language = ko
-      setLang("ko");
+      // theme toggle
+      // dark mode removed
+
+      // init language: stored or browser
+      let initLang = "ko";
+      try {
+        initLang = localStorage.getItem("lang") || initLang;
+      } catch {}
+      if (!LANG[initLang]) {
+        let bl = (navigator.language || "ko").slice(0, 2).toLowerCase();
+        if (bl === "jp") bl = "ja";
+        initLang = LANG[bl] ? bl : "ko";
+      }
+      setLang(initLang);
+
+      // header shadow + back-to-top
+      const header = document.getElementById("site-header");
+      const toTop = document.getElementById("to-top");
+      window.addEventListener("scroll", () => {
+        const y = window.scrollY || document.documentElement.scrollTop;
+        if (header) header.classList.toggle("shadow-sm", y > 4);
+        if (toTop) toTop.classList.toggle("hidden", y < 300);
+      });
+      toTop &&
+        toTop.addEventListener("click", () =>
+          window.scrollTo({ top: 0, behavior: "smooth" })
+        );
+
+      // mobile nav toggle
+      const menuBtn = document.getElementById("menu-toggle");
+      const nav = document.getElementById("site-nav");
+      if (menuBtn && nav) {
+        menuBtn.addEventListener("click", () => {
+          const willShow = nav.classList.contains("hidden");
+          nav.classList.toggle("hidden", !willShow);
+          nav.classList.toggle("flex", willShow); // ensure flex on small screens
+          menuBtn.setAttribute("aria-expanded", String(willShow));
+          updateHeaderOffset();
+        });
+      }
+
+      // simple reveal on scroll
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("reveal-show");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // compute sticky header height for anchor offset
+      function updateHeaderOffset() {
+        const header = document.getElementById("site-header");
+        const h = header ? header.offsetHeight : 72;
+        document.documentElement.style.setProperty("--header-h", h + "px");
+      }
+      window.addEventListener("load", updateHeaderOffset);
+      window.addEventListener("resize", updateHeaderOffset);
+      // initial call
+      updateHeaderOffset();
+
+      // video modal controls
+      const modal = document.getElementById('video-modal');
+      const openBtn = document.getElementById('media-trigger');
+      const closeBtn = document.getElementById('video-close');
+      const videoEl = document.getElementById('promo-video');
+      // strengthen controls restrictions across browsers
+      try {
+        videoEl && videoEl.setAttribute('controlsList','nodownload noplaybackrate');
+        if (videoEl) videoEl.disablePictureInPicture = true;
+      } catch {}
+      function openModal(){
+        if (!modal) return;
+        modal.classList.remove('hidden');
+        if (videoEl){
+          // set default source to 720p for stability
+          try { if (videoEl.getAttribute('src') !== '/docs/promo-720p.mp4') { videoEl.setAttribute('src','/docs/promo-720p.mp4'); videoEl.load(); } } catch {}
+          // try safe autoplay after source set
+          videoEl.muted = true; // maximize autoplay success; user can unmute
+          safePlay();
+          if (videoEl.readyState < 2){
+            const onCanPlay = () => { safePlay(); videoEl.removeEventListener('canplay', onCanPlay); };
+            videoEl.addEventListener('canplay', onCanPlay);
+          }
+        }
+      }
+      function closeModal(){
+        if (!modal) return;
+        modal.classList.add('hidden');
+        try { videoEl && videoEl.pause(); } catch {}
+      }
+      openBtn && openBtn.addEventListener('click', openModal);
+      closeBtn && closeBtn.addEventListener('click', closeModal);
+      modal && modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
+
+      // quality select helpers
+      function setQuality(q) { /* no-op: fixed 720p for stability */ }
+
+      function selectQuality(){ return '720'; }
+
+      function safePlay(){
+        try {
+          const p = videoEl.play();
+          if (p && typeof p.catch === 'function'){
+            p.catch(()=>{ try { videoEl.muted = true; videoEl.play(); } catch {} });
+          }
+        } catch {}
+      }
+
+      // if selected source fails (e.g. 720p not present yet), fallback to the other
+      if (videoEl){
+        videoEl.addEventListener('loadedmetadata', ()=>{ try { videoEl.controls = true; } catch {} });
+      }
+
+      // pdf modal controls
+      const pdfModal = document.getElementById('pdf-modal');
+      const pdfOpenBtn = document.getElementById('brochure-link');
+      const pdfCloseBtn = document.getElementById('pdf-close');
+      function openPdfModal(e){
+        e && e.preventDefault();
+        if (!pdfModal) return;
+        pdfModal.classList.remove('hidden');
+      }
+      function closePdfModal(){ pdfModal && pdfModal.classList.add('hidden'); }
+      pdfOpenBtn && pdfOpenBtn.addEventListener('click', openPdfModal);
+      pdfCloseBtn && pdfCloseBtn.addEventListener('click', closePdfModal);
+      pdfModal && pdfModal.addEventListener('click', (e)=>{ if (e.target === pdfModal) closePdfModal(); });
     </script>
   </body>
 </html>
