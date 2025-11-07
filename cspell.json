@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en,ko,ja,zh,fr",
+  "words": [
+    "HANGYEOL",
+    "Jeollabuk",
+    "Jeollabuk-do",
+    "Gochang",
+    "Gochang-gun",
+    "Daesan",
+    "Daesan-gil",
+    "Gosu",
+    "Gosu-myeon",
+    "myeon",
+    "Namgochangsandan",
+    "Namgochangsandan-ro",
+    "Gimbap",
+    "Kimbap",
+    "OEM",
+    "RPC",
+    "USDA",
+    "JAS",
+    "Gochang·",
+    "HanGyeol"
+  ],
+  "ignorePaths": [
+    "index.html"
+  ],
+  "flagWords": []
+}

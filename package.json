@@ -1,0 +1,13 @@
+{
+  "name": "hangyeol-website",
+  "private": true,
+  "version": "0.1.0",
+  "description": "HANGYEOL AGRICULTURE CO.LTD — static website",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "preview": "vite preview --port 5173"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

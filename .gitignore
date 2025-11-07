@@ -1,0 +1,18 @@
+# Node / tooling
+node_modules/
+.vite/
+dist/
+.vercel/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+
+# Env / local
+.env
+.env.*
+
+# Vercel local config
+.vercel/project.json
