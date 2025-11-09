@@ -38,10 +38,16 @@
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Inter", "Noto Sans", Roboto, "Helvetica Neue", Arial, sans-serif;
       }
-      :root { --header-h: 72px; }
+      :root {
+        --header-h: 72px;
+      }
       /* Make in-page anchors land below the sticky header */
-      section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
-      .scroll-offset { scroll-margin-top: calc(var(--header-h) + 8px); }
+      section[id] {
+        scroll-margin-top: calc(var(--header-h) + 8px);
+      }
+      .scroll-offset {
+        scroll-margin-top: calc(var(--header-h) + 8px);
+      }
       /* visual polish */
       .bg-hero {
         background-image: radial-gradient(
@@ -84,6 +90,179 @@
         height: auto;
         padding: 0.5rem 0.75rem;
       }
+      /* Timeline grid: fills rows then flows to next column (ladder-at-a-glance) */
+      @media (min-width: 768px) {
+        .timeline-grid {
+          display: grid;
+          grid-auto-flow: column;
+          grid-auto-columns: 1fr;
+          grid-template-rows: repeat(6, minmax(0, auto));
+          column-gap: 16px;
+          row-gap: 12px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .timeline-grid {
+          grid-template-rows: repeat(5, minmax(0, auto));
+        }
+      }
+      @media (max-width: 767.98px) {
+        .timeline-grid {
+          display: grid;
+          grid-auto-flow: row;
+          grid-template-columns: 1fr;
+          row-gap: 10px;
+        }
+      }
+      .tl-item {
+        background: #fff;
+        border: 1px solid #e5e7eb; /* neutral-200 */
+        border-radius: 1rem; /* rounded-2xl */
+        padding: 0.75rem 1rem; /* p-4-ish */
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+      }
+      .tl-date {
+        font-size: 11px;
+        color: #71717a;
+      }
+      .tl-year {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 11px;
+        color: #525252;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 9999px;
+        padding: 2px 8px;
+        margin: 0 auto 2px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+      }
+      .tl-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #a3a3a3;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #e5e7eb;
+      }
+      /* Ladder timeline (center line + alternating items) */
+      @media (min-width: 768px) {
+        .timeline-ladder {
+          position: relative;
+        }
+        .timeline-ladder .tl-spine {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 1px;
+          background: #e5e7eb;
+        }
+        .tl-row {
+          display: grid;
+          grid-template-columns: 1fr 24px 1fr;
+          align-items: center;
+        }
+        .tl-node {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .tl-node::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 12px;
+          height: 1px;
+          background: #e5e7eb;
+          transform: translateY(-50%);
+        }
+        .tl-node::after {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 50%;
+          width: 12px;
+          height: 1px;
+          background: #e5e7eb;
+          transform: translateY(-50%);
+        }
+        .tl-col {
+          position: relative;
+          min-height: 30px;
+        }
+        .tl-text {
+          font-size: 14px;
+          color: #262626;
+          position: relative;
+        }
+        .tl-date {
+          font-size: 11px;
+          color: #71717a;
+          margin-bottom: 2px;
+        }
+        .tl-left .tl-text {
+          padding-right: 0;
+          text-align: right;
+        }
+        .tl-right .tl-text {
+          padding-left: 0;
+          text-align: left;
+        }
+        /* solid connector from column edge to center node, independent of text width */
+        .tl-left::after {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 50%;
+          width: 12px;
+          height: 1px;
+          background: #e5e7eb;
+          transform: translateY(-50%);
+        }
+        .tl-right::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 12px;
+          height: 1px;
+          background: #e5e7eb;
+          transform: translateY(-50%);
+        }
+      }
+      @media (max-width: 767.98px) {
+        .tl-row {
+          display: block;
+        }
+        .tl-node {
+          display: none;
+        }
+        .tl-text {
+          margin: 10px 0;
+        }
+      }
+      /* Subtle grain background for timeline area */
+      .timeline-bg {
+        position: relative;
+      }
+      .timeline-bg::before {
+        content: "";
+        position: absolute;
+        inset: -8px 0; /* slight bleed for clean edges */
+        background-image: url("/docs/grain-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.07; /* stronger but still subtle */
+        filter: brightness(1.08) contrast(1.05) saturate(0.96);
+        pointer-events: none;
+      }
+      /* Single confirmed asset name */
     </style>
 
     <!-- JSON-LD: Organization (basic) -->
@@ -136,24 +315,67 @@
             <span class="text-[11px] text-neutral-500" data-i18n="brand_loc"
               >고창 · 대한민국</span
             >
-    </div>
-    </div>
-
-    <!-- PDF Modal -->
-    <div id="pdf-modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
-      <div class="absolute inset-0 bg-black/60"></div>
-      <div class="relative mx-auto max-w-5xl mt-10 bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-        <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200">
-          <div id="pdf-modal-title" class="text-sm font-semibold text-neutral-900" data-i18n="catalog_title">카탈로그</div>
-          <div class="flex items-center gap-2">
-            <a id="pdf-open" href="/docs/brochure-ko.pdf" target="_blank" rel="noopener" class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted" data-i18n="catalog_open">새 탭에서 열기</a>
-            <a id="pdf-download" href="/docs/brochure-ko.pdf" download class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted" data-i18n="catalog_download">다운로드</a>
-            <button id="pdf-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close" data-i18n="catalog_close">닫기</button>
           </div>
         </div>
-        <iframe id="pdf-frame" src="/docs/brochure-ko.pdf#view=FitH" title="Catalog PDF" class="w-full h-[80vh]"></iframe>
-      </div>
-    </div>
+
+        <!-- PDF Modal -->
+        <div
+          id="pdf-modal"
+          class="fixed inset-0 z-[60] hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pdf-modal-title"
+        >
+          <div class="absolute inset-0 bg-black/60"></div>
+          <div
+            class="relative mx-auto max-w-5xl mt-10 bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col"
+          >
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-neutral-200"
+            >
+              <div
+                id="pdf-modal-title"
+                class="text-sm font-semibold text-neutral-900"
+                data-i18n="catalog_title"
+              >
+                카탈로그
+              </div>
+              <div class="flex items-center gap-2">
+                <a
+                  id="pdf-open"
+                  href="/docs/brochure-ko.pdf"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted"
+                  data-i18n="catalog_open"
+                  >새 탭에서 열기</a
+                >
+                <a
+                  id="pdf-download"
+                  href="/docs/brochure-ko.pdf"
+                  download
+                  class="text-xs text-neutral-600 hover:text-neutral-900 underline decoration-dotted"
+                  data-i18n="catalog_download"
+                  >다운로드</a
+                >
+                <button
+                  id="pdf-close"
+                  class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1"
+                  aria-label="Close"
+                  data-i18n="catalog_close"
+                >
+                  닫기
+                </button>
+              </div>
+            </div>
+            <iframe
+              id="pdf-frame"
+              src="/docs/brochure-ko.pdf#view=FitH"
+              title="Catalog PDF"
+              class="w-full h-[80vh]"
+            ></iframe>
+          </div>
+        </div>
         <!-- Mobile menu button -->
         <div class="md:hidden w-full flex items-center">
           <button
@@ -283,14 +505,25 @@
         </div>
 
         <!-- Right media: image with play overlay (opens video modal) -->
-        <button id="media-trigger" class="group relative rounded-2xl h-64 w-full overflow-hidden border border-neutral-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-900">
+        <button
+          id="media-trigger"
+          class="group relative rounded-2xl h-64 w-full overflow-hidden border border-neutral-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+        >
           <picture>
             <source srcset="/docs/hero-pack.webp" type="image/webp" />
-            <img src="/docs/poster.jpg" alt="Product package" class="h-full w-full object-cover" />
+            <img
+              src="/docs/poster.jpg"
+              alt="Product package"
+              class="h-full w-full object-cover"
+            />
           </picture>
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+          <div
+            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"
+          ></div>
           <div class="absolute inset-0 flex items-center justify-center">
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-neutral-900 text-xs font-semibold shadow group-hover:scale-105 transition-transform">
+            <span
+              class="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-neutral-900 text-xs font-semibold shadow group-hover:scale-105 transition-transform"
+            >
               ▶ <span data-i18n="hero_watch_video">홍보 영상 보기</span>
             </span>
           </div>
@@ -299,12 +532,35 @@
     </section>
 
     <!-- Video Modal -->
-    <div id="video-modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+    <div
+      id="video-modal"
+      class="fixed inset-0 z-[60] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="video-modal-title"
+    >
       <div class="absolute inset-0 bg-black/60"></div>
-      <div class="relative mx-auto max-w-3xl mt-16 bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200">
-          <div id="video-modal-title" class="text-sm font-semibold text-neutral-900" data-i18n="hero_video_title">홍보 영상</div>
-          <button id="video-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close" data-i18n="hero_video_close">닫기</button>
+      <div
+        class="relative mx-auto max-w-3xl mt-16 bg-white rounded-2xl shadow-lg overflow-hidden"
+      >
+        <div
+          class="flex items-center justify-between px-4 py-2 border-b border-neutral-200"
+        >
+          <div
+            id="video-modal-title"
+            class="text-sm font-semibold text-neutral-900"
+            data-i18n="hero_video_title"
+          >
+            홍보 영상
+          </div>
+          <button
+            id="video-close"
+            class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1"
+            aria-label="Close"
+            data-i18n="hero_video_close"
+          >
+            닫기
+          </button>
         </div>
         <div class="bg-black">
           <video
@@ -321,7 +577,6 @@
             src="/docs/promo-720p.mp4"
           ></video>
         </div>
-        
       </div>
     </div>
 
@@ -332,88 +587,705 @@
           class="text-xl font-bold text-neutral-900 mb-6 reveal"
           data-i18n="about_title"
         >
-          우리는 이렇게 쌀을 만듭니다
+          회사소개
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-6">
-          <!-- card 1 -->
-          <div
-            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
-          >
-            <div
-              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
-            >
-              <span data-i18n="about_item1_img"
-                >원료 수매 / 산지 사진 자리</span
-              >
-            </div>
-            <div
-              class="text-base font-semibold text-neutral-900"
-              data-i18n="about_item1_title"
-            >
-              원료 수매 / 산지 관리
-            </div>
-            <div
-              class="text-sm text-neutral-600 leading-relaxed"
-              data-i18n="about_item1_desc"
-            >
-              전북 고창 지역 계약재배 및 산지 집하를 통해 원료의 추적성과
-              안정적인 물량을 확보합니다.
-            </div>
-          </div>
+        <!-- Company summary (from brochure content) -->
+        <div
+          class="text-sm text-neutral-600 leading-relaxed mb-8 reveal"
+          data-i18n="about_summary"
+        >
+          한결영농조합법인은 전북 고창의 친환경/유기농 원료를 수매하고,
+          도정·선별·금속검출·중량체크까지 내부 공정으로 일괄 관리합니다.
+          500g/1kg 수출용 소포장과 바이어 OEM(자체 라벨) 공급을 지원합니다.
+        </div>
 
-          <!-- card 2 -->
+        <!-- Company timeline (history) — ladder layout (hidden; replaced by grid) -->
+        <div class="mb-8 reveal hidden">
           <div
-            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
+            class="text-[12px] font-semibold text-neutral-500 tracking-wide uppercase mb-3"
+            data-i18n="about_history_title"
           >
-            <div
-              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
-            >
-              <span data-i18n="about_item2_img"
-                >도정 · 선별 · 금속검출 라인 사진 자리</span
-              >
-            </div>
-            <div
-              class="text-base font-semibold text-neutral-900"
-              data-i18n="about_item2_title"
-            >
-              도정 · 선별 · 금속검출
-            </div>
-            <div
-              class="text-sm text-neutral-600 leading-relaxed"
-              data-i18n="about_item2_desc"
-            >
-              RPC(미곡종합처리장)에서 자동 도정 라인, 중량 선별기, 금속 검출기를
-              통해 이물 및 규격 중량을 관리합니다.
-            </div>
+            연혁
           </div>
+          <div class="relative">
+            <!-- center spine (md+) -->
+            <div
+              class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-neutral-200"
+            ></div>
+            <div class="flex flex-col gap-3">
+              <!-- 2002 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2002</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <!-- 2002.04.24 left -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist1_date"
+                  >
+                    2002.04.24
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist1_text"
+                  >
+                    한결영농 조합법인 설립
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
 
-          <!-- card 3 -->
-          <div
-            class="rounded-2xl bg-white border border-neutral-200 shadow-sm p-5 flex flex-col gap-3"
-          >
-            <div
-              class="w-full h-24 rounded-xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
-            >
-              <span data-i18n="about_item3_img"
-                >500g / 1kg 소포장 예시 라벨 자리</span
-              >
-            </div>
-            <div
-              class="text-base font-semibold text-neutral-900"
-              data-i18n="about_item3_title"
-            >
-              500g 소포장 · OEM 라벨
-            </div>
-            <div
-              class="text-sm text-neutral-600 leading-relaxed"
-              data-i18n="about_item3_desc"
-            >
-              해외 유통 규격에 맞춘 500g/1kg 소용량 포장과 바이어 자체
-              브랜드(OEM) 라벨 작업을 지원합니다.
+              <!-- 2003 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2003</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <!-- 2003.03 right -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist2_date"
+                  >
+                    2003.03
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist2_text"
+                  >
+                    친환경(저농약) 재배 시작 — 3농가 / 5.9ha
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2020 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2020</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <!-- 2020.11.23 left -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist3_date"
+                  >
+                    2020.11.23
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist3_text"
+                  >
+                    친환경쌀 전문 가공센터 착공
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+
+              <!-- 2022 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2022</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <!-- 2022 items alternate -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist4_date"
+                  >
+                    2022.02.27
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist4_text"
+                  >
+                    서울 학교급식 5개교 납품 시작
+                  </div>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist5_date"
+                  >
+                    2022.04.19
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist5_text"
+                  >
+                    친환경쌀 전문 가공센터 준공
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist6_date"
+                  >
+                    2022.05.04
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist6_text"
+                  >
+                    친환경 취급자 인증 및 GAP 시설 인증 취득
+                  </div>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist7_date"
+                  >
+                    2022.07.16
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist7_text"
+                  >
+                    이마트 에브리데이 자연주의 유기농쌀 납품 개시
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+
+              <!-- 2023 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2023</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist8_date"
+                  >
+                    2023.01.16
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist8_text"
+                  >
+                    이마트 자연주의 유기농 황토쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist9_date"
+                  >
+                    2023.02.27
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist9_text"
+                  >
+                    서울 친환경유통센터 친환경쌀 및 잡곡 납품 개시
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist10_date"
+                  >
+                    2023.09.19
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist10_text"
+                  >
+                    이마트 자연주의 유기농 혼합5곡 납품 개시
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2024 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2024</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist11_date"
+                  >
+                    2024.02.27
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist11_text"
+                  >
+                    제주도 학교급식 친환경쌀 및 찹쌀 납품 개시
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist12_date"
+                  >
+                    2024.02.29
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist12_text"
+                  >
+                    쿠팡 친환경쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist13_date"
+                  >
+                    2024.09.13
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist13_text"
+                  >
+                    중국 수출용 쌀 가공공장 등록
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist14_date"
+                  >
+                    2024.09.24
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist14_text"
+                  >
+                    2024 소비자만족 브랜드 대상 1위
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2025 marker -->
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+                <div class="hidden md:block"></div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold text-neutral-600 bg-white px-2 py-0.5 rounded-full border border-neutral-200 shadow-sm"
+                    >2025</span
+                  >
+                </div>
+                <div class="hidden md:block"></div>
+              </div>
+              <div class="grid md:grid-cols-[1fr_auto_1fr] items-stretch gap-4">
+                <div
+                  class="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
+                >
+                  <div
+                    class="text-[11px] text-neutral-500"
+                    data-i18n="about_hist15_date"
+                  >
+                    2025.08.22
+                  </div>
+                  <div
+                    class="text-sm text-neutral-800"
+                    data-i18n="about_hist15_text"
+                  >
+                    몽골·미국 진출 개시
+                  </div>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-neutral-400 border-2 border-white shadow"
+                  ></span>
+                </div>
+                <div></div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Company timeline (history) — ladder with center line and dots (no cards) -->
+        <div class="timeline-bg mb-8 reveal">
+         <div class="timeline-ladder">
+            <div class="tl-spine"></div>
+
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist1_date">
+                    2002.04.24
+                  </div>
+                  <div data-i18n="about_hist1_text">한결영농 조합법인 설립</div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist2_date">
+                    2003.03
+                  </div>
+                  <div data-i18n="about_hist2_text">
+                    친환경(저농약) 재배 시작 — 3농가 / 5.9ha
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist3_date">
+                    2020.11.23
+                  </div>
+                  <div data-i18n="about_hist3_text">
+                    친환경쌀 전문 가공센터 착공
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist4_date">
+                    2022.02.27
+                  </div>
+                  <div data-i18n="about_hist4_text">
+                    서울 학교급식 5개교 납품 시작
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist5_date">
+                    2022.04.19
+                  </div>
+                  <div data-i18n="about_hist5_text">
+                    친환경쌀 전문 가공센터 준공
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist6_date">
+                    2022.05.04
+                  </div>
+                  <div data-i18n="about_hist6_text">
+                    친환경 취급자 인증 및 GAP 시설 인증 취득
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist7_date">
+                    2022.07.16
+                  </div>
+                  <div data-i18n="about_hist7_text">
+                    이마트 에브리데이 자연주의 유기농쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist8_date">
+                    2023.01.16
+                  </div>
+                  <div data-i18n="about_hist8_text">
+                    이마트 자연주의 유기농 황토쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist9_date">
+                    2023.02.27
+                  </div>
+                  <div data-i18n="about_hist9_text">
+                    서울 친환경유통센터 친환경쌀 및 잡곡 납품 개시
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist10_date">
+                    2023.09.19
+                  </div>
+                  <div data-i18n="about_hist10_text">
+                    이마트 자연주의 유기농 혼합5곡 납품 개시
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist11_date">
+                    2024.02.27
+                  </div>
+                  <div data-i18n="about_hist11_text">
+                    제주도 학교급식 친환경쌀 및 찹쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist12_date">
+                    2024.02.29
+                  </div>
+                  <div data-i18n="about_hist12_text">
+                    쿠팡 친환경쌀 납품 개시
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist13_date">
+                    2024.09.13
+                  </div>
+                  <div data-i18n="about_hist13_text">
+                    중국 수출용 쌀 가공공장 등록
+                  </div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+            <div class="tl-row">
+              <div class="tl-col"></div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col tl-right">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist14_date">
+                    2024.09.24
+                  </div>
+                  <div data-i18n="about_hist14_text">
+                    2024 소비자만족 브랜드 대상 1위
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-row">
+              <div class="tl-col tl-left">
+                <div class="tl-text">
+                  <div class="tl-date" data-i18n="about_hist15_date">
+                    2025.08.22
+                  </div>
+                  <div data-i18n="about_hist15_text">몽골·미국 진출 개시</div>
+                </div>
+              </div>
+              <div class="tl-node"><span class="tl-dot"></span></div>
+              <div class="tl-col"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About cards removed: moved to Quality/Process section for clarity -->
       </div>
     </section>
 
@@ -569,6 +1441,66 @@
               영문 영양성분표·라벨 등 수출국 요구사항 대응
             </li>
           </ul>
+
+          <!-- process flow moved from About -->
+          <div class="mt-6 flex flex-col gap-3">
+            <div
+              class="text-[12px] font-semibold text-neutral-500 tracking-wide uppercase"
+              data-i18n="process_title"
+            >
+              생산 공정
+            </div>
+            <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step1"
+                  >원료 수매</span
+                >
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step2"
+                  >도정</span
+                >
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step3"
+                  >선별</span
+                >
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step4"
+                  >금속검출</span
+                >
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step5"
+                  >포장</span
+                >
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 border border-green-600"
+                ></span>
+                <span class="text-xs text-neutral-700" data-i18n="process_step6"
+                  >출하</span
+                >
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- card -->
@@ -867,7 +1799,56 @@
           hero_cta_secondary: "카탈로그 (PDF)",
           hero_image_alt: "제품 / 포장지 메인 사진 (500g 소포장) 자리",
 
-          about_title: "우리는 이렇게 쌀을 만듭니다",
+          about_title: "회사소개",
+          about_summary:
+            "한결영농조합법인은 2002년에 설립된 전북 고창의 쌀 전문 조합법인입니다. 일반미와 친환경/유기농 쌀을 함께 생산·유통하며, 학교급식·리테일·수출 소포장(OEM)까지 대응합니다. 해외 인증(USDA Organic, JAS 등) 취득을 진행 중입니다.",
+          about_clients_title: "주요 납품처",
+          about_client1: "국내 대형마트/온라인",
+          about_client2: "해외 유통 파트너",
+          about_client3: "식자재/레스토랑",
+          about_client4: "학교·공공 급식",
+          about_history_title: "연혁",
+          about_hist1_date: "2002.04.24",
+          about_hist1_text: "한결영농 조합법인 설립",
+          about_hist2_date: "2003.03",
+          about_hist2_text: "친환경(저농약) 재배 시작 — 3농가 / 5.9ha",
+          about_hist3_date: "2020.11.23",
+          about_hist3_text: "친환경쌀 전문 가공센터 착공",
+          about_hist4_date: "2022.02.27",
+          about_hist4_text: "서울 학교급식 5개교 납품 시작",
+          about_hist5_date: "2022.04.19",
+          about_hist5_text: "친환경쌀 전문 가공센터 준공",
+          about_hist6_date: "2022.05.04",
+          about_hist6_text: "친환경 취급자 인증 및 GAP 시설 인증 취득",
+          about_hist7_date: "2022.07.16",
+          about_hist7_text: "이마트 에브리데이 자연주의 유기농쌀 납품 개시",
+          about_hist8_date: "2023.01.16",
+          about_hist8_text: "이마트 자연주의 유기농 황토쌀 납품 개시",
+          about_hist9_date: "2023.02.27",
+          about_hist9_text: "서울 친환경유통센터 친환경쌀 및 잡곡 납품 개시",
+          about_hist10_date: "2023.09.19",
+          about_hist10_text: "이마트 자연주의 유기농 혼합5곡 납품 개시",
+          about_hist11_date: "2024.02.27",
+          about_hist11_text: "제주도 학교급식 친환경쌀 및 찹쌀 납품 개시",
+          about_hist12_date: "2024.02.29",
+          about_hist12_text: "쿠팡 친환경쌀 납품 개시",
+          about_hist13_date: "2024.09.13",
+          about_hist13_text: "중국 수출용 쌀 가공공장 등록",
+          about_hist14_date: "2024.09.24",
+          about_hist14_text: "2024 소비자만족 브랜드 대상 1위",
+          about_hist15_date: "2025.08.22",
+          about_hist15_text: "몽골·미국 진출 개시",
+          about_points_title: "핵심 포인트",
+          about_point1: "전북 고창 친환경/유기 원료",
+          about_point2: "도정·선별·금속검출·중량체크 일괄관리",
+          about_point3: "500g/1kg 소포장 및 OEM 라벨",
+          process_title: "생산 공정",
+          process_step1: "원료 수매",
+          process_step2: "도정",
+          process_step3: "선별",
+          process_step4: "금속검출",
+          process_step5: "포장",
+          process_step6: "출하",
           about_item1_img: "원료 수매 / 산지 사진 자리",
           about_item1_title: "원료 수매 / 산지 관리",
           about_item1_desc:
@@ -975,7 +1956,58 @@
           hero_cta_secondary: "Catalog (PDF)",
           hero_image_alt: "Main retail pack image placeholder (500g pouch)",
 
-          about_title: "From Field to Retail Pack",
+          about_title: "About Us",
+          about_summary:
+            "Founded in 2002 in Gochang (Korea), HANGYEOL AGRICULTURE CO.LTD handles both conventional and eco/organic rice. We serve school meals, retail, and export-ready small packs (OEM/private label), operating in-house polishing, grading, metal detection and weight check. International certifications (USDA Organic, JAS) are in preparation.",
+          about_history_title: "Company Timeline",
+          about_hist1_date: "2002.04.24",
+          about_hist1_text:
+            "Established HANGYEOL Agricultural Cooperative (legal entity)",
+          about_hist2_date: "2003.03",
+          about_hist2_text:
+            "Began eco-friendly (low-pesticide) cultivation — 3 farms / 5.9 ha",
+          about_hist3_date: "2020.11.23",
+          about_hist3_text: "Groundbreaking for eco rice processing center",
+          about_hist4_date: "2022.02.27",
+          about_hist4_text: "Started supplying Seoul school meals (5 schools)",
+          about_hist5_date: "2022.04.19",
+          about_hist5_text: "Completed eco rice processing center",
+          about_hist6_date: "2022.05.04",
+          about_hist6_text:
+            "Obtained eco handler certification and GAP facility certification",
+          about_hist7_date: "2022.07.16",
+          about_hist7_text:
+            "Launched supply to Emart Everyday (Naturalism) organic rice",
+          about_hist8_date: "2023.01.16",
+          about_hist8_text:
+            "Launched supply of Emart Naturalism organic Hwangto rice",
+          about_hist9_date: "2023.02.27",
+          about_hist9_text:
+            "Started supplying eco rice & grains to Seoul Eco-friendly Distribution Center",
+          about_hist10_date: "2023.09.19",
+          about_hist10_text:
+            "Launched supply of Emart Naturalism Organic 5-Grain Blend",
+          about_hist11_date: "2024.02.27",
+          about_hist11_text:
+            "Jeju school meals supply (eco rice & glutinous rice) began",
+          about_hist12_date: "2024.02.29",
+          about_hist12_text: "Launched eco rice supply to Coupang",
+          about_hist13_date: "2024.09.13",
+          about_hist13_text:
+            "Registered rice processing facility for export to China",
+          about_hist14_date: "2024.09.24",
+          about_hist14_text:
+            "Won 2024 Consumer Satisfaction Brand Grand Prize (No.1)",
+          about_hist15_date: "2025.08.22",
+          about_hist15_text: "Entered Mongolia and the United States",
+
+          process_title: "Process Flow",
+          process_step1: "Raw paddy sourcing",
+          process_step2: "Milling",
+          process_step3: "Grading",
+          process_step4: "Metal detection",
+          process_step5: "Packing",
+          process_step6: "Shipment",
           about_item1_img: "Raw paddy sourcing / contract farming photo",
           about_item1_title: "Raw Paddy Sourcing",
           about_item1_desc:
@@ -1083,7 +2115,32 @@
           hero_cta_secondary: "カタログ (PDF)",
           hero_image_alt: "500g 小売パック イメージ",
 
-          about_title: "産地から小売パックまで",
+          about_title: "会社紹介",
+          about_summary:
+            "韓国・高敞でエコ／オーガニック玄米を調達し、精米・選別・金属探知・重量チェックまで一貫管理。500g/1kgの小売向けパックおよびOEMラベルを供給します。",
+          about_clients_title: "主要取引先",
+          about_client1: "国内小売／オンライン",
+          about_client2: "海外ディストリビューター",
+          about_client3: "フードサービス／レストラン",
+          about_client4: "学校・公的給食",
+          about_history_title: "沿革",
+          about_hist1_date: "YYYY",
+          about_hist1_text: "沿革項目をご提供ください",
+          about_hist2_date: "YYYY",
+          about_hist2_text: "沿革項目をご提供ください",
+          about_hist3_date: "YYYY",
+          about_hist3_text: "沿革項目をご提供ください",
+          about_points_title: "主要ポイント",
+          about_point1: "高敞産のエコ／有機原料",
+          about_point2: "精米・選別・金属探知・重量チェックの一貫体制",
+          about_point3: "500g/1kgの小売パックとOEMラベル",
+          process_title: "生産フロー",
+          process_step1: "原料調達",
+          process_step2: "精米",
+          process_step3: "選別",
+          process_step4: "金属探知",
+          process_step5: "包装",
+          process_step6: "出荷",
           about_item1_img: "原料米集荷・契約栽培 写真",
           about_item1_title: "原料集荷 / 契約栽培",
           about_item1_desc:
@@ -1190,7 +2247,32 @@
           hero_cta_secondary: "产品目录 (PDF)",
           hero_image_alt: "500克零售包装示意图",
 
-          about_title: "从产地到零售包装",
+          about_title: "公司简介",
+          about_summary:
+            "在韩国高敞采购生态/有机稻谷，内部完成碾米、分选、金属检测、称重等流程，提供500g/1kg零售小包装及OEM贴标。",
+          about_clients_title: "主要客户",
+          about_client1: "国内零售/线上",
+          about_client2: "海外经销商",
+          about_client3: "餐饮/餐馆",
+          about_client4: "学校与公共配餐",
+          about_history_title: "发展历程",
+          about_hist1_date: "YYYY",
+          about_hist1_text: "请提供时间线条目",
+          about_hist2_date: "YYYY",
+          about_hist2_text: "请提供时间线条目",
+          about_hist3_date: "YYYY",
+          about_hist3_text: "请提供时间线条目",
+          about_points_title: "要点",
+          about_point1: "来自高敞的生态/有机原料",
+          about_point2: "内部一体化：碾米、分选、金属检测、称重",
+          about_point3: "500g/1kg零售包装与OEM贴标",
+          process_title: "生产流程",
+          process_step1: "原料收购",
+          process_step2: "碾米",
+          process_step3: "分选",
+          process_step4: "金属检测",
+          process_step5: "包装",
+          process_step6: "出货",
           about_item1_img: "原粮收购 / 合同种植 照片",
           about_item1_title: "原粮收购",
           about_item1_desc:
@@ -1293,7 +2375,33 @@
           hero_cta_secondary: "Catalogue (PDF)",
           hero_image_alt: "Visuel d’emballage 500 g (exemple)",
 
-          about_title: "De la rizière au sachet prêt-à-vendre",
+          about_title: "Qui sommes-nous",
+          about_summary:
+            "Nous approvisionnons du paddy écoresponsable à Gochang (Corée) et gérons en interne le polissage, le tri, la détection des métaux et le contrôle du poids. Nous fournissons des sachets export prêts à la vente 500 g / 1 kg et l’étiquetage MDD/OEM.",
+          about_clients_title: "Clients clés",
+          about_client1: "Retail / en ligne (Corée)",
+          about_client2: "Distributeurs internationaux",
+          about_client3: "Restauration / foodservice",
+          about_client4: "Cantines scolaires / publiques",
+          about_history_title: "Historique",
+          about_hist1_date: "YYYY",
+          about_hist1_text: "Merci de fournir les étapes de l’historique",
+          about_hist2_date: "YYYY",
+          about_hist2_text: "Merci de fournir les étapes de l’historique",
+          about_hist3_date: "YYYY",
+          about_hist3_text: "Merci de fournir les étapes de l’historique",
+          about_points_title: "Points clés",
+          about_point1: "Paddy écoresponsable de Gochang",
+          about_point2:
+            "Ligne interne : polissage, tri, détection métal, contrôle poids",
+          about_point3: "Sachets 500 g / 1 kg et étiquetage MDD/OEM",
+          process_title: "Flux de production",
+          process_step1: "Approvisionnement",
+          process_step2: "Décorticage / polissage",
+          process_step3: "Tri",
+          process_step4: "Détection des métaux",
+          process_step5: "Conditionnement",
+          process_step6: "Expédition",
           about_item1_img: "Collecte / contrat de culture",
           about_item1_title: "Approvisionnement en riz paddy",
           about_item1_desc:
@@ -1400,26 +2508,26 @@
           localStorage.setItem("lang", langCode);
         } catch {}
 
-      // Set brochure link per language if present
-      const br = document.getElementById('brochure-link');
-      if (br) {
-        const map = {
-          ko: '/docs/brochure-ko.pdf',
-          en: '/docs/brochure-en.pdf',
-          ja: '/docs/brochure-en.pdf',
-          cn: '/docs/brochure-en.pdf',
-          fr: '/docs/brochure-en.pdf'
-        };
-        const href = map[langCode] || map.ko;
-        br.setAttribute('href', href);
-        // also update PDF modal links
-        const pdfFrame = document.getElementById('pdf-frame');
-        const pdfDL = document.getElementById('pdf-download');
-        const pdfOpen = document.getElementById('pdf-open');
-        if (pdfFrame) pdfFrame.setAttribute('src', href + '#view=FitH');
-        if (pdfDL) pdfDL.setAttribute('href', href);
-        if (pdfOpen) pdfOpen.setAttribute('href', href);
-      }
+        // Set brochure link per language if present
+        const br = document.getElementById("brochure-link");
+        if (br) {
+          const map = {
+            ko: "/docs/brochure-ko.pdf",
+            en: "/docs/brochure-en.pdf",
+            ja: "/docs/brochure-en.pdf",
+            cn: "/docs/brochure-en.pdf",
+            fr: "/docs/brochure-en.pdf",
+          };
+          const href = map[langCode] || map.ko;
+          br.setAttribute("href", href);
+          // also update PDF modal links
+          const pdfFrame = document.getElementById("pdf-frame");
+          const pdfDL = document.getElementById("pdf-download");
+          const pdfOpen = document.getElementById("pdf-open");
+          if (pdfFrame) pdfFrame.setAttribute("src", href + "#view=FitH");
+          if (pdfDL) pdfDL.setAttribute("href", href);
+          if (pdfOpen) pdfOpen.setAttribute("href", href);
+        }
       }
 
       // bind click events to lang buttons
@@ -1497,71 +2605,103 @@
       updateHeaderOffset();
 
       // video modal controls
-      const modal = document.getElementById('video-modal');
-      const openBtn = document.getElementById('media-trigger');
-      const closeBtn = document.getElementById('video-close');
-      const videoEl = document.getElementById('promo-video');
+      const modal = document.getElementById("video-modal");
+      const openBtn = document.getElementById("media-trigger");
+      const closeBtn = document.getElementById("video-close");
+      const videoEl = document.getElementById("promo-video");
       // strengthen controls restrictions across browsers
       try {
-        videoEl && videoEl.setAttribute('controlsList','nodownload noplaybackrate');
+        videoEl &&
+          videoEl.setAttribute("controlsList", "nodownload noplaybackrate");
         if (videoEl) videoEl.disablePictureInPicture = true;
       } catch {}
-      function openModal(){
+      function openModal() {
         if (!modal) return;
-        modal.classList.remove('hidden');
-        if (videoEl){
+        modal.classList.remove("hidden");
+        if (videoEl) {
           // set default source to 720p for stability
-          try { if (videoEl.getAttribute('src') !== '/docs/promo-720p.mp4') { videoEl.setAttribute('src','/docs/promo-720p.mp4'); videoEl.load(); } } catch {}
+          try {
+            if (videoEl.getAttribute("src") !== "/docs/promo-720p.mp4") {
+              videoEl.setAttribute("src", "/docs/promo-720p.mp4");
+              videoEl.load();
+            }
+          } catch {}
           // try safe autoplay after source set
           videoEl.muted = true; // maximize autoplay success; user can unmute
           safePlay();
-          if (videoEl.readyState < 2){
-            const onCanPlay = () => { safePlay(); videoEl.removeEventListener('canplay', onCanPlay); };
-            videoEl.addEventListener('canplay', onCanPlay);
+          if (videoEl.readyState < 2) {
+            const onCanPlay = () => {
+              safePlay();
+              videoEl.removeEventListener("canplay", onCanPlay);
+            };
+            videoEl.addEventListener("canplay", onCanPlay);
           }
         }
       }
-      function closeModal(){
+      function closeModal() {
         if (!modal) return;
-        modal.classList.add('hidden');
-        try { videoEl && videoEl.pause(); } catch {}
+        modal.classList.add("hidden");
+        try {
+          videoEl && videoEl.pause();
+        } catch {}
       }
-      openBtn && openBtn.addEventListener('click', openModal);
-      closeBtn && closeBtn.addEventListener('click', closeModal);
-      modal && modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
+      openBtn && openBtn.addEventListener("click", openModal);
+      closeBtn && closeBtn.addEventListener("click", closeModal);
+      modal &&
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
 
       // quality select helpers
-      function setQuality(q) { /* no-op: fixed 720p for stability */ }
+      function setQuality(q) {
+        /* no-op: fixed 720p for stability */
+      }
 
-      function selectQuality(){ return '720'; }
+      function selectQuality() {
+        return "720";
+      }
 
-      function safePlay(){
+      function safePlay() {
         try {
           const p = videoEl.play();
-          if (p && typeof p.catch === 'function'){
-            p.catch(()=>{ try { videoEl.muted = true; videoEl.play(); } catch {} });
+          if (p && typeof p.catch === "function") {
+            p.catch(() => {
+              try {
+                videoEl.muted = true;
+                videoEl.play();
+              } catch {}
+            });
           }
         } catch {}
       }
 
       // if selected source fails (e.g. 720p not present yet), fallback to the other
-      if (videoEl){
-        videoEl.addEventListener('loadedmetadata', ()=>{ try { videoEl.controls = true; } catch {} });
+      if (videoEl) {
+        videoEl.addEventListener("loadedmetadata", () => {
+          try {
+            videoEl.controls = true;
+          } catch {}
+        });
       }
 
       // pdf modal controls
-      const pdfModal = document.getElementById('pdf-modal');
-      const pdfOpenBtn = document.getElementById('brochure-link');
-      const pdfCloseBtn = document.getElementById('pdf-close');
-      function openPdfModal(e){
+      const pdfModal = document.getElementById("pdf-modal");
+      const pdfOpenBtn = document.getElementById("brochure-link");
+      const pdfCloseBtn = document.getElementById("pdf-close");
+      function openPdfModal(e) {
         e && e.preventDefault();
         if (!pdfModal) return;
-        pdfModal.classList.remove('hidden');
+        pdfModal.classList.remove("hidden");
       }
-      function closePdfModal(){ pdfModal && pdfModal.classList.add('hidden'); }
-      pdfOpenBtn && pdfOpenBtn.addEventListener('click', openPdfModal);
-      pdfCloseBtn && pdfCloseBtn.addEventListener('click', closePdfModal);
-      pdfModal && pdfModal.addEventListener('click', (e)=>{ if (e.target === pdfModal) closePdfModal(); });
+      function closePdfModal() {
+        pdfModal && pdfModal.classList.add("hidden");
+      }
+      pdfOpenBtn && pdfOpenBtn.addEventListener("click", openPdfModal);
+      pdfCloseBtn && pdfCloseBtn.addEventListener("click", closePdfModal);
+      pdfModal &&
+        pdfModal.addEventListener("click", (e) => {
+          if (e.target === pdfModal) closePdfModal();
+        });
     </script>
   </body>
 </html>
