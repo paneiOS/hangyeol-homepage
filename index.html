@@ -270,6 +270,22 @@
       .proc-flow .proc-grid > * { position: relative; z-index: 1; }
       .proc-flow .proc-svg path { stroke: #9aa3b0; stroke-width: 1.6; fill: none; opacity: 0.9; stroke-linecap: round; stroke-linejoin: round; }
       .proc-flow .proc-svg polygon { fill: #9ca3af; opacity: 0.9; }
+
+      /* Hide horizontal scrollbar (keeps scroll gesture) */
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+
+      /* Prevent smooth scroll on product track jumps */
+      #prod-track { scroll-behavior: auto; touch-action: pan-x; }
+      #prod-track img { -webkit-user-drag: none; user-select: none; }
+      /* Center icon inside product open button */
+      .prod-open { display: grid; place-items: center; }
+      /* Robust sr-only in case Tailwind preflight is trimmed */
+      .sr-only { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+      /* Pointer-drag UX for desktop */
+      #prod-track { cursor: grab; }
+      #prod-track.dragging { cursor: grabbing; }
+      #prod-track.dragging *, #prod-track.dragging { user-select: none; }
     </style>
 
     <!-- JSON-LD: Organization (basic) -->
@@ -461,6 +477,40 @@
         </div>
       </div>
     </header>
+
+    <!-- Product Image Modal -->
+    <div
+      id="product-modal"
+      class="fixed inset-0 z-[60] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pm-title"
+    >
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative mx-auto max-w-4xl mt-10 bg-white rounded-2xl shadow-lg flex flex-col max-h-[90vh] overflow-y-auto overscroll-contain">
+        <div class="sticky top-0 bg-white/95 backdrop-blur flex items-center justify-between px-4 py-2 border-b border-neutral-200 z-10">
+          <div id="pm-title" class="text-sm font-semibold text-neutral-900">제품 이미지</div>
+          <button id="pm-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close">닫기</button>
+        </div>
+        <div class="bg-neutral-50 flex items-center justify-center p-3 md:px-6">
+          <img id="pm-img" src="" alt="" class="max-h-[80vh] w-auto object-contain" />
+          <div id="pm-ph" class="hidden">
+            <div class="aspect-[4/5] w-[min(80vw,420px)] max-h-[70vh] bg-white border border-dashed border-neutral-300 rounded-xl flex flex-col items-center justify-center gap-2 p-6 text-center shadow-sm">
+              <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[12px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+              <span class="text-[12px] text-neutral-500" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 text-xs text-neutral-600 border-t border-neutral-200 space-y-3">
+          <div id="pm-desc"></div>
+          <div class="pt-1">
+            <button id="pm-to-contact" class="inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1.5 text-xs font-semibold hover:bg-neutral-100">
+              이 제품 문의
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ================= HERO ================= -->
     <section id="main" class="bg-white border-b border-neutral-200 bg-hero">
@@ -1303,20 +1353,234 @@
           class="text-xl font-bold text-neutral-900 mb-6 reveal"
           data-i18n="products_title"
         >
-          주요 수출 제품
+          제품소개
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <!-- Product banner: horizontal scroll cards -->
+        <div class="mb-8 reveal">
+          <ul id="prod-track" class="flex flex-nowrap gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory px-4 w-screen max-w-none relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <!-- 1: 자연주의 유기농새청무쌀 -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="자연주의 유기농새청무쌀">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <img draggable="false" src="/docs/자연주의_유기농새청무쌀.jpeg" alt="자연주의 유기농새청무쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900">자연주의 유기농 새청무쌀</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
+                    <li><span class="text-neutral-500">품종</span>: 새청무</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 8kg</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">청무 품종과 새누리 품종의 장점만을 합쳐 개발된 국산 품종으로 은은한 단맛과 부드럽고 찰진 식감이 특징입니다. GAP 인증 생산 시설에서 품질 관리하에 생산되고 있습니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+            <!-- 2: 자연주의 유기농새청무현미 -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="자연주의 유기농새청무현미">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <img draggable="false" src="/docs/자연주의_유기농새청무현미.jpeg" alt="자연주의 유기농새청무현미" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900">자연주의 유기농 새청무 현미</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
+                    <li><span class="text-neutral-500">품종</span>: 새청무</li>
+                    <li><span class="text-neutral-500">도정</span>: 현미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 8kg</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">새청무는 전남농업기술원에서 청무 품종과 새누리 품종의 장점을 결합하고 단점은 보완하여 개발한 품종으로, 쌀알이 굵어 식감이 우수합니다. 합성농약과 화학비료를 사용하지 않는 친환경 유기농법으로 재배한 단일품종 "유기농 새청무 현미"입니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+            <!-- 3: 한결같은 유기농쌀 -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="한결같은 유기농쌀">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <img draggable="false" src="/docs/한결같은_유기농쌀.jpeg" alt="한결같은 유기농쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900">한결같은 유기농쌀</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
+                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 5kg / 10kg</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">농약과 화학비료를 사용하지 않은 땅에서 키운 유기농산물은 자연 그대로 담은 건강한 먹거리입니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+            <!-- 4: 황토배기 친환경쌀 -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="황토배기 친환경쌀">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <img draggable="false" src="/docs/황토배기_친환경쌀.jpeg" alt="황토배기 친환경쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900">황토배기 친환경쌀</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 친환경</li>
+                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 10kg</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">황토의 미네랄이 풍부한 토양에서 자란 친환경 쌀 백미로, 깔끔한 밥맛과 탄력 있는 식감이 특징입니다. 균일한 도정으로 윤기와 식감을 살렸으며, 가정용과 업장용 모두에 적합합니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+            <!-- 5: all바른 친환경쌀 -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="all바른 친환경쌀">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <img draggable="false" src="/docs/all바른-친환경쌀.png" alt="all바른 친환경쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900">all바른 친환경쌀</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 친환경</li>
+                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 10kg</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">깔끔한 맛과 탄력 있는 식감을 살린 친환경 백미로, 매일 먹는 밥을 더욱 담백하고 건강하게 즐길 수 있습니다. 가정과 업장에서 모두 사용하기 좋습니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+
+            <!-- 6: Placeholder — Organic Korean Gimbap Rice -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="Organic Korean Gimbap Rice">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <div class="flex flex-col items-center gap-1">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                    <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+                  </div>
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod1_name">Organic Korean Gimbap Rice</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 협의</li>
+                    <li><span class="text-neutral-500">품종</span>: 협의</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+
+            <!-- 7: Placeholder — Organic White Rice -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="Organic White Rice">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <div class="flex flex-col items-center gap-1">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                    <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+                  </div>
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod2_name">Organic White Rice</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 협의</li>
+                    <li><span class="text-neutral-500">품종</span>: 협의</li>
+                    <li><span class="text-neutral-500">도정</span>: 백미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+
+            <!-- 8: Placeholder — Organic Brown Rice -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="Organic Brown Rice">
+                <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
+                  <div class="flex flex-col items-center gap-1">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                    <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+                  </div>
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span class="sr-only" data-i18n="prod_open">상세보기</span>
+                  </button>
+                </div>
+                <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod3_name">Organic Brown Rice</div>
+                  <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
+                    <li><span class="text-neutral-500">재배</span>: 협의</li>
+                    <li><span class="text-neutral-500">품종</span>: 협의</li>
+                    <li><span class="text-neutral-500">도정</span>: 현미</li>
+                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
+                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                  </ul>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                </figcaption>
+              </figure>
+            </li>
+
+            <!-- 9: More products CTA -->
+            <li class="snap-center shrink-0 w-64 md:w-72">
+              <div class="rounded-2xl border-2 border-dashed border-neutral-300 bg-white/60 shadow-sm h-full flex flex-col justify-center items-center text-center p-4">
+                <div class="text-sm font-semibold text-neutral-800 mb-1">그 밖의 제품도 다수 보유</div>
+                <p class="text-xs text-neutral-600 mb-3">용도·규격·포장 맞춤 제안드립니다.</p>
+                <a href="#contact" class="more-cta inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1 text-xs font-semibold hover:bg-neutral-100">
+                  문의하기 →
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 hidden">
           <!-- product card 1 -->
           <div
             class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
           >
             <div
-              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+              class="h-40 bg-neutral-50 border-b border-dashed border-neutral-300 flex items-center justify-center text-center px-2"
             >
-              <span data-i18n="prod1_imgAlt"
-                >Organic Korean Gimbap Rice 패키지 사진 자리</span
-              >
+              <div class="flex flex-col items-center gap-1">
+                <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+              </div>
             </div>
             <div class="p-5 flex flex-col gap-2">
               <div
@@ -1347,11 +1611,12 @@
             class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
           >
             <div
-              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+              class="h-40 bg-neutral-50 border-b border-dashed border-neutral-300 flex items-center justify-center text-center px-2"
             >
-              <span data-i18n="prod2_imgAlt"
-                >Organic White Rice 패키지 사진 자리</span
-              >
+              <div class="flex flex-col items-center gap-1">
+                <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+              </div>
             </div>
             <div class="p-5 flex flex-col gap-2">
               <div
@@ -1381,11 +1646,12 @@
             class="rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col overflow-hidden"
           >
             <div
-              class="h-40 bg-neutral-100 border-b border-dashed border-neutral-300 flex items-center justify-center text-[10px] text-neutral-400 text-center px-2 leading-relaxed"
+              class="h-40 bg-neutral-50 border-b border-dashed border-neutral-300 flex items-center justify-center text-center px-2"
             >
-              <span data-i18n="prod3_imgAlt"
-                >Organic Brown Rice 패키지 사진 자리</span
-              >
+              <div class="flex flex-col items-center gap-1">
+                <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
+                <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
+              </div>
             </div>
             <div class="p-5 flex flex-col gap-2">
               <div
@@ -1504,7 +1770,7 @@
           </p>
 
           <div
-            class="rounded-2xl border border-neutral-200 shadow-sm bg-neutral-50 p-5 text-sm text-neutral-700 leading-relaxed flex flex-col gap-4"
+            class="left-card rounded-2xl border border-neutral-200 shadow-sm bg-neutral-50 p-5 text-sm text-neutral-700 leading-relaxed flex flex-col gap-4"
           >
             <div class="flex flex-col gap-2">
               <div>
@@ -1590,29 +1856,24 @@
             </div>
           </div>
 
-          <div
-            class="text-[11px] text-neutral-500 leading-relaxed"
-            data-i18n="contact_footer"
-          >
-            * 바이어 전용 문의입니다. 국내 유통/도매 문의는 별도 연락처로
-            안내드립니다.
-          </div>
+          
         </div>
 
         <!-- right inquiry mock -->
         <div
-          class="rounded-2xl border border-neutral-200 bg-white shadow-sm p-6 flex flex-col gap-4 text-sm"
+          class="right-card rounded-2xl border border-neutral-200 bg-white shadow-sm p-6 flex flex-col gap-4 text-sm"
         >
           <div
             class="text-neutral-900 font-semibold text-sm"
             data-i18n="inq_form_title"
           >
-            Quick Inquiry (Buyer Only)
+            간편 문의
           </div>
 
           <label class="flex flex-col gap-1">
             <span class="text-[12px] text-neutral-600" data-i18n="inq_company_label">Company / Buyer Name</span>
             <input
+              id="inq-company"
               class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-900"
               data-i18n-placeholder="inq_company_ph"
               placeholder="Your company"
@@ -1622,6 +1883,7 @@
           <label class="flex flex-col gap-1">
             <span class="text-[12px] text-neutral-600" data-i18n="inq_email_label">E-mail</span>
             <input
+              id="inq-email"
               class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-900"
               data-i18n-placeholder="inq_email_ph"
               placeholder="name@example.com"
@@ -1633,26 +1895,23 @@
               >Request</span
             >
             <textarea
-              class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none min-h-[80px] resize-none focus:ring-2 focus:ring-neutral-900"
+              id="inq-text"
+              rows="2"
+              class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm outline-none resize-none focus:ring-2 focus:ring-neutral-900 min-h-[145px]"
               data-i18n-placeholder="inq_req_ph"
               placeholder="Product / volume / packaging size you're looking for"
             ></textarea>
           </label>
 
           <button
+            id="inq-submit"
             class="rounded-xl bg-neutral-900 text-white text-sm font-semibold px-4 py-2 hover:bg-neutral-800 shadow-sm transition-colors"
             data-i18n="inq_btn"
           >
-            Send Inquiry
+            이메일로 문의하기
           </button>
 
-          <div
-            class="text-[10px] text-neutral-400 leading-relaxed"
-            data-i18n="inq_note"
-          >
-            ※ 실제 문의는 위 이메일/전화로 직접 연락해 주세요. 본 양식은
-            데모입니다.
-          </div>
+          
         </div>
       </div>
     </section>
@@ -1740,7 +1999,7 @@
           nav_about: "회사소개",
           nav_products: "제품소개",
           nav_cert: "인증 및 품질",
-          nav_contact: "수출 문의",
+          nav_contact: "문의하기",
 
           hero_badge: "친환경/유기농 쌀 전문 RPC",
           hero_title: "한결영농조합법인",
@@ -1813,7 +2072,10 @@
           about_item3_desc:
             "해외 유통 규격에 맞춘 500g/1kg 소용량 포장과 바이어 자체 브랜드(OEM) 라벨 작업을 지원합니다.",
 
-          products_title: "주요 수출 제품",
+          products_title: "제품소개",
+          prod_placeholder_cert: "인증 진행중",
+          prod_placeholder_img: "제품 이미지 준비 중",
+          prod_open: "상세보기",
           prod1_imgAlt: "Organic Korean Gimbap Rice 패키지 사진 자리",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -1845,9 +2107,9 @@
           cert_note:
             "* 해외 인증(USDA Organic, JAS Organic 등)은 수출 시장 요구에 맞춰 취득 절차를 진행 중입니다.",
 
-          contact_title: "수출 상담 / 바이어 문의",
+          contact_title: "문의하기",
           contact_desc:
-            "500g/1kg 소매용(마트 진열용), 외식·식당용 대용량, PB/OEM(바이어 자체 브랜드)까지 협의 가능합니다.\n아래 연락처로 문의해 주세요.",
+            "수출/국내 유통/도매·납품/제휴/기타 문의 모두 환영합니다.\n회사/연락처와 요청사항을 남겨주시면 빠르게 회신드리겠습니다.",
 
           contact_company_label: "회사명",
           contact_company_value:
@@ -1866,18 +2128,18 @@
           contact_phone_label: "전화",
           contact_phone_value: "+82-10-4345-4846",
           contact_footer:
-            "* 바이어 전용 문의입니다. 국내 유통/도매 문의는 별도 연락처로 안내드립니다.",
+            "* 평일 09:00–18:00 내 빠르게 회신드리겠습니다.",
 
-          inq_form_title: "빠른 문의 (바이어 전용)",
+          inq_form_title: "간편 문의",
           inq_company_label: "회사 / 바이어명",
           inq_email_label: "이메일",
           inq_req_label: "요청사항",
-          inq_btn: "문의 보내기",
+          inq_btn: "이메일로 문의하기",
           inq_company_ph: "회사명을 입력하세요",
           inq_email_ph: "name@example.com",
           inq_req_ph: "희망 제품/물량/포장규격 등",
           inq_note:
-            "※ 실제 문의는 위 이메일/전화로 직접 연락해 주세요. 본 양식은 데모입니다.",
+            "※ 버튼을 누르면 메일 앱이 열립니다. 빠르게 회신드리겠습니다.",
 
           footer_copy:
             "© 2025 한결영농조합법인 / HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
@@ -1975,7 +2237,10 @@
           about_item3_desc:
             "We supply export-ready small packs (500g / 1kg) and can apply your private label and English nutrition facts.",
 
-          products_title: "Key Export Items",
+          products_title: "Products",
+          prod_placeholder_cert: "Certification in progress",
+          prod_placeholder_img: "Product image coming soon",
+          prod_open: "View",
           prod1_imgAlt: "Organic Korean Gimbap Rice pack placeholder",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2111,7 +2376,10 @@
           about_item3_desc:
             "500g/1kgの小売向けパックおよび英語表示ラベル、PB/OEMラベル貼付が可能です。",
 
-          products_title: "主要輸出製品",
+          products_title: "製品紹介",
+          prod_placeholder_cert: "認証進行中",
+          prod_placeholder_img: "製品画像 準備中",
+          prod_open: "詳細",
           prod1_imgAlt: "Organic Korean Gimbap Rice パッケージ",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2246,7 +2514,10 @@
           about_item3_desc:
             "我们提供500g / 1kg出口零售包装，并可按进口国要求制作英文营养成分表和贴牌。",
 
-          products_title: "主要出口产品",
+          products_title: "产品介绍",
+          prod_placeholder_cert: "认证进行中",
+          prod_placeholder_img: "产品图片 即将更新",
+          prod_open: "查看详情",
           prod1_imgAlt: "Organic Korean Gimbap Rice 包装示意",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2378,7 +2649,10 @@
           about_item3_desc:
             "Nous fournissons des sachets export prêts à la vente (500 g / 1 kg)\net pouvons appliquer votre marque et l’étiquetage nutritionnel en anglais.",
 
-          products_title: "Nos produits phares à l’export",
+          products_title: "Produits",
+          prod_placeholder_cert: "Certification en cours",
+          prod_placeholder_img: "Image produit bientôt",
+          prod_open: "Détails",
           prod1_imgAlt: "Organic Korean Gimbap Rice (échantillon d’emballage)",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2499,6 +2773,13 @@
           if (pdfDL) pdfDL.setAttribute("href", href);
           if (pdfOpen) pdfOpen.setAttribute("href", href);
         }
+
+        // Update product open button titles
+        document.querySelectorAll('.prod-open').forEach((b)=>{
+          if (dict['prod_open']) b.setAttribute('title', dict['prod_open']);
+          const sr = b.querySelector('.sr-only[data-i18n="prod_open"]');
+          if (sr && dict['prod_open']) sr.textContent = dict['prod_open'];
+        });
       }
 
       // bind click events to lang buttons
@@ -2773,6 +3054,235 @@
         // redraw after possible font/layout changes
         setTimeout(drawProc, 300);
       })();
+
+      // === Mailto submit for inquiry form ===
+      (function(){
+        const btn = document.getElementById('inq-submit');
+        if (!btn) return;
+        btn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          try {
+            const toEl = document.querySelector('a[href^="mailto:"]');
+            const to = toEl ? (toEl.getAttribute('href')||'').replace('mailto:','') : 'pane4176@gmail.com';
+            const company = (document.getElementById('inq-company')?.value||'').trim();
+            const email = (document.getElementById('inq-email')?.value||'').trim();
+            const text = (document.getElementById('inq-text')?.value||'').trim();
+            const subject = encodeURIComponent(`문의: ${company || '고객'}`);
+            const body = encodeURIComponent(`회사/이름: ${company}\n연락 이메일: ${email}\n\n요청 내용:\n${text}\n\n(보낸 페이지: ${location.href})`);
+            const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+            location.href = mailto;
+          } catch {}
+        });
+      })();
+
+      // === Product banner: infinite scroll + lightbox ===
+      (function(){
+        const track = document.getElementById('prod-track');
+        const modal = document.getElementById('product-modal');
+        const pmImg = document.getElementById('pm-img');
+        const pmTitle = document.getElementById('pm-title');
+        const pmDesc = document.getElementById('pm-desc');
+        const pmClose = document.getElementById('pm-close');
+        const pmPh = document.getElementById('pm-ph');
+        const pmToContact = document.getElementById('pm-to-contact');
+
+        function openPMFromCard(card){
+          if (!modal || !card) return;
+          const img = card.querySelector('img');
+          const titleEl = card.querySelector('.prod-title');
+          const specEl = card.querySelector('figcaption ul');
+          const detailEl = card.querySelector('.prod-desc');
+          const src = img?.getAttribute('src') || '';
+          const title = (titleEl?.textContent || '').trim();
+
+          if (pmImg){
+            if (src) {
+              pmImg.classList.remove('hidden');
+              pmImg.setAttribute('src', src);
+              pmImg.setAttribute('alt', title||'');
+              if (pmPh) pmPh.classList.add('hidden');
+            } else {
+              pmImg.classList.add('hidden');
+              pmImg.removeAttribute('src');
+              pmImg.setAttribute('alt', '');
+              if (pmPh) pmPh.classList.remove('hidden');
+            }
+          }
+          if (pmTitle) pmTitle.textContent = title || '';
+          if (pmDesc) {
+            pmDesc.innerHTML = '';
+            if (specEl) pmDesc.appendChild(specEl.cloneNode(true));
+            if (detailEl) pmDesc.appendChild(detailEl.cloneNode(true));
+          }
+          modal.classList.remove('hidden');
+          // attach product for inquiry prefill
+          if (pmToContact) pmToContact.setAttribute('data-item', title||'');
+        }
+        function closePM(){
+          if (!modal) return;
+          modal.classList.add('hidden');
+          try {
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+          } catch {}
+        }
+        pmClose && pmClose.addEventListener('click', closePM);
+        modal && modal.addEventListener('click', (e)=>{ if (e.target===modal) closePM(); });
+        window.addEventListener('keydown', (e)=>{ if (e.key==='Escape') closePM(); });
+
+        if (track){
+          // Lightbox opener
+          // Open modal only when explicit button is clicked
+          track.addEventListener('click', (e)=>{
+            const btn = e.target.closest('.prod-open');
+            if (!btn) return;
+            e.preventDefault();
+            const card = btn.closest('.prod-card');
+            if (!card) return;
+            openPMFromCard(card);
+          });
+
+          // Prefill inquiry on click (replace existing content, no duplicates)
+          pmToContact && pmToContact.addEventListener('click', ()=>{
+            try {
+              const item = pmToContact.getAttribute('data-item') || '';
+              const inq = document.getElementById('inq-text');
+              if (inq) {
+                const base = `문의 제품: ${item}\n요청사항: `;
+                inq.value = base; // overwrite existing content
+              }
+            } catch {}
+            // close and scroll to contact, then focus textarea
+            closePM();
+            const el = document.getElementById('contact');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(()=>{
+              const inq = document.getElementById('inq-text');
+              if (inq) {
+                inq.focus();
+                try { const len = inq.value.length; inq.setSelectionRange(len, len); } catch {}
+              }
+            }, 200);
+          });
+
+          // lock background scroll when modal is open
+          const obsOpen = new MutationObserver(()=>{
+            if (!modal) return;
+            const open = !modal.classList.contains('hidden');
+            try {
+              document.documentElement.style.overflow = open ? 'hidden' : '';
+              document.body.style.overflow = open ? 'hidden' : '';
+            } catch {}
+          });
+          obsOpen.observe(modal, { attributes: true, attributeFilter: ['class'] });
+
+          // Smooth scroll for "그 밖의 제품" CTA
+          document.querySelectorAll('a.more-cta').forEach((a)=>{
+            a.addEventListener('click', (ev)=>{
+              ev.preventDefault(); ev.stopPropagation();
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          });
+
+          // Infinite loop via large replication (jitter‑free)
+          const REP = 100; // replicate original sequence 100x
+          const original = track.innerHTML;
+          track.innerHTML = new Array(REP).fill(original).join('');
+          let base = 0;
+          const centerToMiddle = () => {
+            if (!track) return;
+            base = track.scrollWidth / REP;
+            track.scrollLeft = Math.floor(REP / 2) * base + 24; // slight offset to hint more content
+          };
+          // after layout
+          requestAnimationFrame(centerToMiddle);
+          window.addEventListener('resize', centerToMiddle);
+
+          // Prevent native image drag ghost
+          track.addEventListener('dragstart', (e)=>{ e.preventDefault(); });
+
+          // (removed) inline product CTAs — only show CTA on the "more products" card
+
+          // Pointer drag-to-scroll with inertial fling (desktop-friendly)
+          let isDown = false;
+          let startX = 0;
+          let startSL = 0;
+          let lastX = 0;
+          let lastT = 0;
+          let vx = 0; // px per ms for scrollLeft
+          let rafId = 0;
+
+          function onPointerDown(e){
+            // ignore drags starting on explicit buttons
+            if (e.target.closest('.prod-open') || e.target.closest('.prod-cta') || e.target.closest('.more-cta')) return;
+            e.preventDefault(); // stop text selection / image drag
+            isDown = true;
+            try { track.setPointerCapture(e.pointerId); } catch {}
+            startX = e.clientX;
+            startSL = track.scrollLeft;
+            lastX = e.clientX;
+            lastT = performance.now();
+            vx = 0;
+            track.classList.add('dragging');
+            // disable snap during drag
+            track.style.scrollSnapType = 'none';
+          }
+          function onPointerMove(e){
+            if (!isDown) return;
+            e.preventDefault();
+            const now = performance.now();
+            const dx = e.clientX - startX;
+            track.scrollLeft = startSL - dx;
+            const dt = now - lastT || 16;
+            vx = - (e.clientX - lastX) / dt; // convert pointer motion to scrollLeft velocity
+            lastX = e.clientX;
+            lastT = now;
+          }
+          function onPointerUp(e){
+            if (!isDown) return;
+            isDown = false;
+            try { track.releasePointerCapture(e.pointerId); } catch {}
+            track.classList.remove('dragging');
+            // clicks are handled only on buttons; nothing to suppress
+            // inertial fling
+            const startV = vx;
+            let v = startV;
+            let prev = performance.now();
+            cancelAnimationFrame(rafId);
+            const friction = 0.95; // per frame
+            const minV = 0.02; // px/ms ~ 20px/s
+            function step(){
+              const now = performance.now();
+              const dt = now - prev; prev = now;
+              // advance scroll
+              track.scrollLeft += v * dt;
+              // decay velocity
+              v *= friction;
+              if (Math.abs(v) > minV) {
+                rafId = requestAnimationFrame(step);
+              } else {
+                // restore snap after fling completes
+                track.style.scrollSnapType = '';
+              }
+            }
+            // run fling only if decent speed
+            if (Math.abs(startV) > minV * 3) {
+              rafId = requestAnimationFrame(step);
+            } else {
+              // no fling; restore snap immediately
+              track.style.scrollSnapType = '';
+            }
+          }
+
+          track.addEventListener('pointerdown', onPointerDown);
+          track.addEventListener('pointermove', onPointerMove, { passive: false });
+          window.addEventListener('pointerup', onPointerUp);
+          window.addEventListener('pointercancel', onPointerUp);
+        }
+      })();
+
+      // (removed) auto top/bottom alignment; keep simple layout
     </script>
   </body>
 </html>
