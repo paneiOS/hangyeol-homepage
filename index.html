@@ -271,6 +271,12 @@
       .proc-flow .proc-svg path { stroke: #9aa3b0; stroke-width: 1.6; fill: none; opacity: 0.9; stroke-linecap: round; stroke-linejoin: round; }
       .proc-flow .proc-svg polygon { fill: #9ca3af; opacity: 0.9; }
 
+      /* Overview circle split images */
+      .proc-pic { display: grid; gap: 2px; border-radius: 9999px; overflow: hidden; background: #fff; }
+      .proc-pic.seg2 { grid-template-columns: repeat(2, 1fr); }
+      .proc-pic.seg3 { grid-template-columns: repeat(3, 1fr); }
+      .proc-pic > span { display: block; width: 100%; height: 100%; background-size: cover; background-position: center; }
+
       /* Hide horizontal scrollbar (keeps scroll gesture) */
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -393,14 +399,14 @@
             </div>
             <iframe
               id="pdf-frame"
-              src="/docs/brochure-ko.pdf#view=FitH"
+              src="about:blank"
               title="Catalog PDF"
               class="w-full h-[80vh]"
             ></iframe>
           </div>
         </div>
         <!-- Mobile menu button -->
-        <div class="md:hidden w-full flex items-center">
+        <div class="hidden">
           <button
             id="menu-toggle"
             class="ml-auto rounded-lg border border-neutral-300 px-2 py-1 text-xs font-semibold bg-white text-neutral-800"
@@ -414,7 +420,7 @@
         <!-- Nav -->
         <nav
           id="site-nav"
-          class="flex-1 hidden md:flex flex-wrap gap-4 text-sm font-medium text-neutral-700"
+          class="flex-1 flex flex-wrap gap-4 text-sm font-medium text-neutral-700"
         >
           <a
             href="#about"
@@ -432,7 +438,7 @@
             href="#quality"
             class="hover:text-neutral-900 transition-colors"
             data-i18n="nav_cert"
-            >인증 및 품질</a
+            >가공센터 공정도</a
           >
           <a
             href="#contact"
@@ -489,8 +495,8 @@
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="relative mx-auto max-w-4xl mt-10 bg-white rounded-2xl shadow-lg flex flex-col max-h-[90vh] overflow-y-auto overscroll-contain">
         <div class="sticky top-0 bg-white/95 backdrop-blur flex items-center justify-between px-4 py-2 border-b border-neutral-200 z-10">
-          <div id="pm-title" class="text-sm font-semibold text-neutral-900">제품 이미지</div>
-          <button id="pm-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close">닫기</button>
+          <div id="pm-title" class="text-sm font-semibold text-neutral-900" data-i18n="pm_title">제품 이미지</div>
+          <button id="pm-close" class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1" aria-label="Close" data-i18n="pm_close" data-i18n-aria="pm_close">닫기</button>
         </div>
         <div class="bg-neutral-50 flex items-center justify-center p-3 md:px-6">
           <img id="pm-img" src="" alt="" class="max-h-[80vh] w-auto object-contain" />
@@ -504,12 +510,12 @@
         <div class="px-4 py-3 text-xs text-neutral-600 border-t border-neutral-200 space-y-3">
           <div id="pm-desc"></div>
           <div class="pt-1">
-            <button id="pm-to-contact" class="inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1.5 text-xs font-semibold hover:bg-neutral-100">
+            <button id="pm-to-contact" class="inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1.5 text-xs font-semibold hover:bg-neutral-100" data-i18n="pm_inquire">
               이 제품 문의
             </button>
           </div>
-        </div>
       </div>
+    </div>
     </div>
 
     <!-- ================= HERO ================= -->
@@ -615,6 +621,7 @@
             class="text-sm text-neutral-500 hover:text-neutral-900 px-2 py-1"
             aria-label="Close"
             data-i18n="hero_video_close"
+            data-i18n-aria="hero_video_close"
           >
             닫기
           </button>
@@ -624,14 +631,13 @@
             id="promo-video"
             class="w-full h-auto"
             controls
-            preload="metadata"
+            preload="none"
             poster="/docs/poster.jpg"
             playsinline
             webkit-playsinline
             controlslist="nodownload noplaybackrate"
             disablepictureinpicture
             oncontextmenu="return false;"
-            src="/docs/promo-720p.mp4"
           ></video>
         </div>
       </div>
@@ -1358,27 +1364,27 @@
 
         <!-- Product banner: horizontal scroll cards -->
         <div class="mb-8 reveal">
-          <ul id="prod-track" class="flex flex-nowrap gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory px-4 w-screen max-w-none relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+          <ul id="prod-track" class="flex flex-nowrap gap-4 overflow-x-auto no-scrollbar md:snap-x md:snap-mandatory px-4 w-screen max-w-none relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
             <!-- 1: 자연주의 유기농새청무쌀 -->
             <li class="snap-center shrink-0 w-64 md:w-72">
               <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="자연주의 유기농새청무쌀">
                 <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
                   <img draggable="false" src="/docs/product-saecheongmu-white.jpeg" alt="자연주의 유기농새청무쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
                 </div>
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
-                  <div class="prod-title text-sm font-semibold text-neutral-900">자연주의 유기농 새청무쌀</div>
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="p1_title">자연주의 유기농 새청무쌀</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
-                    <li><span class="text-neutral-500">품종</span>: 새청무</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 8kg</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p1_farming">유기농</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p1_variety">새청무</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p1_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p1_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p1_weight">8kg</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">청무 품종과 새누리 품종의 장점만을 합쳐 개발된 국산 품종으로 은은한 단맛과 부드럽고 찰진 식감이 특징입니다. GAP 인증 생산 시설에서 품질 관리하에 생산되고 있습니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p1_desc">청무 품종과 새누리 품종의 장점만을 합쳐 개발된 국산 품종으로 은은한 단맛과 부드럽고 찰진 식감이 특징입니다. GAP 인증 생산 시설에서 품질 관리하에 생산되고 있습니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1387,21 +1393,21 @@
               <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="자연주의 유기농새청무현미">
                 <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
                   <img draggable="false" src="/docs/product-saecheongmu-brown.jpeg" alt="자연주의 유기농새청무현미" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
                 </div>
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
-                  <div class="prod-title text-sm font-semibold text-neutral-900">자연주의 유기농 새청무 현미</div>
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="p2_title">자연주의 유기농 새청무 현미</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
-                    <li><span class="text-neutral-500">품종</span>: 새청무</li>
-                    <li><span class="text-neutral-500">도정</span>: 현미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 8kg</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p2_farming">유기농</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p2_variety">새청무</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p2_milling">현미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p2_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p2_weight">8kg</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">새청무는 전남농업기술원에서 청무 품종과 새누리 품종의 장점을 결합하고 단점은 보완하여 개발한 품종으로, 쌀알이 굵어 식감이 우수합니다. 합성농약과 화학비료를 사용하지 않는 친환경 유기농법으로 재배한 단일품종 "유기농 새청무 현미"입니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p2_desc">새청무는 전남농업기술원에서 청무와 새누리의 장점을 결합해 개발한 품종으로, 굵고 식감이 우수합니다. 합성농약과 화학비료를 사용하지 않는 유기농 방식으로 재배한 단일품종 현미입니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1410,21 +1416,21 @@
               <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="한결같은 유기농쌀">
                 <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
                   <img draggable="false" src="/docs/product-hangyeol-organic-white.jpeg" alt="한결같은 유기농쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
                 </div>
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
-                  <div class="prod-title text-sm font-semibold text-neutral-900">한결같은 유기농쌀</div>
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="p3_title">한결같은 유기농쌀</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 유기농</li>
-                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 5kg / 10kg</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p3_farming">유기농</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p3_variety">신동진 / 수광 / 새청무</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p3_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p3_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p3_weight">5kg / 10kg</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">농약과 화학비료를 사용하지 않은 땅에서 키운 유기농산물은 자연 그대로 담은 건강한 먹거리입니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p3_desc">농약과 화학비료를 사용하지 않은 땅에서 키운 유기농 쌀로, 담백한 밥맛과 건강함을 담았습니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1433,21 +1439,21 @@
               <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="황토배기 친환경쌀">
                 <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
                   <img draggable="false" src="/docs/product-hwangtobagi-eco-white.jpeg" alt="황토배기 친환경쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
                 </div>
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
-                  <div class="prod-title text-sm font-semibold text-neutral-900">황토배기 친환경쌀</div>
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="p4_title">황토배기 친환경쌀</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 친환경</li>
-                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 10kg</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p4_farming">친환경</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p4_variety">신동진 / 수광 / 새청무</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p4_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p4_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p4_weight">10kg</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">황토의 미네랄이 풍부한 토양에서 자란 친환경 쌀 백미로, 깔끔한 밥맛과 탄력 있는 식감이 특징입니다. 균일한 도정으로 윤기와 식감을 살렸으며, 가정용과 업장용 모두에 적합합니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p4_desc">황토의 미네랄이 풍부한 토양에서 재배한 친환경 백미로, 깔끔한 밥맛과 탄력 있는 식감이 특징입니다. 가정과 업장에서 모두 사용하기 좋습니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1456,21 +1462,21 @@
               <figure class="prod-card group rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col cursor-pointer" aria-label="all바른 친환경쌀">
                 <div class="aspect-[4/5] bg-white overflow-hidden flex items-center justify-center p-2 relative">
                   <img draggable="false" src="/docs/product-allbarun-eco-white.png" alt="all바른 친환경쌀" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
                 </div>
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
-                  <div class="prod-title text-sm font-semibold text-neutral-900">all바른 친환경쌀</div>
+                  <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="p5_title">all바른 친환경쌀</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 친환경</li>
-                    <li><span class="text-neutral-500">품종</span>: 신동진 / 수광 / 새청무</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 10kg</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p5_farming">친환경</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p5_variety">신동진 / 수광 / 새청무</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p5_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p5_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p5_weight">10kg</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">깔끔한 맛과 탄력 있는 식감을 살린 친환경 백미로, 매일 먹는 밥을 더욱 담백하고 건강하게 즐길 수 있습니다. 가정과 업장에서 모두 사용하기 좋습니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p5_desc">깔끔한 맛과 탄력 있는 식감을 살린 친환경 백미로, 매일 먹는 밥을 담백하고 건강하게 즐길 수 있습니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1483,7 +1489,7 @@
                     <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
                     <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
                   </div>
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
@@ -1491,13 +1497,13 @@
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
                   <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod1_name">Organic Korean Gimbap Rice</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 협의</li>
-                    <li><span class="text-neutral-500">품종</span>: 협의</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p6_farming">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p6_variety">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p6_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p6_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p6_weight">협의</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p6_desc">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1510,7 +1516,7 @@
                     <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
                     <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
                   </div>
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open hidden md:grid md:place-items-center absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
@@ -1518,13 +1524,13 @@
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
                   <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod2_name">Organic White Rice</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 협의</li>
-                    <li><span class="text-neutral-500">품종</span>: 협의</li>
-                    <li><span class="text-neutral-500">도정</span>: 백미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p7_farming">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p7_variety">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p7_milling">백미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p7_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p7_weight">협의</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p7_desc">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1537,7 +1543,7 @@
                     <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 text-[11px] font-semibold" data-i18n="prod_placeholder_cert">인증 진행중</span>
                     <span class="text-[10px] text-neutral-400" data-i18n="prod_placeholder_img">제품 이미지 준비 중</span>
                   </div>
-                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기">
+                  <button type="button" class="prod-open absolute bottom-2 right-2 z-10 h-9 w-9 rounded-full bg-white/80 border border-white/70 ring-1 ring-black/5 text-neutral-800 shadow-md backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 transition md:opacity-0 md:group-hover:opacity-100" aria-label="상세보기" data-i18n-aria="prod_open">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <span class="sr-only" data-i18n="prod_open">상세보기</span>
                   </button>
@@ -1545,13 +1551,13 @@
                 <figcaption class="p-3 bg-neutral-50 border-t border-neutral-200">
                   <div class="prod-title text-sm font-semibold text-neutral-900" data-i18n="prod3_name">Organic Brown Rice</div>
                   <ul class="text-[11px] text-neutral-600 leading-relaxed mt-1 mb-1">
-                    <li><span class="text-neutral-500">재배</span>: 협의</li>
-                    <li><span class="text-neutral-500">품종</span>: 협의</li>
-                    <li><span class="text-neutral-500">도정</span>: 현미</li>
-                    <li><span class="text-neutral-500">원산지</span>: 국내산</li>
-                    <li><span class="text-neutral-500">무게</span>: 협의</li>
+                    <li><span class="text-neutral-500" data-i18n="label_farming">재배</span>: <span data-i18n="p8_farming">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_variety">품종</span>: <span data-i18n="p8_variety">협의</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_milling">도정</span>: <span data-i18n="p8_milling">현미</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_origin">원산지</span>: <span data-i18n="p8_origin">국내산</span></li>
+                    <li><span class="text-neutral-500" data-i18n="label_weight">무게</span>: <span data-i18n="p8_weight">협의</span></li>
                   </ul>
-                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
+                  <p class="prod-desc text-xs text-neutral-600 leading-relaxed" data-i18n="p8_desc">수출 사양(포장·라벨·중량) 협의 가능합니다.</p>
                 </figcaption>
               </figure>
             </li>
@@ -1559,9 +1565,9 @@
             <!-- 9: More products CTA -->
             <li class="snap-center shrink-0 w-64 md:w-72">
               <div class="rounded-2xl border-2 border-dashed border-neutral-300 bg-white/60 shadow-sm h-full flex flex-col justify-center items-center text-center p-4">
-                <div class="text-sm font-semibold text-neutral-800 mb-1">그 밖의 제품도 다수 보유</div>
-                <p class="text-xs text-neutral-600 mb-3">용도·규격·포장 맞춤 제안드립니다.</p>
-                <a href="#contact" class="more-cta inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1 text-xs font-semibold hover:bg-neutral-100">
+                <div class="text-sm font-semibold text-neutral-800 mb-1" data-i18n="prod_more_title">그 밖의 제품도 다수 보유</div>
+                <p class="text-xs text-neutral-600 mb-3" data-i18n="prod_more_desc">용도·규격·포장 맞춤 제안드립니다.</p>
+                <a href="#contact" class="more-cta inline-flex items-center gap-1 rounded-full border border-neutral-300 bg-white text-neutral-800 px-3 py-1 text-xs font-semibold hover:bg-neutral-100" data-i18n="prod_more_cta">
                   문의하기 →
                 </a>
               </div>
@@ -1685,8 +1691,8 @@
         <h2 class="text-xl font-bold text-neutral-900 mb-3" data-i18n="cert_title">가공센터 공정도</h2>
         <!-- overview/detail toggle -->
         <div class="flex items-center gap-2 mb-4 text-xs">
-          <button class="proc-toggle px-2 py-1 rounded-md border border-neutral-300 bg-neutral-900 text-white font-semibold" data-mode="overview" aria-pressed="true">요약</button>
-          <button class="proc-toggle px-2 py-1 rounded-md border border-neutral-300 bg-white text-neutral-700" data-mode="detail" aria-pressed="false">상세</button>
+          <button class="proc-toggle px-2 py-1 rounded-md border border-neutral-300 bg-neutral-900 text-white font-semibold" data-mode="overview" aria-pressed="true" data-i18n="proc_btn_overview">요약</button>
+          <button class="proc-toggle px-2 py-1 rounded-md border border-neutral-300 bg-white text-neutral-700" data-mode="detail" aria-pressed="false" data-i18n="proc_btn_detail">상세</button>
         </div>
 
         <!-- Process flow wrapper -->
@@ -1694,54 +1700,111 @@
           <svg class="proc-svg absolute inset-0 pointer-events-none"></svg>
           <!-- Overview grid (default visible) -->
           <div class="proc-grid overview grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
-            <!-- 1단계: 입고/보관 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">입고/저온보관</div><figcaption class="text-xs text-neutral-700">입고·저온창고</figcaption></figure>
-            <!-- 2단계: 계측/사일로 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">계측/사일로</div><figcaption class="text-xs text-neutral-700">계측·사일로</figcaption></figure>
-            <!-- 3단계: 예정선별/석발 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">예정선별</div><figcaption class="text-xs text-neutral-700">예정선별·석발</figcaption></figure>
-            <!-- 4단계: 현미 도정 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">현미 도정</div><figcaption class="text-xs text-neutral-700">현미 도정</figcaption></figure>
-            <!-- 5단계: 현미 선별/색채 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">현미 선별</div><figcaption class="text-xs text-neutral-700">현미 선별·색채</figcaption></figure>
-            <!-- 6단계: 백미 도정 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">백미 도정</div><figcaption class="text-xs text-neutral-700">백미 도정</figcaption></figure>
-            <!-- 7단계: 백미 선별/색채 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">백미 선별</div><figcaption class="text-xs text-neutral-700">백미 선별·색채</figcaption></figure>
-            <!-- 8단계: 안전성 검사 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">안전성 검사</div><figcaption class="text-xs text-neutral-700">이물·금속·중량</figcaption></figure>
-            <!-- 9단계: 포장/출하 -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-28 h-28 md:w-32 md:h-32 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[11px] text-neutral-500">포장/출하</div><figcaption class="text-xs text-neutral-700">포장·출하</figcaption></figure>
+            <!-- 1단계: 입고/보관 (01 + 02) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/01-cold-storage.jpg')"></span>
+                <span style="background-image:url('/docs/process/02-infeed-gate-open.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov1">입고·저온창고</figcaption>
+            </figure>
+            <!-- 2단계: 계측/사일로 (04 + 05) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/04-hopper-scale.jpg')"></span>
+                <span style="background-image:url('/docs/process/05-silo.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov2">계측·사일로</figcaption>
+            </figure>
+            <!-- 3단계: 예정선별/석발 (03 + 07) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/03-pre-cleaner.jpg')"></span>
+                <span style="background-image:url('/docs/process/07-destoner.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov3">예정선별·석발</figcaption>
+            </figure>
+            <!-- 4단계: 현미 도정 (08 + 09) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/08-husker.jpg')"></span>
+                <span style="background-image:url('/docs/process/09-brown-separator.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov4">현미 도정</figcaption>
+            </figure>
+            <!-- 5단계: 현미 선별/색채 (10 + 11) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/10-brown-destoner.jpg')"></span>
+                <span style="background-image:url('/docs/process/11-brown-color-sorter.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov5">현미 선별·색채</figcaption>
+            </figure>
+            <!-- 6단계: 백미 도정 (12 + 13) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg2 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/12-whitener.jpg')"></span>
+                <span style="background-image:url('/docs/process/13-polisher.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov6">백미 도정</figcaption>
+            </figure>
+            <!-- 7단계: 백미 선별/색채 (14 + 15 + 16) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg3 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/14-white-destoner.jpg')"></span>
+                <span style="background-image:url('/docs/process/15-vibratory-separator.jpg')"></span>
+                <span style="background-image:url('/docs/process/16-white-color-sorter.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov7">백미 선별·색채</figcaption>
+            </figure>
+            <!-- 8단계: 안전성 검사 (17 + 21 + 22) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg3 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/17-foreign-matter-separator.jpg')"></span>
+                <span style="background-image:url('/docs/process/21-metal-detector.jpg')"></span>
+                <span style="background-image:url('/docs/process/22-checkweigher.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov8">이물·금속·중량</figcaption>
+            </figure>
+            <!-- 9단계: 포장/출하 (20 + 23 + 25) -->
+            <figure class="flex flex-col items-center gap-2">
+              <div class="proc-pic seg3 w-28 h-28 md:w-32 md:h-32 ring-1 ring-neutral-200 border-4 border-white shadow">
+                <span style="background-image:url('/docs/process/20-automatic-packer.jpg')"></span>
+                <span style="background-image:url('/docs/process/23-robot-arm.jpg')"></span>
+                <span style="background-image:url('/docs/process/25-outbound-room.jpg')"></span>
+              </div>
+              <figcaption class="text-xs text-neutral-700" data-i18n="proc_ov9">포장·출하</figcaption>
+            </figure>
           </div>
 
           <!-- Detailed grid (hidden by default) -->
           <div class="proc-grid detail hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-5">
             <!-- Ordered process according to spec (25 steps) -->
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">저온창고</div><figcaption class="text-xs text-neutral-700">저온창고</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">투입구 개방</div><figcaption class="text-xs text-neutral-700">투입구 개방</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">조선기</div><figcaption class="text-xs text-neutral-700">조선기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">호퍼스케일</div><figcaption class="text-xs text-neutral-700">호퍼스케일</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">사일로</div><figcaption class="text-xs text-neutral-700">사일로</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">미니 조선기</div><figcaption class="text-xs text-neutral-700">미니 조선기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">석발기</div><figcaption class="text-xs text-neutral-700">석발기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">현미기</div><figcaption class="text-xs text-neutral-700">현미기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">현미 분리기</div><figcaption class="text-xs text-neutral-700">현미 분리기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">현미 석발기</div><figcaption class="text-xs text-neutral-700">현미 석발기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">현미 색체선별기</div><figcaption class="text-xs text-neutral-700">현미 색체선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">정미기</div><figcaption class="text-xs text-neutral-700">정미기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">연미기</div><figcaption class="text-xs text-neutral-700">연미기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">백미 석발기</div><figcaption class="text-xs text-neutral-700">백미 석발기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">진동 선별기</div><figcaption class="text-xs text-neutral-700">진동 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">백미 색체 선별기</div><figcaption class="text-xs text-neutral-700">백미 색체 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">이물 선별기</div><figcaption class="text-xs text-neutral-700">이물 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">완전미 선별기</div><figcaption class="text-xs text-neutral-700">완전미 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">무세미기</div><figcaption class="text-xs text-neutral-700">무세미기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">자동 포장기</div><figcaption class="text-xs text-neutral-700">자동 포장기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">금속 선별기</div><figcaption class="text-xs text-neutral-700">금속 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">중량 선별기</div><figcaption class="text-xs text-neutral-700">중량 선별기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">로봇팔</div><figcaption class="text-xs text-neutral-700">로봇팔</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">래핑기</div><figcaption class="text-xs text-neutral-700">래핑기</figcaption></figure>
-            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-400">출하실</div><figcaption class="text-xs text-neutral-700">출하실</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/01-cold-storage.jpg" alt="저온창고" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d1">저온창고</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/02-infeed-gate-open.jpg" alt="투입구 개방" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d2">투입구 개방</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/03-pre-cleaner.jpg" alt="조선기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d3">조선기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/04-hopper-scale.jpg" alt="호퍼스케일" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d4">호퍼스케일</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/05-silo.jpg" alt="사일로" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d5">사일로</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/06-mini-pre-cleaner.jpg" alt="미니 조선기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d6">미니 조선기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/07-destoner.jpg" alt="석발기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d7">석발기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/08-husker.jpg" alt="현미기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d8">현미기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/09-brown-separator.jpg" alt="현미 분리기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d9">현미 분리기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/10-brown-destoner.jpg" alt="현미 석발기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d10">현미 석발기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/11-brown-color-sorter.jpg" alt="현미 색체선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d11">현미 색체선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/12-whitener.jpg" alt="정미기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d12">정미기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/13-polisher.jpg" alt="연미기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d13">연미기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/14-white-destoner.jpg" alt="백미 석발기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d14">백미 석발기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/15-vibratory-separator.jpg" alt="진동 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d15">진동 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/16-white-color-sorter.jpg" alt="백미 색체 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d16">백미 색체 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/17-foreign-matter-separator.jpg" alt="이물 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d17">이물 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/18-head-rice-separator.jpg" alt="완전미 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d18">완전미 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/19-rinse-free-processor.jpg" alt="무세미기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d19">무세미기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/20-automatic-packer.jpg" alt="자동 포장기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d20">자동 포장기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/21-metal-detector.jpg" alt="금속 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d21">금속 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/22-checkweigher.jpg" alt="중량 선별기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d22">중량 선별기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/23-robot-arm.jpg" alt="로봇팔" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d23">로봇팔</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/24-wrapper.jpg" alt="래핑기" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d24">래핑기</figcaption></figure>
+            <figure class="flex flex-col items-center gap-2"><div class="w-24 h-24 md:w-28 md:h-28 rounded-full ring-1 ring-neutral-200 border-4 border-white shadow overflow-hidden bg-neutral-100 flex items-center justify-center"><img src="/docs/process/25-outbound-room.jpg" alt="출하실" class="w-full h-full object-cover" loading="lazy" /></div><figcaption class="text-xs text-neutral-700" data-i18n="proc_d25">출하실</figcaption></figure>
           </div>
         </div>
       </div>
@@ -1954,6 +2017,7 @@
     <button
       id="to-top"
       class="fixed bottom-4 right-4 rounded-full border border-neutral-300 bg-white/90 text-neutral-800 shadow-sm px-3 py-2 text-xs hidden"
+      data-i18n="to_top"
     >
       Top
     </button>
@@ -1998,7 +2062,43 @@
           catalog_close: "닫기",
           nav_about: "회사소개",
           nav_products: "제품소개",
-          nav_cert: "인증 및 품질",
+          nav_cert: "가공센터 공정도",
+          proc_btn_overview: "요약",
+          proc_btn_detail: "상세",
+          proc_ov1: "입고·저온창고",
+          proc_ov2: "계측·사일로",
+          proc_ov3: "예정선별·석발",
+          proc_ov4: "현미 도정",
+          proc_ov5: "현미 선별·색채",
+          proc_ov6: "백미 도정",
+          proc_ov7: "백미 선별·색채",
+          proc_ov8: "이물·금속·중량",
+          proc_ov9: "포장·출하",
+          proc_d1: "저온창고",
+          proc_d2: "투입구 개방",
+          proc_d3: "조선기",
+          proc_d4: "호퍼스케일",
+          proc_d5: "사일로",
+          proc_d6: "미니 조선기",
+          proc_d7: "석발기",
+          proc_d8: "현미기",
+          proc_d9: "현미 분리기",
+          proc_d10: "현미 석발기",
+          proc_d11: "현미 색체선별기",
+          proc_d12: "정미기",
+          proc_d13: "연미기",
+          proc_d14: "백미 석발기",
+          proc_d15: "진동 선별기",
+          proc_d16: "백미 색체 선별기",
+          proc_d17: "이물 선별기",
+          proc_d18: "완전미 선별기",
+          proc_d19: "무세미기",
+          proc_d20: "자동 포장기",
+          proc_d21: "금속 선별기",
+          proc_d22: "중량 선별기",
+          proc_d23: "로봇팔",
+          proc_d24: "래핑기",
+          proc_d25: "출하실",
           nav_contact: "문의하기",
 
           hero_badge: "친환경/유기농 쌀 전문 RPC",
@@ -2076,6 +2176,80 @@
           prod_placeholder_cert: "인증 진행중",
           prod_placeholder_img: "제품 이미지 준비 중",
           prod_open: "상세보기",
+          // modal & misc
+          pm_title: "제품 이미지",
+          pm_close: "닫기",
+          pm_inquire: "이 제품 문의",
+          to_top: "맨 위로",
+          prod_more_title: "그 밖의 제품도 다수 보유",
+          prod_more_desc: "용도·규격·포장 맞춤 제안드립니다.",
+          prod_more_cta: "문의하기 →",
+          // Products (titles, specs, desc)
+          // 6~8: placeholder cards
+          p6_farming: "협의",
+          p6_variety: "협의",
+          p6_milling: "백미",
+          p6_origin: "국내산",
+          p6_weight: "협의",
+          p6_desc: "수출 사양(포장·라벨·중량) 협의 가능합니다.",
+
+          p7_farming: "협의",
+          p7_variety: "협의",
+          p7_milling: "백미",
+          p7_origin: "국내산",
+          p7_weight: "협의",
+          p7_desc: "수출 사양(포장·라벨·중량) 협의 가능합니다.",
+          p1_title: "자연주의 유기농 새청무쌀",
+          p1_farming: "유기농",
+          p1_variety: "새청무",
+          p1_milling: "백미",
+          p1_origin: "국내산",
+          p1_weight: "8kg",
+          p1_desc:
+            "청무와 새누리의 장점을 결합한 국산 품종으로, 은은한 단맛과 부드럽고 찰진 식감이 특징입니다. GAP 인증 생산 시설에서 품질 관리하에 생산됩니다.",
+
+          p2_title: "자연주의 유기농 새청무 현미",
+          p2_farming: "유기농",
+          p2_variety: "새청무",
+          p2_milling: "현미",
+          p2_origin: "국내산",
+          p2_weight: "8kg",
+          p2_desc:
+            "청무×새누리 장점 결합 품종 새청무의 유기농 현미로, 쌀알이 굵고 식감이 우수합니다.",
+
+          p3_title: "한결같은 유기농쌀",
+          p3_farming: "유기농",
+          p3_variety: "신동진 / 수광 / 새청무",
+          p3_milling: "백미",
+          p3_origin: "국내산",
+          p3_weight: "5kg / 10kg",
+          p3_desc:
+            "농약·화학비료를 쓰지 않은 논에서 재배한 유기농 백미로 담백한 밥맛을 전합니다.",
+
+          p4_title: "황토배기 친환경쌀",
+          p4_farming: "친환경",
+          p4_variety: "신동진 / 수광 / 새청무",
+          p4_milling: "백미",
+          p4_origin: "국내산",
+          p4_weight: "10kg",
+          p4_desc:
+            "황토의 미네랄이 풍부한 토양에서 재배한 친환경 백미로, 깔끔한 맛과 탄력 있는 식감이 특징입니다.",
+
+          p5_title: "all바른 친환경쌀",
+          p5_farming: "친환경",
+          p5_variety: "신동진 / 수광 / 새청무",
+          p5_milling: "백미",
+          p5_origin: "국내산",
+          p5_weight: "10kg",
+          p5_desc:
+            "깔끔한 맛과 탄력 있는 식감을 살린 친환경 백미로, 일상식과 업장용 모두에 적합합니다.",
+          // Placeholder product (negotiable spec)
+          p8_farming: "협의",
+          p8_variety: "협의",
+          p8_milling: "현미",
+          p8_origin: "국내산",
+          p8_weight: "협의",
+          p8_desc: "수출 사양(포장·라벨·중량) 협의 가능합니다.",
           prod1_imgAlt: "Organic Korean Gimbap Rice 패키지 사진 자리",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2161,20 +2335,56 @@
           catalog_close: "Close",
           nav_about: "About Us",
           nav_products: "Products",
-          nav_cert: "Quality & Certifications",
+          nav_cert: "Processing Flow",
+          proc_btn_overview: "Overview",
+          proc_btn_detail: "Detail",
+          proc_ov1: "Intake & Cold Storage",
+          proc_ov2: "Weighing & Silo",
+          proc_ov3: "Pre-cleaning & Destoning",
+          proc_ov4: "Brown Rice Milling",
+          proc_ov5: "Brown Grading & Color Sorting",
+          proc_ov6: "White Rice Milling",
+          proc_ov7: "White Grading & Color Sorting",
+          proc_ov8: "Safety checks (foreign matter / metal / weight)",
+          proc_ov9: "Packing & Outbound",
+          proc_d1: "Cold storage",
+          proc_d2: "Infeed gate open",
+          proc_d3: "Pre-cleaner",
+          proc_d4: "Hopper scale",
+          proc_d5: "Silo",
+          proc_d6: "Mini pre-cleaner",
+          proc_d7: "Destoner",
+          proc_d8: "Husker",
+          proc_d9: "Brown rice separator",
+          proc_d10: "Brown destoner",
+          proc_d11: "Brown color sorter",
+          proc_d12: "Whitener",
+          proc_d13: "Polisher",
+          proc_d14: "White destoner",
+          proc_d15: "Vibratory separator",
+          proc_d16: "White color sorter",
+          proc_d17: "Foreign matter separator",
+          proc_d18: "Head rice separator",
+          proc_d19: "Rinse-free processor",
+          proc_d20: "Automatic packer",
+          proc_d21: "Metal detector",
+          proc_d22: "Checkweigher",
+          proc_d23: "Robot arm",
+          proc_d24: "Stretch wrapper",
+          proc_d25: "Shipping area",
           nav_contact: "Export Contact",
 
-          hero_badge: "Eco-friendly / Organic Rice Processor (RPC)",
+          hero_badge: "Eco-friendly & Organic Rice Processing (RPC)",
           hero_title: "HANGYEOL AGRICULTURE CO.LTD",
           hero_desc:
-            "We source, mill, and pack premium Korean rice in Gochang, Jeollabuk-do, Republic of Korea.\nWe offer export-ready gimbap rice, white rice, and brown rice in 500g / 1kg retail packs,\nas well as private label (OEM) and foodservice bulk supply.",
+            "We source, mill, grade, and pack premium Korean short-grain rice in Gochang, Korea.\nExport-ready gimbap rice, white rice, and brown rice are available in 500 g / 1 kg retail packs,\nOEM/private label, and foodservice bulk.",
           hero_cta_primary: "Export Inquiry",
           hero_cta_secondary: "Catalog (PDF)",
           hero_image_alt: "Main retail pack image placeholder (500g pouch)",
 
           about_title: "About Us",
           about_summary:
-            "Founded in 2002 in Gochang (Korea), HANGYEOL AGRICULTURE CO.LTD operates two separate plants: one for conventional rice and one for eco/organic rice. They are physically separated to eliminate cross-contamination risk. We supply Seoul and Jeju school meals and various retail/foodservice channels, and provide OEM/private label for export. Packaging options include vacuum, retail small packs (500g/1kg), and bulk for foodservice. International certifications (US/EU/JP) are under review.",
+            "Founded in 2002 in Gochang (Korea). We operate two physically separated plants—one for conventional rice and one for eco/organic rice—to prevent cross‑contamination. We supply Seoul and Jeju school meals and various retail/foodservice channels, and provide OEM/private label for export. Packaging options include vacuum, retail small packs (500 g / 1 kg), and foodservice bulk. International certifications (US/EU/JP) are in progress.",
           about_history_title: "Company Timeline",
           about_hist1_date: "2002.04.24",
           about_hist1_text:
@@ -2241,6 +2451,72 @@
           prod_placeholder_cert: "Certification in progress",
           prod_placeholder_img: "Product image coming soon",
           prod_open: "View",
+          // Products
+          // 6~8: placeholder cards
+          p6_farming: "TBD",
+          p6_variety: "TBD",
+          p6_milling: "White rice",
+          p6_origin: "Korea",
+          p6_weight: "TBD",
+          p6_desc: "Export specs (packaging / label / weight) negotiable.",
+
+          p7_farming: "TBD",
+          p7_variety: "TBD",
+          p7_milling: "White rice",
+          p7_origin: "Korea",
+          p7_weight: "TBD",
+          p7_desc: "Export specs (packaging / label / weight) negotiable.",
+          p1_title: "Naturalism Organic Saecheongmu (White)",
+          p1_farming: "Organic",
+          p1_variety: "Saecheongmu",
+          p1_milling: "White rice",
+          p1_origin: "Korea",
+          p1_weight: "8kg",
+          p1_desc:
+            "A Korean variety combining the strengths of Cheongmu and Saenuri. Subtle sweetness with soft, sticky texture. GAP-managed facility.",
+
+          p2_title: "Naturalism Organic Saecheongmu (Brown)",
+          p2_farming: "Organic",
+          p2_variety: "Saecheongmu",
+          p2_milling: "Brown rice",
+          p2_origin: "Korea",
+          p2_weight: "8kg",
+          p2_desc:
+            "Organic brown rice of Saecheongmu variety. Plump grains and excellent bite.",
+
+          p3_title: "HANGYEOL Organic Rice",
+          p3_farming: "Organic",
+          p3_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p3_milling: "White rice",
+          p3_origin: "Korea",
+          p3_weight: "5kg / 10kg",
+          p3_desc:
+            "Organic white rice grown without pesticides or chemical fertilizers. Clean, balanced taste.",
+
+          p4_title: "Hwangtobagi Eco Rice",
+          p4_farming: "Eco-friendly",
+          p4_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p4_milling: "White rice",
+          p4_origin: "Korea",
+          p4_weight: "10kg",
+          p4_desc:
+            "Eco white rice grown in mineral-rich loess fields. Clean flavor and elastic texture.",
+
+          p5_title: "allBareun Eco Rice",
+          p5_farming: "Eco-friendly",
+          p5_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p5_milling: "White rice",
+          p5_origin: "Korea",
+          p5_weight: "10kg",
+          p5_desc:
+            "Crisp, elastic texture—great for daily meals and foodservice.",
+          // Placeholder product (negotiable spec)
+          p8_farming: "TBD",
+          p8_variety: "TBD",
+          p8_milling: "Brown rice",
+          p8_origin: "Korea",
+          p8_weight: "TBD",
+          p8_desc: "Export specs (packaging / label / weight) negotiable.",
           prod1_imgAlt: "Organic Korean Gimbap Rice pack placeholder",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2251,7 +2527,7 @@
           prod2_imgAlt: "Organic White Rice pack placeholder",
           prod2_name: "Organic White Rice",
           prod2_desc:
-            "Clean-label polished Korean rice. We support OEM/private label with English nutrition panel for local regulation.",
+            "Clean, polished Korean white rice. OEM/private label with English nutrition facts tailored to destination requirements.",
           prod2_spec:
             "Origin: Gochang, Republic of Korea / Type: White Rice / Pack: 500g, 1kg",
 
@@ -2264,7 +2540,7 @@
 
           cert_title: "Processing Flow (Plant)",
           cert_desc:
-            "HANGYEOL AGRICULTURE CO.LTD handles eco-friendly paddy grown in Gochang, Korea.\nWe operate in-house polishing, grading, metal detection and weight check.\nWe provide export-focused small packs (500g / 1kg) and OEM private label.\nWe are preparing USDA Organic, JAS Organic and other international certifications.",
+            "We process eco‑friendly paddy grown in Gochang on our in‑house RPC line: polishing, grading, metal detection, and weight check.\nWe supply export‑ready small packs (500 g / 1 kg) and OEM/private label.\nUSDA Organic, JAS Organic and other international certifications are in preparation.",
           cert_point1: "Eco / organic farming zones in Gochang, Korea",
           cert_point2:
             "Polishing, grading, metal detection, weight check in-house",
@@ -2308,6 +2584,14 @@
 
           footer_copy:
             "© 2025 HANGYEOL AGRICULTURE CO.LTD. All rights reserved.",
+          // modal & misc
+          pm_title: "Product Image",
+          pm_close: "Close",
+          pm_inquire: "Inquire About This Product",
+          to_top: "Top",
+          prod_more_title: "More products available",
+          prod_more_desc: "Custom specs and packaging available.",
+          prod_more_cta: "Contact →",
         },
 
         ja: {
@@ -2326,7 +2610,43 @@
           catalog_close: "閉じる",
           nav_about: "会社紹介",
           nav_products: "製品紹介",
-          nav_cert: "品質・認証",
+          nav_cert: "加工センター 工程図",
+          proc_btn_overview: "概要",
+          proc_btn_detail: "詳細",
+          proc_ov1: "受入・低温保管",
+          proc_ov2: "計量・サイロ",
+          proc_ov3: "予備選別・石抜き",
+          proc_ov4: "玄米加工",
+          proc_ov5: "玄米選別・色彩選別",
+          proc_ov6: "白米加工",
+          proc_ov7: "白米選別・色彩選別",
+          proc_ov8: "安全検査（異物・金属・重量）",
+          proc_ov9: "包装・出荷",
+          proc_d1: "低温倉庫",
+          proc_d2: "投入口開放",
+          proc_d3: "予備クリーナー",
+          proc_d4: "ホッパースケール",
+          proc_d5: "サイロ",
+          proc_d6: "ミニ予備クリーナー",
+          proc_d7: "石抜き機",
+          proc_d8: "脱殻機",
+          proc_d9: "玄米分離機",
+          proc_d10: "玄米石抜き機",
+          proc_d11: "玄米色彩選別機",
+          proc_d12: "精米機（ホワイトナー）",
+          proc_d13: "ポリッシャー",
+          proc_d14: "白米石抜き機",
+          proc_d15: "振動選別機",
+          proc_d16: "白米色彩選別機",
+          proc_d17: "異物選別機",
+          proc_d18: "完全米選別機",
+          proc_d19: "無洗米加工機",
+          proc_d20: "自動包装機",
+          proc_d21: "金属検出機",
+          proc_d22: "重量選別機",
+          proc_d23: "ロボットアーム",
+          proc_d24: "ラッピング機",
+          proc_d25: "出荷室",
           nav_contact: "輸出お問い合わせ",
 
           hero_badge: "韓国 有機 / エコ米 小分け・OEM",
@@ -2346,12 +2666,36 @@
           about_client3: "フードサービス／レストラン",
           about_client4: "学校・公的給食",
           about_history_title: "沿革",
-          about_hist1_date: "YYYY",
-          about_hist1_text: "沿革項目をご提供ください",
-          about_hist2_date: "YYYY",
-          about_hist2_text: "沿革項目をご提供ください",
-          about_hist3_date: "YYYY",
-          about_hist3_text: "沿革項目をご提供ください",
+          about_hist1_date: "2002.04.24",
+          about_hist1_text: "HANGYEOL 農業組合法人 設立",
+          about_hist2_date: "2003.03",
+          about_hist2_text: "エコ（低農薬）栽培開始 — 3農家 / 5.9ha",
+          about_hist3_date: "2020.11.23",
+          about_hist3_text: "エコ米専門 加工センター着工",
+          about_hist4_date: "2022.02.27",
+          about_hist4_text: "ソウルの学校給食（5校） 納入開始",
+          about_hist5_date: "2022.04.19",
+          about_hist5_text: "エコ米専門 加工センター竣工",
+          about_hist6_date: "2022.05.04",
+          about_hist6_text: "エコ取扱者認証・GAP施設認証 取得",
+          about_hist7_date: "2022.07.16",
+          about_hist7_text: "EマートEveryday『自然主義』有機米 納入開始",
+          about_hist8_date: "2023.01.16",
+          about_hist8_text: "Eマート『自然主義』有機 黄土米 納入開始",
+          about_hist9_date: "2023.02.27",
+          about_hist9_text: "ソウル親環境流通センターへ エコ米・雑穀 納入開始",
+          about_hist10_date: "2023.09.19",
+          about_hist10_text: "Eマート『自然主義』有機 五穀ミックス 納入開始",
+          about_hist11_date: "2024.02.27",
+          about_hist11_text: "済州 学校給食へ エコ米・もち米 納入開始",
+          about_hist12_date: "2024.02.29",
+          about_hist12_text: "クーパン（Coupang）へ エコ米 納入開始",
+          about_hist13_date: "2024.09.13",
+          about_hist13_text: "中国輸出用 米加工工場 登録",
+          about_hist14_date: "2024.09.24",
+          about_hist14_text: "2024 消費者満足 ブランド大賞 1位 受賞",
+          about_hist15_date: "2025.08.22",
+          about_hist15_text: "モンゴル・米国 市場へ進出",
           about_points_title: "主要ポイント",
           about_point1: "高敞産のエコ／有機原料",
           about_point2: "精米・選別・金属探知・重量チェックの一貫体制",
@@ -2380,6 +2724,74 @@
           prod_placeholder_cert: "認証進行中",
           prod_placeholder_img: "製品画像 準備中",
           prod_open: "詳細",
+          // modal & misc
+          pm_title: "製品画像",
+          pm_close: "閉じる",
+          pm_inquire: "この商品について問い合わせ",
+          to_top: "ページ上部へ",
+          prod_more_title: "その他の商品も多数",
+          prod_more_desc: "用途・仕様・包装のカスタム対応可。",
+          prod_more_cta: "お問い合わせ →",
+          // 6~8: placeholder cards
+          p6_farming: "要相談",
+          p6_variety: "要相談",
+          p6_milling: "白米",
+          p6_origin: "韓国",
+          p6_weight: "要相談",
+          p6_desc: "輸出仕様（包装・ラベル・重量）ご相談可能です。",
+
+          p7_farming: "要相談",
+          p7_variety: "要相談",
+          p7_milling: "白米",
+          p7_origin: "韓国",
+          p7_weight: "要相談",
+          p7_desc: "輸出仕様（包装・ラベル・重量）ご相談可能です。",
+          p1_title: "ナチュラリズム 有機 サエチョンム（白米）",
+          p1_farming: "有機",
+          p1_variety: "サエチョンム",
+          p1_milling: "白米",
+          p1_origin: "韓国",
+          p1_weight: "8kg",
+          p1_desc: "清さと粘りのバランスが良い国産品種。GAP管理施設で生産。",
+
+          p2_title: "ナチュラリズム 有機 サエチョンム（玄米）",
+          p2_farming: "有機",
+          p2_variety: "サエチョンム",
+          p2_milling: "玄米",
+          p2_origin: "韓国",
+          p2_weight: "8kg",
+          p2_desc: "粒が大きく食感に優れた有機玄米。",
+
+          p3_title: "HANGYEOL 有機米",
+          p3_farming: "有機",
+          p3_variety: "シンドンジン / スグァン / サエチョンム",
+          p3_milling: "白米",
+          p3_origin: "韓国",
+          p3_weight: "5kg / 10kg",
+          p3_desc: "農薬・化学肥料不使用の有機白米。",
+
+          p4_title: "黄土ベギ エコ米",
+          p4_farming: "エコ",
+          p4_variety: "シンドンジン / スグァン / サエチョンム",
+          p4_milling: "白米",
+          p4_origin: "韓国",
+          p4_weight: "10kg",
+          p4_desc: "ミネラル豊富な黄土土壌育ちのエコ白米。",
+
+          p5_title: "allバルン エコ米",
+          p5_farming: "エコ",
+          p5_variety: "シンドンジン / スグァン / サエチョンム",
+          p5_milling: "白米",
+          p5_origin: "韓国",
+          p5_weight: "10kg",
+          p5_desc: "毎日の食卓や業務用に。",
+          // Placeholder product (negotiable spec)
+          p8_farming: "要相談",
+          p8_variety: "要相談",
+          p8_milling: "玄米",
+          p8_origin: "韓国",
+          p8_weight: "要相談",
+          p8_desc: "輸出仕様（包装・ラベル・重量）ご相談可能です。",
           prod1_imgAlt: "Organic Korean Gimbap Rice パッケージ",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2464,7 +2876,43 @@
           catalog_close: "关闭",
           nav_about: "公司简介",
           nav_products: "产品介绍",
-          nav_cert: "质量与认证",
+          nav_cert: "加工中心 工艺流程",
+          proc_btn_overview: "概览",
+          proc_btn_detail: "详情",
+          proc_ov1: "进料与低温仓储",
+          proc_ov2: "计量与筒仓",
+          proc_ov3: "预清理与去石",
+          proc_ov4: "糙米碾米",
+          proc_ov5: "糙米分选与色选",
+          proc_ov6: "白米碾米",
+          proc_ov7: "白米分选与色选",
+          proc_ov8: "安全检测（异物/金属/重量）",
+          proc_ov9: "包装与出库",
+          proc_d1: "低温仓库",
+          proc_d2: "投料口开启",
+          proc_d3: "预清理机",
+          proc_d4: "料斗秤",
+          proc_d5: "筒仓",
+          proc_d6: "迷你预清理机",
+          proc_d7: "去石机",
+          proc_d8: "砻谷机",
+          proc_d9: "糙米分离机",
+          proc_d10: "糙米去石机",
+          proc_d11: "糙米色选机",
+          proc_d12: "碾白机",
+          proc_d13: "抛光机",
+          proc_d14: "白米去石机",
+          proc_d15: "振动分级机",
+          proc_d16: "白米色选机",
+          proc_d17: "异物分离机",
+          proc_d18: "完整米分选机",
+          proc_d19: "免洗米加工机",
+          proc_d20: "自动包装机",
+          proc_d21: "金属检测机",
+          proc_d22: "重量选别机",
+          proc_d23: "机械臂",
+          proc_d24: "裹膜机",
+          proc_d25: "出货室",
           nav_contact: "出口咨询",
 
           hero_badge: "韩国有机 / 环保大米 加工包装",
@@ -2484,12 +2932,36 @@
           about_client3: "餐饮/餐馆",
           about_client4: "学校与公共配餐",
           about_history_title: "发展历程",
-          about_hist1_date: "YYYY",
-          about_hist1_text: "请提供时间线条目",
-          about_hist2_date: "YYYY",
-          about_hist2_text: "请提供时间线条目",
-          about_hist3_date: "YYYY",
-          about_hist3_text: "请提供时间线条目",
+          about_hist1_date: "2002.04.24",
+          about_hist1_text: "设立 HANGYEOL 农业合作法人",
+          about_hist2_date: "2003.03",
+          about_hist2_text: "开始环保（低农药）种植 — 3户 / 5.9公顷",
+          about_hist3_date: "2020.11.23",
+          about_hist3_text: "开工建设环保大米加工中心",
+          about_hist4_date: "2022.02.27",
+          about_hist4_text: "开始向首尔学校供餐（5所）供货",
+          about_hist5_date: "2022.04.19",
+          about_hist5_text: "环保大米加工中心竣工",
+          about_hist6_date: "2022.05.04",
+          about_hist6_text: "取得环保经营者认证与GAP设施认证",
+          about_hist7_date: "2022.07.16",
+          about_hist7_text: "向易买得Everyday（自然主义）供应有机大米",
+          about_hist8_date: "2023.01.16",
+          about_hist8_text: "向易买得自然主义供应有机黄土大米",
+          about_hist9_date: "2023.02.27",
+          about_hist9_text: "向首尔环保流通中心供应环保大米与杂粮",
+          about_hist10_date: "2023.09.19",
+          about_hist10_text: "向易买得自然主义供应有机五谷混合",
+          about_hist11_date: "2024.02.27",
+          about_hist11_text: "向济州学校供餐供应环保大米与糯米",
+          about_hist12_date: "2024.02.29",
+          about_hist12_text: "开始向Coupang供应环保大米",
+          about_hist13_date: "2024.09.13",
+          about_hist13_text: "注册中国出口用米加工工厂",
+          about_hist14_date: "2024.09.24",
+          about_hist14_text: "荣获2024消费者满意品牌大奖第一名",
+          about_hist15_date: "2025.08.22",
+          about_hist15_text: "开拓蒙古、美国市场",
           about_points_title: "要点",
           about_point1: "来自高敞的生态/有机原料",
           about_point2: "内部一体化：碾米、分选、金属检测、称重",
@@ -2518,6 +2990,74 @@
           prod_placeholder_cert: "认证进行中",
           prod_placeholder_img: "产品图片 即将更新",
           prod_open: "查看详情",
+          // modal & misc
+          pm_title: "产品图片",
+          pm_close: "关闭",
+          pm_inquire: "咨询此产品",
+          to_top: "返回顶部",
+          prod_more_title: "更多产品可供选择",
+          prod_more_desc: "支持用途/规格/包装定制。",
+          prod_more_cta: "联系咨询 →",
+          // Placeholder product (negotiable spec)
+          p8_farming: "可协商",
+          p8_variety: "可协商",
+          p8_milling: "糙米",
+          p8_origin: "韩国",
+          p8_weight: "可协商",
+          p8_desc: "可协商出口规格（包装/标签/重量）。",
+          // 6~8: placeholder cards (6/7)
+          p6_farming: "可协商",
+          p6_variety: "可协商",
+          p6_milling: "精米",
+          p6_origin: "韩国",
+          p6_weight: "可协商",
+          p6_desc: "可协商出口规格（包装/标签/重量）。",
+
+          p7_farming: "可协商",
+          p7_variety: "可协商",
+          p7_milling: "精米",
+          p7_origin: "韩国",
+          p7_weight: "可协商",
+          p7_desc: "可协商出口规格（包装/标签/重量）。",
+          p1_title: "自然主义 有机 新青武（精米）",
+          p1_farming: "有机",
+          p1_variety: "新青武",
+          p1_milling: "精米",
+          p1_origin: "韩国",
+          p1_weight: "8kg",
+          p1_desc: "兼具清武与新罗优点的韩国品种，口感柔和有黏性。GAP设施生产。",
+
+          p2_title: "自然主义 有机 新青武（糙米）",
+          p2_farming: "有机",
+          p2_variety: "新青武",
+          p2_milling: "糙米",
+          p2_origin: "韩国",
+          p2_weight: "8kg",
+          p2_desc: "颗粒饱满、口感佳的有机糙米。",
+
+          p3_title: "HANGYEOL 有机大米",
+          p3_farming: "有机",
+          p3_variety: "新东津 / 秀光 / 新青武",
+          p3_milling: "精米",
+          p3_origin: "韩国",
+          p3_weight: "5kg / 10kg",
+          p3_desc: "不使用农药和化肥，口感干净。",
+
+          p4_title: "黄土培基 环保大米",
+          p4_farming: "环保",
+          p4_variety: "新东津 / 秀光 / 新青武",
+          p4_milling: "精米",
+          p4_origin: "韩国",
+          p4_weight: "10kg",
+          p4_desc: "黄土富矿土壤种植，口感清爽有弹性。",
+
+          p5_title: "all正 环保大米",
+          p5_farming: "环保",
+          p5_variety: "新东津 / 秀光 / 新青武",
+          p5_milling: "精米",
+          p5_origin: "韩国",
+          p5_weight: "10kg",
+          p5_desc: "适合日常与餐饮使用。",
           prod1_imgAlt: "Organic Korean Gimbap Rice 包装示意",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2598,7 +3138,43 @@
           catalog_close: "Fermer",
           nav_about: "Qui sommes-nous",
           nav_products: "Produits",
-          nav_cert: "Qualité & Certification",
+          nav_cert: "Flux de production",
+          proc_btn_overview: "Vue d’ensemble",
+          proc_btn_detail: "Détail",
+          proc_ov1: "Réception & stockage frigorifique",
+          proc_ov2: "Pesée & silo",
+          proc_ov3: "Pré-nettoyage & élimination des pierres",
+          proc_ov4: "Décorticage riz brun",
+          proc_ov5: "Tri & tris optiques (brun)",
+          proc_ov6: "Décorticage riz blanc",
+          proc_ov7: "Tri & tris optiques (blanc)",
+          proc_ov8: "Contrôles sécurité (corps étrangers / métaux / poids)",
+          proc_ov9: "Conditionnement & expédition",
+          proc_d1: "Chambre froide",
+          proc_d2: "Ouverture trémie d’alimentation",
+          proc_d3: "Pré-nettoyeur",
+          proc_d4: "Balance à trémie",
+          proc_d5: "Silo",
+          proc_d6: "Mini pré-nettoyeur",
+          proc_d7: "Éliminateur de pierres",
+          proc_d8: "Décortiqueuse",
+          proc_d9: "Séparateur riz brun",
+          proc_d10: "Éliminateur de pierres (brun)",
+          proc_d11: "Trieuse optique (brun)",
+          proc_d12: "Blanchisseur",
+          proc_d13: "Polisseuse",
+          proc_d14: "Éliminateur de pierres (blanc)",
+          proc_d15: "Séparateur vibratoire",
+          proc_d16: "Trieuse optique (blanc)",
+          proc_d17: "Séparateur de corps étrangers",
+          proc_d18: "Trieur de grains entiers",
+          proc_d19: "Traitement riz sans rinçage",
+          proc_d20: "Ensacheuse automatique",
+          proc_d21: "Détecteur de métaux",
+          proc_d22: "Trieuse pondérale",
+          proc_d23: "Bras robotisé",
+          proc_d24: "Enrobeuse",
+          proc_d25: "Zone d’expédition",
           nav_contact: "Contact Export",
 
           hero_badge: "Riz coréen biologique / écoresponsable",
@@ -2618,12 +3194,36 @@
           about_client3: "Restauration / foodservice",
           about_client4: "Cantines scolaires / publiques",
           about_history_title: "Historique",
-          about_hist1_date: "YYYY",
-          about_hist1_text: "Merci de fournir les étapes de l’historique",
-          about_hist2_date: "YYYY",
-          about_hist2_text: "Merci de fournir les étapes de l’historique",
-          about_hist3_date: "YYYY",
-          about_hist3_text: "Merci de fournir les étapes de l’historique",
+          about_hist1_date: "2002.04.24",
+          about_hist1_text: "Création de la coopérative agricole HANGYEOL",
+          about_hist2_date: "2003.03",
+          about_hist2_text: "Début des cultures écoresponsables (pesticides réduits) — 3 fermes / 5,9 ha",
+          about_hist3_date: "2020.11.23",
+          about_hist3_text: "Lancement des travaux du centre de transformation du riz écoresponsable",
+          about_hist4_date: "2022.02.27",
+          about_hist4_text: "Début des livraisons aux cantines scolaires de Séoul (5 écoles)",
+          about_hist5_date: "2022.04.19",
+          about_hist5_text: "Achèvement du centre de transformation du riz écoresponsable",
+          about_hist6_date: "2022.05.04",
+          about_hist6_text: "Obtention des certifications opérateur éco et installation GAP",
+          about_hist7_date: "2022.07.16",
+          about_hist7_text: "Lancement des livraisons à Emart Everyday (Naturalism) – riz bio",
+          about_hist8_date: "2023.01.16",
+          about_hist8_text: "Lancement des livraisons à Emart Naturalism – riz bio Hwangto",
+          about_hist9_date: "2023.02.27",
+          about_hist9_text: "Début des livraisons au Centre de distribution écoresponsable de Séoul (riz & céréales)",
+          about_hist10_date: "2023.09.19",
+          about_hist10_text: "Lancement – mélange 5 céréales bio Emart Naturalism",
+          about_hist11_date: "2024.02.27",
+          about_hist11_text: "Début des livraisons aux cantines de Jeju (riz éco & riz gluant)",
+          about_hist12_date: "2024.02.29",
+          about_hist12_text: "Début des livraisons d’éco‑riz à Coupang",
+          about_hist13_date: "2024.09.13",
+          about_hist13_text: "Enregistrement de l’usine de transformation pour export vers la Chine",
+          about_hist14_date: "2024.09.24",
+          about_hist14_text: "Lauréat 2024 – Grand Prix de la Satisfaction Client (n°1)",
+          about_hist15_date: "2025.08.22",
+          about_hist15_text: "Entrée sur les marchés Mongolie et États‑Unis",
           about_points_title: "Points clés",
           about_point1: "Paddy écoresponsable de Gochang",
           about_point2:
@@ -2653,6 +3253,74 @@
           prod_placeholder_cert: "Certification en cours",
           prod_placeholder_img: "Image produit bientôt",
           prod_open: "Détails",
+          // modal & misc
+          pm_title: "Image du produit",
+          pm_close: "Fermer",
+          pm_inquire: "Demander ce produit",
+          to_top: "Haut de page",
+          prod_more_title: "D’autres produits disponibles",
+          prod_more_desc: "Spécifications et emballages personnalisés.",
+          prod_more_cta: "Contact →",
+          // Placeholder product (negotiable spec)
+          p8_farming: "À convenir",
+          p8_variety: "À convenir",
+          p8_milling: "Complet",
+          p8_origin: "Corée",
+          p8_weight: "À convenir",
+          p8_desc: "Spécifications export (emballage / étiquette / poids) à convenir.",
+          // 6~8: placeholder cards (6/7)
+          p6_farming: "À convenir",
+          p6_variety: "À convenir",
+          p6_milling: "Blanc",
+          p6_origin: "Corée",
+          p6_weight: "À convenir",
+          p6_desc: "Spécifications export (emballage / étiquette / poids) à convenir.",
+
+          p7_farming: "À convenir",
+          p7_variety: "À convenir",
+          p7_milling: "Blanc",
+          p7_origin: "Corée",
+          p7_weight: "À convenir",
+          p7_desc: "Spécifications export (emballage / étiquette / poids) à convenir.",
+          p1_title: "Naturalism Riz bio Saecheongmu (blanc)",
+          p1_farming: "Bio",
+          p1_variety: "Saecheongmu",
+          p1_milling: "Blanc",
+          p1_origin: "Corée",
+          p1_weight: "8kg",
+          p1_desc: "Variété coréenne alliant douceur et texture moelleuse. Production sous contrôle GAP.",
+
+          p2_title: "Naturalism Riz bio Saecheongmu (complet)",
+          p2_farming: "Bio",
+          p2_variety: "Saecheongmu",
+          p2_milling: "Complet",
+          p2_origin: "Corée",
+          p2_weight: "8kg",
+          p2_desc: "Riz complet bio à gros grains, excellente mâche.",
+
+          p3_title: "HANGYEOL Riz biologique",
+          p3_farming: "Bio",
+          p3_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p3_milling: "Blanc",
+          p3_origin: "Corée",
+          p3_weight: "5kg / 10kg",
+          p3_desc: "Riz bio cultivé sans pesticides ni engrais chimiques.",
+
+          p4_title: "Hwangtobagi Riz écoresponsable",
+          p4_farming: "Écoresponsable",
+          p4_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p4_milling: "Blanc",
+          p4_origin: "Corée",
+          p4_weight: "10kg",
+          p4_desc: "Riz blanc cultivé sur sols d’argile (loess), goût propre et texture élastique.",
+
+          p5_title: "allBareun Riz écoresponsable",
+          p5_farming: "Écoresponsable",
+          p5_variety: "Sindongjin / Sugwang / Saecheongmu",
+          p5_milling: "Blanc",
+          p5_origin: "Corée",
+          p5_weight: "10kg",
+          p5_desc: "Parfait au quotidien comme en restauration.",
           prod1_imgAlt: "Organic Korean Gimbap Rice (échantillon d’emballage)",
           prod1_name: "Organic Korean Gimbap Rice",
           prod1_desc:
@@ -2730,13 +3398,48 @@
         document.querySelectorAll("[data-i18n]").forEach((node) => {
           const key = node.getAttribute("data-i18n");
           if (dict[key]) {
-            node.innerText = dict[key];
+            node.textContent = dict[key];
           }
+        });
+        // ensure spec labels translate even if dict keys were missing
+        const LBL = {
+          ko: { farming: '재배', variety: '품종', milling: '도정', origin: '원산지', weight: '무게' },
+          en: { farming: 'Farming', variety: 'Variety', milling: 'Milling', origin: 'Origin', weight: 'Weight' },
+          ja: { farming: '栽培', variety: '品種', milling: '精米', origin: '原産地', weight: '重量' },
+          cn: { farming: '种植', variety: '品种', milling: '碾米', origin: '原产地', weight: '重量' },
+          fr: { farming: 'Culture', variety: 'Variété', milling: 'Décorticage', origin: 'Origine', weight: 'Poids' },
+        };
+        const lab = LBL[langCode] || LBL.ko;
+        const map = {
+          'label_farming': lab.farming,
+          'label_variety': lab.variety,
+          'label_milling': lab.milling,
+          'label_origin': lab.origin,
+          'label_weight': lab.weight,
+        };
+        Object.entries(map).forEach(([k,v])=>{
+          document.querySelectorAll(`[data-i18n="${k}"]`).forEach((n)=> n.textContent = v);
         });
         // placeholders
         document.querySelectorAll('[data-i18n-placeholder]').forEach((el)=>{
           const key = el.getAttribute('data-i18n-placeholder');
           if (dict[key]) el.setAttribute('placeholder', dict[key]);
+        });
+        // aria-labels
+        document.querySelectorAll('[data-i18n-aria]').forEach((el)=>{
+          const key = el.getAttribute('data-i18n-aria');
+          if (dict[key]) el.setAttribute('aria-label', dict[key]);
+        });
+
+        // sync product card alt/aria-label with translated title
+        document.querySelectorAll('.prod-card').forEach((fig)=>{
+          try {
+            const title = (fig.querySelector('.prod-title')?.textContent || '').trim();
+            if (!title) return;
+            fig.setAttribute('aria-label', title);
+            const img = fig.querySelector('img');
+            if (img) img.setAttribute('alt', title);
+          } catch {}
         });
 
         // highlight active lang button + aria
@@ -2766,10 +3469,8 @@
           const href = map[langCode] || map.ko;
           br.setAttribute("href", href);
           // also update PDF modal links
-          const pdfFrame = document.getElementById("pdf-frame");
           const pdfDL = document.getElementById("pdf-download");
           const pdfOpen = document.getElementById("pdf-open");
-          if (pdfFrame) pdfFrame.setAttribute("src", href + "#view=FitH");
           if (pdfDL) pdfDL.setAttribute("href", href);
           if (pdfOpen) pdfOpen.setAttribute("href", href);
         }
@@ -2943,6 +3644,17 @@
       function openPdfModal(e) {
         e && e.preventDefault();
         if (!pdfModal) return;
+        // lazy set iframe src only when opening
+        try {
+          const pdfFrame = document.getElementById('pdf-frame');
+          const href = (document.getElementById('pdf-open')?.getAttribute('href')) || (document.getElementById('brochure-link')?.getAttribute('href'));
+          if (pdfFrame && href) {
+            const current = pdfFrame.getAttribute('src') || '';
+            if (!current || current === 'about:blank') {
+              pdfFrame.setAttribute('src', href + '#view=FitH');
+            }
+          }
+        } catch {}
         pdfModal.classList.remove("hidden");
       }
       function closePdfModal() {
@@ -3185,19 +3897,26 @@
             });
           });
 
-          // Infinite loop via large replication (jitter‑free)
-          const REP = 100; // replicate original sequence 100x
-          const original = track.innerHTML;
-          track.innerHTML = new Array(REP).fill(original).join('');
-          let base = 0;
-          const centerToMiddle = () => {
-            if (!track) return;
-            base = track.scrollWidth / REP;
-            track.scrollLeft = Math.floor(REP / 2) * base + 24; // slight offset to hint more content
-          };
-          // after layout
-          requestAnimationFrame(centerToMiddle);
-          window.addEventListener('resize', centerToMiddle);
+          // Infinite loop only on md+ (desktop/tablet). On mobile, keep simple scroll.
+          if (window.matchMedia('(min-width: 768px)').matches) {
+            const REP = 100; // replicate original sequence 100x
+            const original = track.innerHTML;
+            track.innerHTML = new Array(REP).fill(original).join('');
+            let base = 0;
+            const centerToMiddle = () => {
+              if (!track) return;
+              base = track.scrollWidth / REP;
+              track.scrollLeft = Math.floor(REP / 2) * base + 24; // slight offset to hint more content
+            };
+            // after layout
+            requestAnimationFrame(centerToMiddle);
+            window.addEventListener('resize', centerToMiddle);
+            // re-apply i18n to cloned nodes
+            try {
+              const cur = document.documentElement.getAttribute('lang') || (localStorage.getItem('lang')||'ko');
+              if (typeof setLang === 'function') setLang(cur);
+            } catch {}
+          }
 
           // Prevent native image drag ghost
           track.addEventListener('dragstart', (e)=>{ e.preventDefault(); });

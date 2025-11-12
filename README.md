@@ -2,6 +2,16 @@
 
 Static, single-file site with Tailwind CDN, multilingual content, and light enhancements (dark mode, i18n persistence, SEO).
 
+Note for maintainers (process images)
+- Quality/detail process images are referenced with English filenames under `docs/process`:
+  `01-cold-storage.jpg` ... `25-outbound-room.jpg`.
+- If you drop Korean-named images (e.g., `1.저온창고.jpg`), run the helper script below to rename them.
+
+Helper (one-off) renamer
+```
+bash scripts/rename-process-images.sh
+```
+
 ## Quick Start
 
 - With pnpm (recommended)
